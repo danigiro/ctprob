@@ -1,0 +1,24 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Notation and definitions}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Optimal point forecast reconciliation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Cross-temporal bottom-up forecast reconciliation}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Probabilistic forecast reconciliation}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Non-parametric framework: bootstrap reconciliation}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Parametric framework: gaussian reconciliation}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Shrinkage techniques for cross-temporal covariance matrix estimation}{}% 8
+\BOOKMARK [1][-]{section.5}{Residual analysis}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{In-sample and multi-step residuals}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Overlapping residuals}{section.5}% 11
+\BOOKMARK [1][-]{section.6}{Monte Carlo simulation}{}% 12
+\BOOKMARK [2][-]{subsection.6.1}{Base and reconciled samples}{section.6}% 13
+\BOOKMARK [2][-]{subsection.6.2}{A look at the covariance matrix}{section.6}% 14
+\BOOKMARK [2][-]{subsection.6.3}{Accuracy scores}{section.6}% 15
+\BOOKMARK [1][-]{section.7}{Australian GDP dataset}{}% 16
+\BOOKMARK [2][-]{subsection.7.1}{Base and reconciled samples}{section.7}% 17
+\BOOKMARK [2][-]{subsection.7.2}{Results}{section.7}% 18
+\BOOKMARK [1][-]{section.8}{Australian Tourism Demand dataset}{}% 19
+\BOOKMARK [2][-]{subsection.8.1}{Base and reconciled samples}{section.8}% 20
+\BOOKMARK [2][-]{subsection.8.2}{Results}{section.8}% 21
+\BOOKMARK [1][-]{section.9}{Conclusion}{}% 22
+\BOOKMARK [1][-]{appendix.A}{The AR\(2\) processes' cross-temporal covariance matrix}{}% 23
+\BOOKMARK [1][-]{appendix.B}{Geographical divisions of Australia}{}% 24

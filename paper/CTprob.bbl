@@ -1,0 +1,409 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Athanasopoulos, Ahmed, and
+  Hyndman}{Athanasopoulos et~al.}{2009}]{athanasopoulos2009}
+Athanasopoulos, G., R.~A. Ahmed, and R.~J. Hyndman (2009).
+\newblock Hierarchical forecasts for {{Australian}} domestic tourism.
+\newblock {\em International Journal of Forecasting\/}~{\em 25\/}(1), 146--166.
+
+\bibitem[\protect\citeauthoryear{Athanasopoulos, Gamakumara, Panagiotelis,
+  Hyndman, and Affan}{Athanasopoulos et~al.}{2020}]{athanasopoulos2020}
+Athanasopoulos, G., P.~Gamakumara, A.~Panagiotelis, R.~J. Hyndman, and M.~Affan
+  (2020).
+\newblock Hierarchical {{Forecasting}}.
+\newblock In P.~Fuleky (Ed.), {\em Macroeconomic {{Forecasting}} in the {{Era}}
+  of {{Big Data}}}, Volume~52, pp.\  689--719. {Cham}: {Springer International
+  Publishing}.
+
+\bibitem[\protect\citeauthoryear{Athanasopoulos, Hyndman, Kourentzes, and
+  Petropoulos}{Athanasopoulos et~al.}{2017}]{athanasopoulos2017}
+Athanasopoulos, G., R.~J. Hyndman, N.~Kourentzes, and F.~Petropoulos (2017).
+\newblock Forecasting with temporal hierarchies.
+\newblock {\em European Journal of Operational Research\/}~{\em 262\/}(1),
+  60--74.
+
+\bibitem[\protect\citeauthoryear{Ben~Taieb, Taylor, and Hyndman}{Ben~Taieb
+  et~al.}{2017}]{bentaieb2017}
+Ben~Taieb, S., J.~W. Taylor, and R.~J. Hyndman (2017).
+\newblock Coherent {{Probabilistic Forecasts}} for {{Hierarchical Time
+  Series}}.
+\newblock In {\em Proceedings of the 34th {{International Conference}} on
+  {{Machine Learning}}}, pp.\  3348--3357. {PMLR}.
+
+\bibitem[\protect\citeauthoryear{Ben~Taieb, Taylor, and Hyndman}{Ben~Taieb
+  et~al.}{2021}]{bentaieb2021}
+Ben~Taieb, S., J.~W. Taylor, and R.~J. Hyndman (2021).
+\newblock Hierarchical {{Probabilistic Forecasting}} of {{Electricity Demand
+  With Smart Meter Data}}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  116\/}(533), 27--43.
+
+\bibitem[\protect\citeauthoryear{Bisaglia, Fonzo, and Girolimetto}{Bisaglia
+  et~al.}{2020}]{bisaglia2020}
+Bisaglia, L., T.~D. Fonzo, and D.~Girolimetto (2020).
+\newblock Fully reconciled {{GDP}} forecasts from {{Income}} and
+  {{Expenditure}} sides.
+\newblock In A.~Pollice, N.~Salvati, and F.~Schirripa~Spagnolo (Eds.), {\em
+  Book of {{Short Papers SIS}} 2020}, pp.\  951--956. {Pearson}.
+
+\bibitem[\protect\citeauthoryear{Byron}{Byron}{1978}]{byron1978}
+Byron, R.~P. (1978).
+\newblock The {{Estimation}} of {{Large Social Account Matrices}}.
+\newblock {\em Journal of the Royal Statistical Society. Series A
+  (General)\/}~{\em 141\/}(3), 359--367.
+
+\bibitem[\protect\citeauthoryear{Byron}{Byron}{1979}]{byron1979}
+Byron, R.~P. (1979).
+\newblock Corrigenda: {{The Estimation}} of {{Large Social Account Matrices}}.
+\newblock {\em Journal of the Royal Statistical Society. Series A
+  (General)\/}~{\em 142\/}(3), 405.
+
+\bibitem[\protect\citeauthoryear{Corani, Azzimonti, Augusto, and
+  Zaffalon}{Corani et~al.}{2021}]{corani2021}
+Corani, G., D.~Azzimonti, J.~P. S.~C. Augusto, and M.~Zaffalon (2021).
+\newblock Probabilistic {{Reconciliation}} of {{Hierarchical Forecast}} via
+  {{Bayes}}' {{Rule}}.
+\newblock {\em Machine Learning and Knowledge Discovery in Databases\/}~{\em
+  12459}, 211--226.
+
+\bibitem[\protect\citeauthoryear{Corani, Rubattu, Azzimonti, and
+  Antonucci}{Corani et~al.}{2022}]{corani2022}
+Corani, G., N.~Rubattu, D.~Azzimonti, and A.~Antonucci (2022).
+\newblock Probabilistic {{Reconciliation}} of {{Count Time Series}}.
+\newblock {\em arXiv:2207.09322\/}.
+
+\bibitem[\protect\citeauthoryear{Dangerfield and Morris}{Dangerfield and
+  Morris}{1992}]{dangerfield1992}
+Dangerfield, B.~J. and J.~S. Morris (1992).
+\newblock Top-down or bottom-up: {{Aggregate}} versus disaggregate
+  extrapolations.
+\newblock {\em International Journal of Forecasting\/}~{\em 8\/}(2), 233--241.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2022a}]{difonzo2022b}
+Di~Fonzo, T. and D.~Girolimetto (2022a).
+\newblock Enhancements in cross-temporal forecast reconciliation, with an
+  application to solar irradiance forecasts.
+\newblock {\em arXiv:2209.07146\/}.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2022b}]{difonzo2022a}
+Di~Fonzo, T. and D.~Girolimetto (2022b).
+\newblock Forecast combination-based forecast reconciliation: {{Insights}} and
+  extensions.
+\newblock {\em International Journal of Forecasting\/}, in press.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2022c}]{difonzo2022c}
+Di~Fonzo, T. and D.~Girolimetto (2022c).
+\newblock Fully reconciled probabilistic {{GDP}} forecasts from {{Income}} and
+  {{Expenditure}} sides.
+\newblock In A.~Balzanella, M.~Bini, C.~Cavicchia, and R.~Verde (Eds.), {\em
+  Book of {{Short Papers SIS}} 2022}, pp.\  1376--1381. {Pearson}.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2022d}]{giro2022}
+Di~Fonzo, T. and D.~Girolimetto (2022d).
+\newblock Point and probabilistic forecast reconciliation for general linearly
+  constrained multiple time series.
+\newblock {\em Working paper\/}.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2023a}]{difonzo2023}
+Di~Fonzo, T. and D.~Girolimetto (2023a).
+\newblock Cross-temporal forecast reconciliation: {{Optimal}} combination
+  method and heuristic alternatives.
+\newblock {\em International Journal of Forecasting\/}~{\em 39\/}(1), 39--57.
+
+\bibitem[\protect\citeauthoryear{Di~Fonzo and Girolimetto}{Di~Fonzo and
+  Girolimetto}{2023b}]{difonzo2023a}
+Di~Fonzo, T. and D.~Girolimetto (2023b).
+\newblock Spatio-temporal reconciliation of solar forecasts.
+\newblock {\em Solar Energy\/}~{\em 251}, 13--29.
+
+\bibitem[\protect\citeauthoryear{Dunn, Williams, and Dechaine}{Dunn
+  et~al.}{1976}]{dunn1976}
+Dunn, D.~M., W.~H. Williams, and T.~L. Dechaine (1976).
+\newblock Aggregate versus {{Subaggregate Models}} in {{Local Area
+  Forecasting}}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  71\/}(353), 68--71.
+
+\bibitem[\protect\citeauthoryear{Eckert, Hyndman, and Panagiotelis}{Eckert
+  et~al.}{2021}]{eckert2021}
+Eckert, F., R.~J. Hyndman, and A.~Panagiotelis (2021).
+\newblock Forecasting {{Swiss}} exports using {{Bayesian}} forecast
+  reconciliation.
+\newblock {\em European Journal of Operational Research\/}~{\em 291\/}(2),
+  693--710.
+
+\bibitem[\protect\citeauthoryear{Efron}{Efron}{1975}]{efron1975a}
+Efron, B. (1975).
+\newblock Biased versus unbiased estimation.
+\newblock {\em Advances in Mathematics\/}~{\em 16\/}(3), 259--277.
+
+\bibitem[\protect\citeauthoryear{Efron and Morris}{Efron and
+  Morris}{1975}]{efron1975}
+Efron, B. and C.~Morris (1975).
+\newblock Data {{Analysis Using Stein}}'s {{Estimator}} and its
+  {{Generalizations}}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  70\/}(350), 311--319.
+
+\bibitem[\protect\citeauthoryear{Efron and Morris}{Efron and
+  Morris}{1977}]{efron1977}
+Efron, B. and C.~Morris (1977).
+\newblock Stein's {{Paradox}} in {{Statistics}}.
+\newblock {\em Scientific American\/}~{\em 236\/}(5), 119--127.
+
+\bibitem[\protect\citeauthoryear{Fleming and Wallace}{Fleming and
+  Wallace}{1986}]{fleming1986}
+Fleming, P.~J. and J.~J. Wallace (1986).
+\newblock How not to lie with statistics: The correct way to summarize
+  benchmark results.
+\newblock {\em Communications of the ACM\/}~{\em 29\/}(3), 218--221.
+
+\bibitem[\protect\citeauthoryear{Fliedner}{Fliedner}{2001}]{fliedner2001}
+Fliedner, G. (2001).
+\newblock Hierarchical forecasting: Issues and use guidelines.
+\newblock {\em Industrial Management \& Data Systems\/}~{\em 101\/}(1), 5--12.
+
+\bibitem[\protect\citeauthoryear{Girolimetto and Di~Fonzo}{Girolimetto and
+  Di~Fonzo}{2022}]{girolimetto2022}
+Girolimetto, D. and T.~Di~Fonzo (2022).
+\newblock {\em {{FoReco}}: {{Point}} Forecast Reconciliation}.
+
+\bibitem[\protect\citeauthoryear{Gneiting and Katzfuss}{Gneiting and
+  Katzfuss}{2014}]{gneiting2014}
+Gneiting, T. and M.~Katzfuss (2014).
+\newblock Probabilistic {{Forecasting}}.
+\newblock {\em Annual Review of Statistics and Its Application\/}~{\em 1\/}(1),
+  125--151.
+
+\bibitem[\protect\citeauthoryear{Gross and Sohl}{Gross and
+  Sohl}{1990}]{gross1990}
+Gross, C.~W. and J.~E. Sohl (1990).
+\newblock Disaggregation methods to expedite product line forecasting.
+\newblock {\em Journal of Forecasting\/}~{\em 9\/}(3), 233--254.
+
+\bibitem[\protect\citeauthoryear{Hyndman, Ahmed, Athanasopoulos, and
+  Shang}{Hyndman et~al.}{2011}]{hyndman2011}
+Hyndman, R.~J., R.~A. Ahmed, G.~Athanasopoulos, and H.~L. Shang (2011).
+\newblock Optimal combination forecasts for hierarchical time series.
+\newblock {\em Computational Statistics \& Data Analysis\/}~{\em 55\/}(9),
+  2579--2589.
+
+\bibitem[\protect\citeauthoryear{Hyndman and Athanasopoulos}{Hyndman and
+  Athanasopoulos}{2021}]{hyndman2021}
+Hyndman, R.~J. and G.~Athanasopoulos (2021).
+\newblock {\em Forecasting: {{Principles}} and {{Practice}} (3rd Ed)}.
+\newblock {OTexts: Melbourne, Australia}.
+
+\bibitem[\protect\citeauthoryear{Hyndman, Athanasopoulos, Bergmeir, Caceres,
+  Chhay, {O'Hara-Wild}, Petropoulos, Razbash, Wang, Yasmeen, {R Core Team},
+  Ihaka, Reid, Shaub, Tang, and Zhenyu}{Hyndman et~al.}{2022}]{hyndman2022}
+Hyndman, R.~J., G.~Athanasopoulos, C.~Bergmeir, G.~Caceres, L.~Chhay,
+  M.~{O'Hara-Wild}, F.~Petropoulos, S.~Razbash, E.~Wang, F.~Yasmeen, {R Core
+  Team}, R.~Ihaka, D.~Reid, D.~Shaub, Y.~Tang, and Z.~Zhenyu (2022).
+\newblock {\em Forecast: {{Forecasting}} Functions for Time Series and Linear
+  Models}.
+
+\bibitem[\protect\citeauthoryear{Hyndman and Khandakar}{Hyndman and
+  Khandakar}{2008}]{hyndman2008a}
+Hyndman, R.~J. and Y.~Khandakar (2008).
+\newblock Automatic {{Time Series Forecasting}}: {{The}} forecast {{Package}}
+  for {{R}}.
+\newblock {\em Journal of Statistical Software\/}~{\em 27}, 1--22.
+
+\bibitem[\protect\citeauthoryear{Hyndman, Lee, and Wang}{Hyndman
+  et~al.}{2016}]{hyndman2016}
+Hyndman, R.~J., A.~J. Lee, and E.~Wang (2016).
+\newblock Fast computation of reconciled forecasts for hierarchical and grouped
+  time series.
+\newblock {\em Computational Statistics \& Data Analysis\/}~{\em 97}, 16--32.
+
+\bibitem[\protect\citeauthoryear{Jeon, Panagiotelis, and Petropoulos}{Jeon
+  et~al.}{2019}]{jeon2019}
+Jeon, J., A.~Panagiotelis, and F.~Petropoulos (2019).
+\newblock Probabilistic forecast reconciliation with applications to wind power
+  and electric load.
+\newblock {\em European Journal of Operational Research\/}~{\em 279\/}(2),
+  364--379.
+
+\bibitem[\protect\citeauthoryear{Jordan, Kr{\"u}ger, and Lerch}{Jordan
+  et~al.}{2019}]{jordan2019}
+Jordan, A., F.~Kr{\"u}ger, and S.~Lerch (2019).
+\newblock Evaluating {{Probabilistic Forecasts}} with {{scoringRules}}.
+\newblock {\em Journal of Statistical Software\/}~{\em 90\/}(12).
+
+\bibitem[\protect\citeauthoryear{Koning, Franses, Hibon, and Stekler}{Koning
+  et~al.}{2005}]{koning2005}
+Koning, A.~J., P.~H. Franses, M.~Hibon, and H.~Stekler (2005).
+\newblock The {{M3}} competition: {{Statistical}} tests of the results.
+\newblock {\em International Journal of Forecasting\/}~{\em 21\/}(3), 397--409.
+
+\bibitem[\protect\citeauthoryear{Kourentzes and Athanasopoulos}{Kourentzes and
+  Athanasopoulos}{2019}]{kourentzes2019}
+Kourentzes, N. and G.~Athanasopoulos (2019).
+\newblock Cross-temporal coherent forecasts for {{Australian}} tourism.
+\newblock {\em Annals of Tourism Research\/}~{\em 75}, 393--409.
+
+\bibitem[\protect\citeauthoryear{Ledoit and Wolf}{Ledoit and
+  Wolf}{2004}]{ledoit2004a}
+Ledoit, O. and M.~Wolf (2004).
+\newblock A well-conditioned estimator for large-dimensional covariance
+  matrices.
+\newblock {\em Journal of Multivariate Analysis\/}~{\em 88\/}(2), 365--411.
+
+\bibitem[\protect\citeauthoryear{Magnus and Neudecker}{Magnus and
+  Neudecker}{2019}]{magnus2019}
+Magnus, J.~R. and H.~Neudecker (2019).
+\newblock {\em Matrix Differential Calculus with Applications in Statistics and
+  Econometrics\/} (Third ed.).
+\newblock {Hoboken, NJ}: {Wiley}.
+
+\bibitem[\protect\citeauthoryear{Makridakis, Spiliotis, and
+  Assimakopoulos}{Makridakis et~al.}{2022}]{makridakis2022}
+Makridakis, S., E.~Spiliotis, and V.~Assimakopoulos (2022).
+\newblock M5 accuracy competition: {{Results}}, findings, and conclusions.
+\newblock {\em International Journal of Forecasting\/}~{\em 38\/}(4),
+  1346--1364.
+
+\bibitem[\protect\citeauthoryear{Nystrup, Lindstr{\"o}m, Pinson, and
+  Madsen}{Nystrup et~al.}{2020}]{nystrup2020}
+Nystrup, P., E.~Lindstr{\"o}m, P.~Pinson, and H.~Madsen (2020).
+\newblock Temporal hierarchies with autocorrelation for load forecasting.
+\newblock {\em European Journal of Operational Research\/}~{\em 280\/}(3),
+  876--888.
+
+\bibitem[\protect\citeauthoryear{{O'Hara-Wild}, Hyndman, Wang, and
+  Godahewa}{{O'Hara-Wild} et~al.}{2022}]{ohara-wild2022}
+{O'Hara-Wild}, M., R.~J. Hyndman, E.~Wang, and R.~Godahewa (2022).
+\newblock {\em Tsibbledata: {{Diverse Datasets}} for 'Tsibble'}.
+
+\bibitem[\protect\citeauthoryear{Panagiotelis, Athanasopoulos, Gamakumara, and
+  Hyndman}{Panagiotelis et~al.}{2021}]{panagiotelis2021}
+Panagiotelis, A., G.~Athanasopoulos, P.~Gamakumara, and R.~J. Hyndman (2021).
+\newblock Forecast reconciliation: {{A}} geometric view with new insights on
+  bias correction.
+\newblock {\em International Journal of Forecasting\/}~{\em 37\/}(1), 343--359.
+
+\bibitem[\protect\citeauthoryear{Panagiotelis, Gamakumara, Athanasopoulos, and
+  Hyndman}{Panagiotelis et~al.}{2023}]{panagiotelis2023}
+Panagiotelis, A., P.~Gamakumara, G.~Athanasopoulos, and R.~J. Hyndman (2023).
+\newblock Probabilistic forecast reconciliation: {{Properties}}, evaluation and
+  score optimisation.
+\newblock {\em European Journal of Operational Research\/}~{\em 306\/}(2),
+  693--706.
+
+\bibitem[\protect\citeauthoryear{Panamtash and Zhou}{Panamtash and
+  Zhou}{2018}]{panamtash2018}
+Panamtash, H. and Q.~Zhou (2018).
+\newblock Coherent {{Probabilistic Solar Power Forecasting}}.
+\newblock In {\em 2018 {{IEEE International Conference}} on {{Probabilistic
+  Methods Applied}} to {{Power Systems}} ({{PMAPS}})}, {Boise, ID, USA}, pp.\
+  1--6.
+
+\bibitem[\protect\citeauthoryear{Pennings and {van Dalen}}{Pennings and {van
+  Dalen}}{2017}]{pennings2017}
+Pennings, C.~L. and J.~{van Dalen} (2017).
+\newblock Integrated hierarchical forecasting.
+\newblock {\em European Journal of Operational Research\/}~{\em 263\/}(2),
+  412--418.
+
+\bibitem[\protect\citeauthoryear{Punia, Singh, and Madaan}{Punia
+  et~al.}{2020}]{punia2020}
+Punia, S., S.~P. Singh, and J.~K. Madaan (2020).
+\newblock A cross-temporal hierarchical framework and deep learning for supply
+  chain forecasting.
+\newblock {\em Computers \& Industrial Engineering\/}~{\em 149}, 106796.
+
+\bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core
+  Team}}{2022}]{rcoreteam2022}
+{R Core Team} (2022).
+\newblock {\em R: {{A}} Language and Environment for Statistical Computing}.
+\newblock {Vienna, Austria}: {R Foundation for Statistical Computing}.
+
+\bibitem[\protect\citeauthoryear{Sanguri, Shankar, Punia, and Patra}{Sanguri
+  et~al.}{2022}]{sanguri2022}
+Sanguri, K., S.~Shankar, S.~Punia, and S.~Patra (2022).
+\newblock Hierarchical container throughput forecasting: {{The}} value of
+  coherent forecasts in the management of ports operations.
+\newblock {\em Computers \& Industrial Engineering\/}~{\em 173}, 108651.
+
+\bibitem[\protect\citeauthoryear{Sch{\"a}fer and Strimmer}{Sch{\"a}fer and
+  Strimmer}{2005}]{schafer2005}
+Sch{\"a}fer, J. and K.~Strimmer (2005).
+\newblock A {{Shrinkage Approach}} to {{Large-Scale Covariance Matrix
+  Estimation}} and {{Implications}} for {{Functional Genomics}}.
+\newblock {\em Statistical Applications in Genetics and Molecular
+  Biology\/}~{\em 4\/}(1).
+
+\bibitem[\protect\citeauthoryear{Spiliotis, Petropoulos, Kourentzes, and
+  Assimakopoulos}{Spiliotis et~al.}{2020}]{spiliotis2020}
+Spiliotis, E., F.~Petropoulos, N.~Kourentzes, and V.~Assimakopoulos (2020).
+\newblock Cross-temporal aggregation: {{Improving}} the forecast accuracy of
+  hierarchical electricity consumption.
+\newblock {\em Applied Energy\/}~{\em 261}, 114339.
+
+\bibitem[\protect\citeauthoryear{Stellato, Banjac, Goulart, Bemporad, and
+  Boyd}{Stellato et~al.}{2020}]{stellato2020}
+Stellato, B., G.~Banjac, P.~Goulart, A.~Bemporad, and S.~Boyd (2020).
+\newblock {{OSQP}}: An operator splitting solver for quadratic programs.
+\newblock {\em Mathematical Programming Computation\/}~{\em 12\/}(4), 637--672.
+
+\bibitem[\protect\citeauthoryear{Stellato, Banjac, Goulart, Boyd, and
+  Anderson}{Stellato et~al.}{2019}]{stellato2019}
+Stellato, B., G.~Banjac, P.~Goulart, S.~Boyd, and E.~Anderson (2019).
+\newblock {\em Package {{OSQP}}: {{Quadratic}} Programming Solver Using the
+  `{{OSQP}}' Library}.
+
+\bibitem[\protect\citeauthoryear{Tsay}{Tsay}{2014}]{tsay2014}
+Tsay, R.~S. (2014).
+\newblock {\em Multivariate Time Series Analysis: With {{R}} and Financial
+  Applications}.
+\newblock {Hoboken, NJ}: {Wiley}.
+
+\bibitem[\protect\citeauthoryear{{van Erven} and Cugliari}{{van Erven} and
+  Cugliari}{2015}]{vanerven2015}
+{van Erven}, T. and J.~Cugliari (2015).
+\newblock Game-{{Theoretically Optimal Reconciliation}} of {{Contemporaneous
+  Hierarchical Time Series Forecasts}}.
+\newblock In A.~Antoniadis, J.-M. Poggi, and X.~Brossat (Eds.), {\em Modeling
+  and {{Stochastic Learning}} for {{Forecasting}} in {{High Dimensions}}},
+  Volume 217, pp.\  297--317. {Cham}: {Springer}.
+
+\bibitem[\protect\citeauthoryear{Wickramasuriya}{Wickramasuriya}{2021}]{wickramasuriya2021b}
+Wickramasuriya, S.~L. (2021).
+\newblock Probabilistic forecast reconciliation under the {{Gaussian}}
+  framework.
+\newblock {\em arXiv:2103.11128\/}.
+
+\bibitem[\protect\citeauthoryear{Wickramasuriya, Athanasopoulos, and
+  Hyndman}{Wickramasuriya et~al.}{2019}]{wickramasuriya2019}
+Wickramasuriya, S.~L., G.~Athanasopoulos, and R.~J. Hyndman (2019).
+\newblock Optimal {{Forecast Reconciliation}} for {{Hierarchical}} and
+  {{Grouped Time Series Through Trace Minimization}}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  114\/}(526), 804--819.
+
+\bibitem[\protect\citeauthoryear{Wickramasuriya, Turlach, and
+  Hyndman}{Wickramasuriya et~al.}{2020}]{wickramasuriya2020}
+Wickramasuriya, S.~L., B.~A. Turlach, and R.~J. Hyndman (2020).
+\newblock Optimal non-negative forecast reconciliation.
+\newblock {\em Statistics and Computing\/}~{\em 30\/}(5), 1167--1182.
+
+\bibitem[\protect\citeauthoryear{Yagli, Yang, and Srinivasan}{Yagli
+  et~al.}{2019}]{yagli2019}
+Yagli, G.~M., D.~Yang, and D.~Srinivasan (2019).
+\newblock Reconciling solar forecasts: {{Sequential}} reconciliation.
+\newblock {\em Solar Energy\/}~{\em 179}, 391--397.
+
+\bibitem[\protect\citeauthoryear{Zambon, Azzimonti, and Corani}{Zambon
+  et~al.}{2022}]{zambon2022}
+Zambon, L., D.~Azzimonti, and G.~Corani (2022).
+\newblock Efficient probabilistic reconciliation of forecasts for real-valued
+  and count time series.
+\newblock {\em arXiv:2210.02286\/}.
+
+\end{thebibliography}

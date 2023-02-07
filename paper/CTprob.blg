@@ -1,0 +1,64 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: /Users/daniele/Dropbox/Mac/Documents/GitHub/ctprob/paper/CTprob.aux
+The style file: chicago.bst
+Database file #1: mybibfile.bib
+Warning--no number and no volume in corani2022
+Warning--page numbers missing in corani2022
+Warning--no number and no volume in difonzo2022b
+Warning--page numbers missing in difonzo2022b
+Warning--no number and no volume in difonzo2022a
+Warning--no number and no volume in giro2022
+Warning--page numbers missing in giro2022
+Warning--empty organization in girolimetto2022
+Warning--empty organization in hyndman2022
+Warning--page numbers missing in jordan2019
+Warning--empty organization in ohara-wild2022
+Warning--page numbers missing in schafer2005
+Warning--empty organization in stellato2019
+Warning--no number and no volume in wickramasuriya2021b
+Warning--page numbers missing in wickramasuriya2021b
+Warning--no number and no volume in zambon2022
+Warning--page numbers missing in zambon2022
+You've used 59 entries,
+            2861 wiz_defined-function locations,
+            946 strings with 15115 characters,
+and the built_in function-call counts, 44618 in all, are:
+= -- 3686
+> -- 3666
+< -- 8
++ -- 1127
+- -- 1225
+* -- 4281
+:= -- 8098
+add.period$ -- 178
+call.type$ -- 59
+change.case$ -- 458
+chr.to.int$ -- 55
+cite$ -- 76
+duplicate$ -- 1096
+empty$ -- 2479
+format.name$ -- 1429
+if$ -- 8305
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 57
+newline$ -- 294
+num.names$ -- 590
+pop$ -- 325
+preamble$ -- 1
+purify$ -- 812
+quote$ -- 0
+skip$ -- 1187
+stack$ -- 0
+substring$ -- 2246
+swap$ -- 381
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1134
+warning$ -- 17
+while$ -- 555
+width$ -- 0
+write$ -- 780
+(There were 17 warnings)
