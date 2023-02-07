@@ -1,6 +1,6 @@
 # Simulation Project
 
-#### Lunch order:
+#### Files' order:
 
 1. simulation.R: create simulations and base forecasts
 2. residuals:

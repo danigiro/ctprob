@@ -1,16 +1,26 @@
 #!/bin/bash
 meth_list="ctshr hbshr hshr bshr"
+# Gaussian incoherent covariance matrix
+## ctsam: global covariance matrix
+## hbsam: high frequency bottom time series covariance matrix
+## hsam: high frequency covariance matrix
+## bsam: bottom time series covariance matrix
 res_list="in o h oh"
-do_base_gauss=true
-do_base_score=true
-do_oct=true
-do_octo=true
-do_octh=true
-do_octoh=true
-do_cs=true
-do_ctbu=true
-do_te=true
-do_tebu=true
+# Residuals for the incoherent covariance matrix
+## in: in-sample residuals
+## o: overlapping residuals
+## h: multi-step residuals
+## oh: multi-step and overlapping residuals
+do_base_gauss=true  # base forecasts: true or false
+do_base_score=true  # base forecasts accuracy: true or false
+do_oct=true         # optimal ct reco (in-sample): true or false
+do_octo=true        # optimal ct reco (overlapping): true or false
+do_octh=true        # optimal ct reco (multi-sample): true or false
+do_octoh=true       # optimal ct reco (multi-sample + overlapping): true or false
+do_cs=true          # optimal cs reco: true or false
+do_ctbu=true        # optimal cs reco + te bu: true or false
+do_te=true          # optimal te reco: true or false
+do_tebu=true        # optimal te reco + cs bu: true or false
 
 for meth in $meth_list
 do
