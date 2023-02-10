@@ -1,16 +1,13 @@
-\pdfminorversion=1
-\documentclass[a4paper,12pt]{article}
-\newcommand\hmmax{0}
-\newcommand\bmmax{0}
+\documentclass[a4paper,11pt]{article}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
-\usepackage{mathrsfs} 
+\usepackage{mathrsfs}
 \usepackage{amssymb}
+\usepackage{mathpazo}
 \usepackage[dvipsnames]{xcolor}
-%\usepackage{mathabx}
 \usepackage{bm}
-\usepackage{bbm}
+\usepackage[no-weekday]{eukdate}
 \usepackage[bb=boondox]{mathalfa}
 \usepackage{paralist}
 \usepackage{natbib}
@@ -18,43 +15,20 @@
 \usepackage[textwidth=6.1in,textheight = 10in]{geometry}
 \usepackage{placeins}
 \usepackage[hidelinks]{hyperref}
-\usepackage{multirow, float, textcmds, siunitx}
+\usepackage{multirow, float}
 \usepackage{makecell}
-\usepackage[textwidth=24mm, colorinlistoftodos, textsize=scriptsize, backgroundcolor=white, linecolor=black]{todonotes}
+\usepackage{calc}
 \usepackage{graphicx}
 \usepackage{enumitem}
-\usepackage{algorithm, algorithmicx, algpseudocode}
-%\usepackage{newtxtext, newtxmath}
-\usepackage{comment}
-\usepackage{ulem}
+
 \setlength{\parskip}{0cm}
 \setlength{\parindent}{1em}
 \usepackage[compact]{titlesec}
 \titlespacing{\section}{0pt}{2ex}{1ex}
 \titlespacing{\subsection}{0pt}{1ex}{0ex}
 \titlespacing{\subsubsection}{0pt}{0.5ex}{0ex}
-
+\usepackage{titling}\pretitle{\begin{center}\LARGE\bfseries}
 \usepackage[bottom,hang,flushmargin]{footmisc}
-
-\makeatletter
-\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
-\newcommand*\widebar[1]{%
-  \begingroup
-  \def\mathaccent##1##2{%
-    \rel@kern{0.8}%
-    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
-    \rel@kern{-0.2}%
-  }%
-  \macc@depth\@ne
-  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
-  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
-  \macc@set@skewchar\relax
-  \let\mathaccentV\macc@nested@a
-  \macc@nested@a\relax111{#1}%
-  \endgroup
-}
-\makeatother
-
 \usepackage{adjustbox}
 
 %% LINE AND PAGE BREAKING
@@ -81,66 +55,53 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
 
-
-\newcommand{\alphavet}{\mathbf{\alpha}}
-\newcommand{\betavet}{\pmb{\beta}}
-\newcommand{\epsvet}{\mathbf{\varepsilon}}
-\newcommand{\etavet}{\pmb{\eta}}
-\newcommand{\lambdavet}{\mathbf{\lambda}}
-\newcommand{\Unovet}{\mathbf{1}}
-\newcommand{\avet}{\textbf{a}}
-\newcommand{\bvet}{\textbf{b}}
-\newcommand{\cvet}{\textbf{c}}
-\newcommand{\dvet}{\textbf{d}}
-\newcommand{\evet}{\textbf{e}}
-\newcommand{\pvet}{\textbf{p}}
-\newcommand{\fvet}{\textbf{f}}
-\newcommand{\tvet}{\textbf{t}}
-\newcommand{\uvet}{\textbf{u}}
-\newcommand{\vvet}{\textbf{v}}
-\newcommand{\wvet}{\textbf{w}}
-\newcommand{\xvet}{\textbf{x}}
-\newcommand{\yvet}{\textbf{y}}
-\newcommand{\zvet}{\textbf{z}}
-\newcommand{\Avet}{\textbf{A}}
-\newcommand{\Bvet}{\textbf{B}}
-\newcommand{\Cvet}{\textbf{C}}
-\newcommand{\Dvet}{\textbf{D}}
-\newcommand{\Evet}{\textbf{E}}
-\newcommand{\Fvet}{\textbf{F}}
-\newcommand{\Gvet}{\textbf{G}}
-\newcommand{\Hvet}{\textbf{H}}
-\newcommand{\Ivet}{\textbf{I}}
-\newcommand{\Jvet}{\textbf{J}}
-\newcommand{\Kvet}{\textbf{K}}
-\newcommand{\Lvet}{\textbf{L}}
-\newcommand{\Mvet}{\textbf{M}}
-\newcommand{\Nvet}{\textbf{N}}
-\newcommand{\Pvet}{\textbf{P}}
-\newcommand{\Qvet}{\textbf{Q}}
-\newcommand{\Rvet}{\textbf{R}}
-\newcommand{\Svet}{\textbf{S}}
-\newcommand{\Tvet}{\textbf{T}}
-\newcommand{\Uvet}{\textbf{U}}
-\newcommand{\Wvet}{\textbf{W}}
-\newcommand{\Xvet}{\textbf{X}}
-\newcommand{\Yvet}{\textbf{Y}}
-\newcommand{\Zvet}{\textbf{Z}}
-\newcommand{\Zerovet}{\textbf{0}}
-\bmdefine{\xhvet}{\mathsf{x}}
-\bmdefine{\yhvet}{\mathsf{y}}
-\bmdefine{\Chvet}{\mathsf{C}}
-\bmdefine{\Ghvet}{\mathsf{G}}
-\bmdefine{\Jhvet}{\mathsf{J}}
-\bmdefine{\Shvet}{\mathsf{S}}
-\bmdefine{\Uhvet}{\mathsf{U}}
-\bmdefine{\Gammavet}{\mathsf{\Gamma}}
-%\bmdefine{\Omegavet}{\mathsf{\Omega}}
-\newcommand{\Omegavet}{\mathbf{\Omega}}
-\newcommand{\Sigmavet}{\mathbf{\Sigma}}
-\bmdefine{\Thetavet}{\mathsf{\Theta}}
-\bmdefine{\ahvet}{\mathfrak{a}}
-\bmdefine{\bhvet}{\mathfrak{b}}
+\newcommand{\alphavet}{\bm{\alpha}}
+\newcommand{\betavet}{\bm{\beta}}
+\newcommand{\epsvet}{\bm{\varepsilon}}
+\newcommand{\etavet}{\bm{\eta}}
+\newcommand{\lambdavet}{\bm{\lambda}}
+\newcommand{\Unovet}{\bm{1}}
+\newcommand{\avet}{\bm{a}}
+\newcommand{\bvet}{\bm{b}}
+\newcommand{\cvet}{\bm{c}}
+\newcommand{\dvet}{\bm{d}}
+\newcommand{\evet}{\bm{e}}
+\newcommand{\pvet}{\bm{p}}
+\newcommand{\fvet}{\bm{f}}
+\newcommand{\tvet}{\bm{t}}
+\newcommand{\uvet}{\bm{u}}
+\newcommand{\vvet}{\bm{v}}
+\newcommand{\wvet}{\bm{w}}
+\newcommand{\xvet}{\bm{x}}
+\newcommand{\yvet}{\bm{y}}
+\newcommand{\zvet}{\bm{z}}
+\newcommand{\Avet}{\bm{A}}
+\newcommand{\Bvet}{\bm{B}}
+\newcommand{\Cvet}{\bm{C}}
+\newcommand{\Dvet}{\bm{D}}
+\newcommand{\Evet}{\bm{E}}
+\newcommand{\Fvet}{\bm{F}}
+\newcommand{\Gvet}{\bm{G}}
+\newcommand{\Hvet}{\bm{H}}
+\newcommand{\Ivet}{\bm{I}}
+\newcommand{\Jvet}{\bm{J}}
+\newcommand{\Kvet}{\bm{K}}
+\newcommand{\Lvet}{\bm{L}}
+\newcommand{\Mvet}{\bm{M}}
+\newcommand{\Nvet}{\bm{N}}
+\newcommand{\Pvet}{\bm{P}}
+\newcommand{\Qvet}{\bm{Q}}
+\newcommand{\Rvet}{\bm{R}}
+\newcommand{\Svet}{\bm{S}}
+\newcommand{\Tvet}{\bm{T}}
+\newcommand{\Uvet}{\bm{U}}
+\newcommand{\Wvet}{\bm{W}}
+\newcommand{\Xvet}{\bm{X}}
+\newcommand{\Yvet}{\bm{Y}}
+\newcommand{\Zvet}{\bm{Z}}
+\newcommand{\Zerovet}{\bm{0}}
+\newcommand{\Omegavet}{\bm{\Omega}}
+\newcommand{\Sigmavet}{\bm{\Sigma}}
 
 \definecolor{mybluehl}{HTML}{cbd3ff}
 
@@ -156,7 +117,6 @@
 
 \usetikzlibrary{arrows,shapes,positioning,shadows,trees}
 \usetikzlibrary{matrix, decorations.pathreplacing, arrows, calc, fit, arrows.meta, decorations.pathmorphing, decorations.markings}
-
 
 \tikzset{
   basic/.style  = {draw, text width=2cm, drop shadow, font=\sffamily, rectangle},
@@ -194,7 +154,7 @@
 \newtheorem{theorem}{Theorem}[section]
 
 % Title page
-\makeatletter  
+\makeatletter
 \newcommand{\maketitleblind}{\begingroup%
 \if1\blind
 {
@@ -227,7 +187,7 @@
 \setlength{\affilsep}{0em}
 \newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
 \renewcommand\Affilfont{\itshape\normalsize}
-  
+
 % Abstract code
 \makeatletter
 \renewenvironment{abstract}{%
@@ -243,7 +203,7 @@
 \makeatother
 
 %% Settings
-\title{\bf Cross-temporal Probabilistic Forecast Reconciliation}
+\title{Cross-temporal Probabilistic Forecast Reconciliation}
 
 \author{Daniele Girolimetto}
 \affil{Department of Statistical Sciences, University of Padova}
@@ -257,21 +217,6 @@
 \author{Rob J Hyndman}
 \affil{Department of Econometrics and Business Statistics, Monash University}
 \email{rob.hyndman@monash.edu}
-
-%\author{George Athanasopoulos\\
-%Department of Econometrics and Business Statistics, Monash University\\
-%\href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu}\\
-%Tommaso Di Fonzo\\
-%Department of Statistical Sciences, University of Padova\\
-%\href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu}
-%\email{tommaso.difonzo@unipd.it}\\
-%Daniele Girolimetto\\
-%Department of Statistical Sciences, University of Padova\\
-%\href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu}
-%\email{daniele.girolimetto@phd.unipd.it}\\
-%Rob J Hyndman\\
-%Department of Econometrics and Business Statistics, Monash University\\
-%\href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu}\\}
 
 \begin{document}
 
