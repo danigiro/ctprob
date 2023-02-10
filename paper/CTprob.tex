@@ -20,6 +20,12 @@
 \usepackage{calc}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{caption}
+\DeclareCaptionStyle{italic}[justification=centering]
+ {labelfont={bf},textfont={it},labelsep=colon}
+\captionsetup[figure]{style=italic,format=hang,singlelinecheck=true}
+\captionsetup[table]{style=italic,format=hang,singlelinecheck=true}
 
 \setlength{\parskip}{0cm}
 \setlength{\parindent}{1em}
@@ -37,7 +43,6 @@
 \clubpenalty = 10000
 \widowpenalty = 10000
 \brokenpenalty = 10000
-\RequirePackage{microtype}
 
 % NOTE: To produce blinded version, replace "0" with "1" below.
 \newcommand{\blind}{1}
