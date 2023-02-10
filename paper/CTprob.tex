@@ -281,18 +281,13 @@ Denote with $\yvet_t = [y_{1,t},\dots,y_{i,t},\dots,y_{n,t}]'$ an $n$-variate li
 \label{eq:cs_con}
 	\Cvet_{cs}\yvet_t = \Zerovet_{(n_a \times 1)}, \qquad t = 1, \;\dots, \;T,
 \end{equation}
-where $\Cvet_{cs}$ is the $(n_a \times n)$ zero constraints cross-sectional matrix , that can be seen as the coefficient matrix of a linear system with $n_a$ equations and $n$ variables. An example is the hierarchical/grouped time series where the bottom-level series can be thought of as building blocks that cannot be obtained as a sum of other series in the hierarchy, while all the series at upper levels can be expressed by appropriately summing part or all of them. For example, Figure \ref{fig:hierS}(a) shows the two-level hierarchical structure for 3 linearly constrained time series such that $T = X + Y$.
+where $\Cvet_{cs}$ is the $(n_a \times n)$ zero constraints cross-sectional matrix , that can be seen as the coefficient matrix of a linear system with $n_a$ equations and $n$ variables. An example is the hierarchical/grouped time series where the bottom-level series can be thought of as building blocks that cannot be obtained as a sum of other series in the hierarchy, while all the series at upper levels can be expressed by appropriately summing part or all of them. For example, \autoref{fig:hierS}(a) shows the two-level hierarchical structure for 3 linearly constrained time series such that $T = X + Y$.
 
-Now let $\yvet_t = \begin{bmatrix}
-	\uvet_t' & \bvet_t'
-\end{bmatrix}'$ where $\uvet_t = \begin{bmatrix} y_{1,t} & \dots & y_{n_a,t}
-\end{bmatrix}'$ is the $n_a$-vector of upper levels time series and $\bvet_t = \begin{bmatrix} y_{(n_a+1),t} & \dots & y_{n,t} \end{bmatrix}'$ is the $(n_b$-vector of bottom level time series with $n = n_a+n_b$. Following \cite{giro2022}, we can always construct a zero constraints cross-sectional matrix $\Cvet_{cs}=\begin{bmatrix}
-	\Ivet_{n_v} & -\Avet_{cs}
-\end{bmatrix}$ where $\Avet_{cs}$ is the cross-sectional aggregation matrix such that $\Avet_{cs}\bvet_t = \uvet_t$. In general there is no reason for $\uvet_t$ to be restricted to simple sums of $\bvet_t$. This means that $\Avet_{cs} \in \mathbb{R}^{n_a\times n_b}$ does not consist in just 0s and 1s. Finally, the cross-sectional structural matrix $\Svet_{cs} = \begin{bmatrix}\Avet' & \Ivet_{n_b}\end{bmatrix}'$ can be considered, such that the structural representation (\citealp{hyndman2011}) is given by
+Now let $\yvet_t = \begin{bmatrix}\uvet_t' & \bvet_t'\end{bmatrix}'$ where $\uvet_t = \begin{bmatrix} y_{1,t}, \dots, y_{n_a,t}\end{bmatrix}'$ is the $n_a$-vector of upper levels time series and $\bvet_t = \begin{bmatrix} y_{(n_a+1),t}, \dots, y_{n,t} \end{bmatrix}'$ is the $n_b$-vector of bottom level time series with $n = n_a+n_b$. Following \cite{giro2022}, we can always construct a zero-constraints cross-sectional matrix $\Cvet_{cs}=\begin{bmatrix}\Ivet_{n_v} & -\Avet_{cs}\end{bmatrix}$ where $\Avet_{cs}$ is the cross-sectional aggregation matrix such that $\Avet_{cs}\bvet_t = \uvet_t$. In general there is no reason for $\uvet_t$ to be restricted to simple sums of $\bvet_t$. This means that $\Avet_{cs} \in \mathbb{R}^{n_a\times n_b}$ does not consist in just 0s and 1s. Finally, the cross-sectional structural matrix is given by $\Svet_{cs} = \begin{bmatrix}\Avet' & \Ivet_{n_b}\end{bmatrix}'$, providing the structural representation \citep{hyndman2011}
 $$
 \yvet_t = \Svet_{cs} \bvet_t.
 $$
-Looking at the hierarchical example in Figure \ref{fig:hierS}(a), we have that
+Looking at the hierarchical example in \autoref{fig:hierS}(a), we have that
 $$
 \Avet_{cs} = \begin{bmatrix} 1 & 1 \end{bmatrix}, \quad \Cvet_{cs} = \begin{bmatrix}1 & -1 & -1 \end{bmatrix} \quad \text{and} \quad \Svet_{cs} = \begin{bmatrix}
 1 & 1 \\
@@ -333,13 +328,13 @@ $$
 	\Ivet_{\frac{m}{k_{2}}} & \otimes & \Unovet_{k_2}'
 \end{bmatrix}
 $$
-is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \sum_{k \in \mathcal{K}\setminus\{k_1\}} m/k$. For each series $i = 1,\dots,n$, we have also the zero-constrained representation
+is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \sum_{k \in \mathcal{K}\setminus\{k_1\}} m/k$. For each series $y_{i,t}$, $i = 1,\dots,n$, we have also the zero-constrained representation
 \begin{equation}
 \label{eq:te_con}
 	\Cvet_{te}\xvet_{i,\tau} = \Zerovet_{[k^\ast \times (m+k^\ast)]}, \qquad \tau = 1,\dots,N, \qquad i = 1,\dots, n
 \end{equation}
 where $\Cvet_{te} = \begin{bmatrix}\Ivet_{k^\ast} & -\Avet_{te}\end{bmatrix}$ is the $\left[k^\ast \times (m+k^\ast)\right]$ zero constraints temporal matrix.
-Figure \ref{fig:hierS}(b) shows the hierarchical representation of a quarterly time series, for which $m = 4$, $\mathcal{K} = \{4,2,1\}$, and
+\autoref{fig:hierS}(b) shows the hierarchical representation of a quarterly time series, for which $m = 4$, $\mathcal{K} = \{4,2,1\}$, and
 $$
 \Avet_{te} = \begin{bmatrix}
 	1 & 1 & 1 & 1\\
@@ -414,7 +409,7 @@ where
 	\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}
 \end{equation}
 is the $\left[n(k^\ast+m)\times n_b m\right]$ cross-temporal summation matrix, $s: \mathbb{R}^{n_b m} \rightarrow \mathbb{R}^{n(m+k^\ast)}$ is the operator describing the pre-multiplication by $\Svet_{ct}$, and $\bvet^{[1]}_\tau = \mathrm{vec}\left(\Bvet^{[1]\prime}_{\tau}\right)$. We observe that, in agreement with \cite{panagiotelis2021}, $\xvet_{\tau}$ lies in an $(n_b m)$-dimensional subspace $\mathfrak{s}_{ct}$ of $\mathbb{R}^{n(k^\ast+m)}$, which we refer to as “cross-temporal coherent subspace”, spanned by the columns of $\Svet_{ct}$.
-In Figure \ref{fig:Stilde}, we have represented $\Svet_{ct}$ for 3 linearly constrained quarterly time series, like Figure \ref{fig:hierS}.
+In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for 3 linearly constrained quarterly time series, like \autoref{fig:hierS}.
 
 %\section{Point forecast reconciliation}\label{sec:point}
 
@@ -491,7 +486,7 @@ where $\Gvet = \left(\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct}\right)^{-1} \Svet
 \end{itemize}
 where the symbol $\odot$ denotes the Hadamard product, $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
 
-We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal ones, that takes simultaneously into account both types of constraints. In addition, the cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$). Table \ref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
+We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal ones, that takes simultaneously into account both types of constraints. In addition, the cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$). \autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
 
 \begin{table}[bt]
   \caption{Approximations for the cross-sectional (\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) and temporal (\citealp{athanasopoulos2017}, \citealp{difonzo2023}) covariance matrix, respectively $\Wvet$ and $\Omegavet$.}
@@ -599,9 +594,9 @@ The original classic bottom-up approach \citep{dunn1976, dangerfield1992} simply
         \label{fig:bigBU}
 \end{figure}
 
-Figure \ref{fig:bigBU} gives a visual representation of partly bottom-up as a two-step cross-temporal reconciliation approach. On the left (Figure \ref{fig:tebu}), we first compute the cross-sectionally reconciled forecasts at the highest frequency ($k = 1$), and then apply the temporal bottom-up to each series' forecasts.
+\autoref{fig:bigBU} gives a visual representation of partly bottom-up as a two-step cross-temporal reconciliation approach. On the left (\autoref{fig:tebu}), we first compute the cross-sectionally reconciled forecasts at the highest frequency ($k = 1$), and then apply the temporal bottom-up to each series' forecasts.
 
-On the right (Figure \ref{fig:csbu}), we first compute the temporally reconciled forecasts for the most disaggregated cross-sectional level, and then apply the cross-sectional bottom-up approach. We denote this two-step reconciliation as, respectively, ct$(rec_{te},bu_{cs})$, and ct$(rec_{cs},bu_{te})$, where ‘$rec_{te}$’ and ‘$rec_{cs}$’ denote a generic forecast reconciliation approach in the temporal and in cross-sectional framework.
+On the right (\autoref{fig:csbu}), we first compute the temporally reconciled forecasts for the most disaggregated cross-sectional level, and then apply the cross-sectional bottom-up approach. We denote this two-step reconciliation as, respectively, ct$(rec_{te},bu_{cs})$, and ct$(rec_{cs},bu_{te})$, where ‘$rec_{te}$’ and ‘$rec_{cs}$’ denote a generic forecast reconciliation approach in the temporal and in cross-sectional framework.
 
 \section{Probabilistic forecast reconciliation}\label{sec:prob}
 
@@ -647,7 +642,7 @@ An important issue is how to generate base forecasts' samples that preserve cros
 
 \input{fig/ct_boot.tex}
 
-Let $\widehat{\Evet}^{[k]}$ be the $(n \times T/k)$ matrix of the in-sample residuals for $k \in \mathcal{K}$. Figure \ref{fig:res_boot} provides a visualization of these matrices and how they are related to each other for the example in Figure \ref{fig:hierS}. It is assumed that the residuals cover 4 years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Furthermore, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and in-sample residuals for the $i$-th series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models perhaps for different temporal levels or for groups of historical series. Assuming $H = 1$, $\tau$ is a random draw with replacement from $1,\dots, N$ and the $\ell^{th}$ bootstrap incoherent sample is
+Let $\widehat{\Evet}^{[k]}$ be the $(n \times T/k)$ matrix of the in-sample residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover 4 years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Furthermore, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and in-sample residuals for the $i$-th series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models perhaps for different temporal levels or for groups of historical series. Assuming $H = 1$, $\tau$ is a random draw with replacement from $1,\dots, N$ and the $\ell^{th}$ bootstrap incoherent sample is
 $$
 \widehat{\xvet}_{i,\ell}^{[k]} = f_i\left(\mathcal{M}_i, \widehat{\evet}_{i}^{[k]}\right)
 $$
@@ -661,14 +656,14 @@ where $f_i(\cdot)$ depend on the fitted univariate model $\mathcal{M}_i$. That i
 	$$
 	where $\widehat{\Evet}_{\tau} = \begin{bmatrix}
 		\widehat{\evet}^{[m]}_\tau & \widehat{\Evet}^{[k_{p-1}]}_{\tau} & \dots &\widehat{\Evet}^{[1]}_{\tau}
-	\end{bmatrix}$ is a $[n \times (k^\ast + m)]$ matrix where $\widehat{\evet}^{[m]}_\tau$ is the $\tau$-th column of $\widehat{\Evet}^{[m]}$ and $\widehat{\Evet}^{[k]}_{\tau}$ is the $(n \times M_k)$ matrix formed by columns $M_k(\tau-1)+1,\dots, M_k \tau$ of $\widehat{\Evet}^{[k]}$. 	Figure \ref{fig:ct_boot} shows the component of $\widehat{\Evet}_{\tau} = \begin{bmatrix}
+	\end{bmatrix}$ is a $[n \times (k^\ast + m)]$ matrix where $\widehat{\evet}^{[m]}_\tau$ is the $\tau$-th column of $\widehat{\Evet}^{[m]}$ and $\widehat{\Evet}^{[k]}_{\tau}$ is the $(n \times M_k)$ matrix formed by columns $M_k(\tau-1)+1,\dots, M_k \tau$ of $\widehat{\Evet}^{[k]}$. 	\autoref{fig:ct_boot} shows the component of $\widehat{\Evet}_{\tau} = \begin{bmatrix}
 		\widehat{\evet}^{[4]}_\tau & \widehat{\Evet}^{[2]}_{\tau}&\widehat{\Evet}^{[1]}_{\tau}
-	\end{bmatrix}$ for the quarterly cross-temporal hierarchy in Figure \ref{fig:hierS}.
+	\end{bmatrix}$ for the quarterly cross-temporal hierarchy in \autoref{fig:hierS}.
 
 One of the main advantages of the cross-temporal joint bootstrap is that it allows us to accurately account for the dependence between the different levels of temporal aggregation and not only the cross-sectional dependencies. By sampling residuals from the most temporally aggregated level and using it to determine the indices for the other levels, we can ensure that the bootstrap sample reflects the underlying data distribution. Additionally, the cross-temporal joint bootstrap is easy to implement in \textsf{R} \citep{rcoreteam2022} using the package \texttt{forecast} \citep{Rforecast} for many forecasting models, making it a practical and efficient tool. Furthermore, this approach is easily scalable in order to utilize multiple computing power simultaneously for each cross-sectional series. This can be especially useful when dealing with large datasets or when trying to speed up the analysis process.
 
 \subsection{Parametric framework: Gaussian reconciliation}\label{ssec:prob_pf}
-It is possible to obtain a reconciled probabilistic forecast analytically for some parametric distributions, such as the multivariate normal \citep{panagiotelis2023, wickramasuriya2021b, corani2021, eckert2021}. In the cross-sectional framework, \cite{panagiotelis2023} show that, starting from an elliptical distribution for the base forecasts, the reconciled forecast distribution is also elliptical. Then this is valid for the multivariate normal that is an elliptical distribution characterized by its first two moments. Using the matrix notation in Section \ref{sec:not}, we may extend this results to the cross-temporal case.
+It is possible to obtain a reconciled probabilistic forecast analytically for some parametric distributions, such as the multivariate normal \citep{panagiotelis2023, wickramasuriya2021b, corani2021, eckert2021}. In the cross-sectional framework, \cite{panagiotelis2023} show that, starting from an elliptical distribution for the base forecasts, the reconciled forecast distribution is also elliptical. Then this is valid for the multivariate normal that is an elliptical distribution characterized by its first two moments. Using the matrix notation in \autoref{sec:not}, we may extend this results to the cross-temporal case.
 %Therefore, fixed $H = 1$, if the base forecasts distribution is $\mathcal{N}(\widehat{\xvet}, \Omegavet)$, then the reconciled forecasts distribution is $\mathcal{N}(\widetilde{\xvet}, \widetilde{\Omegavet})$, where
 To obtain a reconciled forecast using the multivariate normal distribution for given  $H = 1$, we start with a base forecast distributed as $\mathcal{N}(\widehat{\xvet}, \Sigmavet)$, where $\widehat{\xvet}_h$ is the mean vector and $\Sigmavet$ is the covariance matrix of the base forecasts. The reconciled forecast distribution is then given by $\mathcal{N}(\widetilde{\xvet}, \widetilde{\Omegavet})$, where
 \begin{equation}\label{eq:meanvar}
@@ -681,7 +676,7 @@ In the cross-temporal case, accurately estimating the covariance matrix $\Sigmav
 
 \input{fig/gauss_sim.tex}
 
-Focusing on the computational aspect, we can take several steps to reduce the time required to obtain simulations from the reconciled forecast distribution. For example, it is not necessary to simulate from a normal distribution with a defined covariance matrix for the entire structure when dealing with a genuine hierarchical structure. Instead, we can utilize the properties of elliptical distributions to simulate from the high frequency bottom time series and then to obtain the complete simulation through the $\Svet_{ct}$ matrix. Furthermore, we do not need to calculate the reconciled mean and variance and generate a new sample if we already have a sample from the normal distribution of the base forecasts; we can simply apply the point forecast reconciliation formula (\ref{eq:Mvet}) as outlined in Theorem \ref{thm:rs}, which is still valid for parametric cases. The relationships between base and reconciled forecast distributions and their respective simulations through Theorem \ref{thm:rs} are depicted in Figure \ref{fig:gaussrel}.
+Focusing on the computational aspect, we can take several steps to reduce the time required to obtain simulations from the reconciled forecast distribution. For example, it is not necessary to simulate from a normal distribution with a defined covariance matrix for the entire structure when dealing with a genuine hierarchical structure. Instead, we can utilize the properties of elliptical distributions to simulate from the high frequency bottom time series and then to obtain the complete simulation through the $\Svet_{ct}$ matrix. Furthermore, we do not need to calculate the reconciled mean and variance and generate a new sample if we already have a sample from the normal distribution of the base forecasts; we can simply apply the point forecast reconciliation formula (\ref{eq:Mvet}) as outlined in Theorem \ref{thm:rs}, which is still valid for parametric cases. The relationships between base and reconciled forecast distributions and their respective simulations through Theorem \ref{thm:rs} are depicted in \autoref{fig:gaussrel}.
 
 
 \section{Shrinkage techniques for cross-temporal covariance matrix estimation}\label{sec:shrtech}
@@ -701,7 +696,7 @@ where $\widehat{\sigma}_{i j}$ is the $i j$-th element of $\widehat{\Omegavet}$.
 $$
 \widehat{\lambda}^\ast=\max \left[0, \min \left(1, \widehat{\lambda}\right)\right]
 $$
-is imposed to ensure that the estimated $\lambda$ stays within the range $[0,1]$. According to expression (\ref{eq:global}), there are two possible target matrices: a full matrix ($\lambda=0$), and a diagonal matrix ($\lambda=1$). These matrices are shown in the first column of Figure \ref{fig:shr_grid}. This linear combination, which reduces all elements outside the diagonal to zero, can be referred to as \textit{Global shrinkage} (\textit{G}). $\widehat{\Omegavet}_{G}$ corresponds to the matrix used by the reconciliation approach oct$(shr)$ shown in Section \ref{ssec:oct}. This method allows us to shrink the entire off-diagonal portion of the covariance matrix, effectively reducing its complexity and potentially improving its estimation accuracy.
+is imposed to ensure that the estimated $\lambda$ stays within the range $[0,1]$. According to expression (\ref{eq:global}), there are two possible target matrices: a full matrix ($\lambda=0$), and a diagonal matrix ($\lambda=1$). These matrices are shown in the first column of \autoref{fig:shr_grid}. This linear combination, which reduces all elements outside the diagonal to zero, can be referred to as \textit{Global shrinkage} (\textit{G}). $\widehat{\Omegavet}_{G}$ corresponds to the matrix used by the reconciliation approach oct$(shr)$ shown in \autoref{ssec:oct}. This method allows us to shrink the entire off-diagonal portion of the covariance matrix, effectively reducing its complexity and potentially improving its estimation accuracy.
 
 \begin{figure}[!h]
 	\centering
@@ -780,55 +775,55 @@ where $\widehat{\Omegavet}_{bts, D} = \Ivet_{n_b(m+k^\ast)}\odot\widehat{\Omegav
 	\label{fig:num_param}
 	\end{figure}
 
-These four approaches differ not only in their target matrices (see Figure \ref{fig:shr_grid}), but also in the number of parameters to be estimated through the residuals of the base forecasts. Table \ref{tab:num_param} shows the total number of different parameters in the covariance matrix, while Figure \ref{fig:num_param} shows these values for different values of $m$ and $n$ with $n_b$ fixed to approximately $60\%$ of n. As we can see, a global approach (\textit{G}) usually involves a considerable number of parameters compared to other procedures. The right panel of Figure \ref{fig:num_param} reports the boxplot of the $\%$ reductions in the number of parameters compared to the global approach, that is:
+These four approaches differ not only in their target matrices (see \autoref{fig:shr_grid}), but also in the number of parameters to be estimated through the residuals of the base forecasts. \autoref{tab:num_param} shows the total number of different parameters in the covariance matrix, while \autoref{fig:num_param} shows these values for different values of $m$ and $n$ with $n_b$ fixed to approximately $60\%$ of n. As we can see, a global approach (\textit{G}) usually involves a considerable number of parameters compared to other procedures. The right panel of \autoref{fig:num_param} reports the boxplot of the $\%$ reductions in the number of parameters compared to the global approach, that is:
 $$
 \% \text{ reduction} = 100\left(1-\frac{r_i}{r_G}\right) \quad \mathrm{with} \; i \in \{HB, H, B\},
 $$
-we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series require the estimation of a smaller number of parameters. In Table \ref{tab:num_param_data} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
+we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series require the estimation of a smaller number of parameters. In \autoref{tab:num_param_data} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
 
 \begin{table}[!htb]
 	\centering
 	\begingroup
 	\spacingset{1.1}
-  \begin{tabular}{M{0.25\linewidth}ccc}
-  \toprule
-    \textbf{Shrinkage} & \textbf{ID} & \textbf{\# of different parameters} & \\
-    \midrule
-    \addlinespace[0.25cm]
-    Global & $G$ & $r = \displaystyle\frac{n(k^\ast+m)[n(k^\ast+m)-1]}{2}$ & \\
-        \addlinespace[0.25cm]
-    High frequency bottom time series & $HB$ & $r_{HB} = \displaystyle\frac{n_bm[n_bm-1]}{2}$ & $r_{HB}<r$\\
-        \addlinespace[0.25cm]
-    High frequency & $H$ & $r_{H} = \displaystyle\frac{nm[nm-1]}{2}$ & $r_{HB}<r_{H}<r$\\
-        \addlinespace[0.25cm]
-    Bottom time series & $B$ & $r_{B} = \displaystyle\frac{n_b(k^\ast+m)[n_b(k^\ast+m)-1]}{2}$ & $r_{HB}<r_{B}<r$\\
-    \addlinespace[0.25cm]
-    \bottomrule
-  \end{tabular}
-\endgroup
-  \caption{Number of different parameters that need to be estimated for the various approaches. The Shrinkage column indicates the type of shrinking applied, and the ID column shows the abbreviations used.}
-  \label{tab:num_param}
-\vskip1.5cm
-%\end{table}
-%\begin{table}[hbt]
-%\centering
-\begingroup
-\spacingset{1.1}
-  \begin{tabular}{M{0.25\linewidth}cccc}
-  \toprule
-    \textbf{Shrinkage} & \textbf{ID} & \textbf{AR(2)} & \textbf{AusGDP} & \textbf{VN525}\\
-    \midrule
-    Global & $G$ & 36 & 221445 & 108052350 \\
-        \addlinespace[0.25cm]
-    High frequency bottom time series & $HB$ & 6 & 30876 & 6655776 \\
-        \addlinespace[0.25cm]
-    High frequency & $H$ & 15 & 72390 & 19848150 \\
-        \addlinespace[0.25cm]
-    Bottom time series & $B$ & 15 & 94395 & 36231328\\
-    \bottomrule
-  \end{tabular}
-\endgroup
-  \caption{Number of different parameters that need to be estimated for the Monte Carlo simulation (\textbf{AR(2)}, see Section \ref{sec:mcsim}), the Australian GDP (\textbf{AusGDP}, see Section \ref{sec:ausgdp}) dataset and the Australian Tourism Demand (\textbf{VN525}, see Section \ref{sec:vn525}): the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; the second one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the last one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper).}
+		\begin{tabular}{M{0.25\linewidth}ccc}
+		\toprule
+			\textbf{Shrinkage} & \textbf{ID} & \textbf{\# of different parameters} & \\
+			\midrule
+			\addlinespace[0.25cm]
+			Global & $G$ & $r = \displaystyle\frac{n(k^\ast+m)[n(k^\ast+m)-1]}{2}$ & \\
+					\addlinespace[0.25cm]
+			High frequency bottom time series & $HB$ & $r_{HB} = \displaystyle\frac{n_bm[n_bm-1]}{2}$ & $r_{HB}<r$\\
+					\addlinespace[0.25cm]
+			High frequency & $H$ & $r_{H} = \displaystyle\frac{nm[nm-1]}{2}$ & $r_{HB}<r_{H}<r$\\
+					\addlinespace[0.25cm]
+			Bottom time series & $B$ & $r_{B} = \displaystyle\frac{n_b(k^\ast+m)[n_b(k^\ast+m)-1]}{2}$ & $r_{HB}<r_{B}<r$\\
+			\addlinespace[0.25cm]
+			\bottomrule
+		\end{tabular}
+	\endgroup
+		\caption{Number of different parameters that need to be estimated for the various approaches. The Shrinkage column indicates the type of shrinking applied, and the ID column shows the abbreviations used.}
+		\label{tab:num_param}
+	\vskip1.5cm
+	%\end{table}
+	%\begin{table}[hbt]
+	%\centering
+	\begingroup
+	\spacingset{1.1}
+		\begin{tabular}{M{0.25\linewidth}cccc}
+		\toprule
+			\textbf{Shrinkage} & \textbf{ID} & \textbf{AR(2)} & \textbf{AusGDP} & \textbf{VN525}\\
+			\midrule
+			Global & $G$ & 36 & 221445 & 108052350 \\
+					\addlinespace[0.25cm]
+			High frequency bottom time series & $HB$ & 6 & 30876 & 6655776 \\
+					\addlinespace[0.25cm]
+			High frequency & $H$ & 15 & 72390 & 19848150 \\
+					\addlinespace[0.25cm]
+			Bottom time series & $B$ & 15 & 94395 & 36231328\\
+			\bottomrule
+		\end{tabular}
+	\endgroup
+		\caption{Number of different parameters that need to be estimated for the Monte Carlo simulation (\textbf{AR(2)}, see \autoref{sec:mcsim}), the Australian GDP (\textbf{AusGDP}, see \autoref{sec:ausgdp}) dataset and the Australian Tourism Demand (\textbf{VN525}, see \autoref{sec:vn525}): the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; the second one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the last one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper).}
 		 \label{tab:num_param_data}
 	\end{table}
 
@@ -839,7 +834,7 @@ In our simulations and empirical analysis, we will be closely analyzing these di
 
 \subsection{In-sample and multi-step residuals} \label{ssec:multi_res}
 
-In-sample residuals may be used to approximate the covariance matrix in point cross-temporal reconciliation. \cite{difonzo2023} use a matrix organization of residuals that is similar to the one seen for base forecasts in Section \ref{ssec:oct}. In details, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vector of in sample residuals with $N_k = N\frac{m}{k}$ for the temporal aggregation $k$ and the series $i$,
+In-sample residuals may be used to approximate the covariance matrix in point cross-temporal reconciliation. \cite{difonzo2023} use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. In details, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vector of in sample residuals with $N_k = N\frac{m}{k}$ for the temporal aggregation $k$ and the series $i$,
 $$
 \evet_i^{[k]} = \begin{bmatrix}
 	e_{i,1}^{[k]} & e_{i,2}^{[k]} & \dots & e_{i,N_k}^{[k]}
@@ -888,7 +883,7 @@ Using multi-step residuals does not require any changes to the matrix structure 
 
 \subsection{Overlapping residuals}\label{ssec:over_res}
 
-Another issue that arises in the case of cross-temporal reconciliation is the low number of residuals available, as the number of parameters to be estimated is larger compared to the simple framework with a single dimension (cross-sectional or temporal). As seen in Section \ref{sec:shrtech}, one possible solution can be to use shrinkage methods that reduce the number of parameters for the covariance matrix. However, sometimes the number is still high. For this reason, a possible solution can be to use residuals calculated using overlapping series. To better explain how to calculate overlapping residuals, assume we have a single series
+Another issue that arises in the case of cross-temporal reconciliation is the low number of residuals available, as the number of parameters to be estimated is larger compared to the simple framework with a single dimension (cross-sectional or temporal). As seen in \autoref{sec:shrtech}, one possible solution can be to use shrinkage methods that reduce the number of parameters for the covariance matrix. However, sometimes the number is still high. For this reason, a possible solution can be to use residuals calculated using overlapping series. To better explain how to calculate overlapping residuals, assume we have a single series
 	$
 	\yvet = \begin{bmatrix}
 		y_1 & y_2 & y_3 & \dots & y_{T-1} & y_{T} \\
@@ -945,7 +940,7 @@ $
 \end{bmatrix}
 $.
 This means that the upper series, $A$, is a combination of the two bottom series, $B$ and $C$, such that $A = B+C$.
-The data for the bottom series $B$ and $C$ are generated by AR($2$) processes, where the AR parameters are estimated from the “Lynx" and “Hare" time series (see Figure \ref{fig:lynxhare}). The AR parameters for $B$ and $C$ are
+The data for the bottom series $B$ and $C$ are generated by AR($2$) processes, where the AR parameters are estimated from the “Lynx" and “Hare" time series (see \autoref{fig:lynxhare}). The AR parameters for $B$ and $C$ are
 $
 \phi_B = \begin{bmatrix}
 1.34 &
@@ -985,7 +980,7 @@ $$
 \end{bmatrix}.
 $$
 The detailed calculations can be found in appendix \ref{app:ar2}.
-In Figure \ref{fig:covcorMC} we have represented both the covariance matrix and the correlation matrix for fixed parameters.
+In \autoref{fig:covcorMC} we have represented both the covariance matrix and the correlation matrix for fixed parameters.
 
 \begin{figure}[!b]
 \centering
@@ -995,34 +990,34 @@ In Figure \ref{fig:covcorMC} we have represented both the covariance matrix and 
 \end{figure}
 
 \subsection{Base and reconciled samples}\label{ssec:sim_br}
-To construct cross-temporal samples of the base forecasts, we use the bootstrap and Gaussian approaches discussed in Sections \ref{ssec:boot} and \ref{ssec:prob_pf}, respectively. For the non-parametric approach, we use in-sample residuals, while for the parametric approach we use in-sample residuals and multi-step forecasting with the different covariance matrix structures analyzed in Section \ref{sec:shrtech}: $G$ for the global covariance matrix, $H$ for the High frequency covariance matrix, $B$ for the bottom time series covariance matrix and $HB$ for the high frequency bottom time series covariance matrix. We do not use overlapping residuals in our analysis because the large number of available observations made it unnecessary %and using overlapping residuals did not significantly affect the results of our analysis.
+To construct cross-temporal samples of the base forecasts, we use the bootstrap and Gaussian approaches discussed in Sections \ref{ssec:boot} and \ref{ssec:prob_pf}, respectively. For the non-parametric approach, we use in-sample residuals, while for the parametric approach we use in-sample residuals and multi-step forecasting with the different covariance matrix structures analyzed in \autoref{sec:shrtech}: $G$ for the global covariance matrix, $H$ for the High frequency covariance matrix, $B$ for the bottom time series covariance matrix and $HB$ for the high frequency bottom time series covariance matrix. We do not use overlapping residuals in our analysis because the large number of available observations made it unnecessary %and using overlapping residuals did not significantly affect the results of our analysis.
 
-Regarding reconciliation, we have several options: cross-temporal bottom-up (\textit{ct bu}); cross-sectional reconciliation using the $shr$ approach (see Table \ref{tab:cov_app}) and then temporally aggregated (ct$(shr_{cs}, bu_{te})$, Section \ref{ssec:ctbu});  temporal reconciliation using the $wlsv$ approach (see Table \ref{tab:cov_app}) and then cross-sectionally aggregated (ct$(wlsv_{te}, bu_{cs})$, Section \ref{ssec:ctbu}); optimal cross-temporal reconciliation \citep{difonzo2023} with in-sample residuals (\textbf{oct}) using the $wlsv$, $bdshr$ approaches presented in Section \ref{ssec:oct}, and $shr$, $hshr$, $bshr$ and $hbshr$ approaches that use, respectively, the Global, High frequency, Bottom time series, High frequency Bottom time series shrinkage presented in Section \ref{sec:shrtech}. In addition, we propose the optimal cross-temporal reconciliation with multi-step residuals (\textbf{oct$_h$}) for $shr$, $hshr$, $bshr$ and $hbshr$ approaches. All this procedure are available in the \textsf{R} package \texttt{FoReco} \citep{girolimetto2022} that provides a set of functions and algorithms for point forecast reconciliation.
+Regarding reconciliation, we have several options: cross-temporal bottom-up (\textit{ct bu}); cross-sectional reconciliation using the $shr$ approach (see \autoref{tab:cov_app}) and then temporally aggregated (ct$(shr_{cs}, bu_{te})$, \autoref{ssec:ctbu});  temporal reconciliation using the $wlsv$ approach (see \autoref{tab:cov_app}) and then cross-sectionally aggregated (ct$(wlsv_{te}, bu_{cs})$, \autoref{ssec:ctbu}); optimal cross-temporal reconciliation \citep{difonzo2023} with in-sample residuals (\textbf{oct}) using the $wlsv$, $bdshr$ approaches presented in \autoref{ssec:oct}, and $shr$, $hshr$, $bshr$ and $hbshr$ approaches that use, respectively, the Global, High frequency, Bottom time series, High frequency Bottom time series shrinkage presented in \autoref{sec:shrtech}. In addition, we propose the optimal cross-temporal reconciliation with multi-step residuals (\textbf{oct$_h$}) for $shr$, $hshr$, $bshr$ and $hbshr$ approaches. All this procedure are available in the \textsf{R} package \texttt{FoReco} \citep{girolimetto2022} that provides a set of functions and algorithms for point forecast reconciliation.
 
 \subsection{A look at the covariance matrix}
 
 \begin{figure}[p]
 	\centering
 	\includegraphics[width = 0.9\linewidth]{fig/simAR/base_cov.pdf}
-	\caption{Comparison of estimated covariance and correlation matrices for base forecasts using non-parametric bootstrap (first row) and parametric Gaussian (second and third rows) approaches. The second row uses in-sample residuals and the third row uses multi-step residuals. The true covariance and correlation matrices are shown in Figure \ref{fig:covcorMC}.}
+	\caption{Comparison of estimated covariance and correlation matrices for base forecasts using non-parametric bootstrap (first row) and parametric Gaussian (second and third rows) approaches. The second row uses in-sample residuals and the third row uses multi-step residuals. The true covariance and correlation matrices are shown in \autoref{fig:covcorMC}.}
 	\label{fig:ar2covcor}
 	\end{figure}
 
-Figure \ref{fig:ar2covcor} compares the estimated covariance and correlation matrices for base forecasts using different approaches. The first column represents the covariance matrix and the second column represents the correlation matrix. The first row uses a non-parametric bootstrap approach, while the second and third rows use a parametric Gaussian approach. The second row uses in-sample residuals and the third row uses multi-step residuals. The true covariance and correlation matrices are shown in Figure \ref{fig:covcorMC} for comparison. It is important to highlight that the correlations between the one-step and two-step ahead forecasts are almost always zero when the base forecasts are assumed to be normal and the covariance matrix is estimated using in-sample residuals. Similar results are observed when applying reconciliation.
+\autoref{fig:ar2covcor} compares the estimated covariance and correlation matrices for base forecasts using different approaches. The first column represents the covariance matrix and the second column represents the correlation matrix. The first row uses a non-parametric bootstrap approach, while the second and third rows use a parametric Gaussian approach. The second row uses in-sample residuals and the third row uses multi-step residuals. The true covariance and correlation matrices are shown in \autoref{fig:covcorMC} for comparison. It is important to highlight that the correlations between the one-step and two-step ahead forecasts are almost always zero when the base forecasts are assumed to be normal and the covariance matrix is estimated using in-sample residuals. Similar results are observed when applying reconciliation.
 
 To compare the true covariance matrix $\Omegavet_{ct}$ with the estimated covariance matrix $\Omegavet$, we use the Frobenius norm that is a metric that quantifies the difference between two matrices:
 $$
 \lVert \Dvet \rVert_F = \sqrt{\sum_{i = 1}^{n(k^\ast + m)}\sum_{j = 1}^{n(k^\ast + m)}|d_{i,j}|^2},
 $$
-where $\Dvet = \Omegavet - \Omegavet_{ct}$. The true covariance matrix, shown in Figure \ref{fig:covcorMC}, was compared to the estimated covariance matrix obtained using various reconciliation methods and techniques for base forecasts' samples. By comparing these two matrices using the Frobenius norm, we were able to determine which reconciliation method and simulation technique produce an accurate estimate of the covariance matrix. Other types of matrix norms were also used with similar results.
+where $\Dvet = \Omegavet - \Omegavet_{ct}$. The true covariance matrix, shown in \autoref{fig:covcorMC}, was compared to the estimated covariance matrix obtained using various reconciliation methods and techniques for base forecasts' samples. By comparing these two matrices using the Frobenius norm, we were able to determine which reconciliation method and simulation technique produce an accurate estimate of the covariance matrix. Other types of matrix norms were also used with similar results.
 
-From Table \ref{tab:ar2norm}, it appears that the reconciled covariance matrices are always closer to the true matrix than the base forecast matrix when using the bootstrap technique. However, using in-sample residuals to estimate the covariance matrix in the Gaussian framework results in a matrix far from the “truth". On the other hand, when using multi-step residuals to estimate the covariance matrix, the results are more comparable to those obtained with the bootstrap technique, with the reconciliation improving the estimate of the covariance matrix. Overall, there are no difference in the findings when using either in-sample or multi-step residuals in cross-temporal reconciliation. In fact, using approaches like oct$(bdshr)$, we obtain outcomes that are consistent with the results obtained with covariance matrices like oct$_h(shr)$. It is worth noting that if we simulate the base forecasts using the $HB$ covariance matrix, then reconciliation does not modify it as we expected (see Section \ref{sec:shrtech}). In conclusion, our results suggest that using multi-step residuals or bootstrap techniques may help find an estimate of the covariance matrix close to its true counterpart, and that reconciliation can further improve this estimate.
+From \autoref{tab:ar2norm}, it appears that the reconciled covariance matrices are always closer to the true matrix than the base forecast matrix when using the bootstrap technique. However, using in-sample residuals to estimate the covariance matrix in the Gaussian framework results in a matrix far from the “truth". On the other hand, when using multi-step residuals to estimate the covariance matrix, the results are more comparable to those obtained with the bootstrap technique, with the reconciliation improving the estimate of the covariance matrix. Overall, there are no difference in the findings when using either in-sample or multi-step residuals in cross-temporal reconciliation. In fact, using approaches like oct$(bdshr)$, we obtain outcomes that are consistent with the results obtained with covariance matrices like oct$_h(shr)$. It is worth noting that if we simulate the base forecasts using the $HB$ covariance matrix, then reconciliation does not modify it as we expected (see \autoref{sec:shrtech}). In conclusion, our results suggest that using multi-step residuals or bootstrap techniques may help find an estimate of the covariance matrix close to its true counterpart, and that reconciliation can further improve this estimate.
 
 \begin{table}[t]
 \centering
 \fontsize{9}{11}\selectfont
 \input{tab/Sim/norm_cov.tex}
-\caption{Frobenius norm between the true (in Figure \ref{fig:covcorMC}) and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. In bold, it is reported the lowest value for each column, in blue the minimum.  The notation used to refer to the reconciliation and base forecast samples is explained in more detail in Section \ref{ssec:sim_br}.}
+\caption{Frobenius norm between the true (in \autoref{fig:covcorMC}) and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. In bold, it is reported the lowest value for each column, in blue the minimum.  The notation used to refer to the reconciliation and base forecast samples is explained in more detail in \autoref{ssec:sim_br}.}
 \label{tab:ar2norm}
 \end{table}
 
@@ -1053,7 +1048,7 @@ and
 \begin{equation}\label{eq:skillES_all}
 	\operatorname{ScoreES}_{j,s}= \left(\prod_{k \in \{1,2\}}\frac{ES^{[k]}_{j, s}}{ES^{[k]}_{0, 0}}\right)^{\frac{1}{(k^\ast+m)}}.
 \end{equation}
-A limitation of this simulation experiment is that we are using a high number of residuals, which may result in a potential loss of benefit when using forms of covariance matrix parameterization such as $HB$, $H$, or $B$ (see Section \ref{sec:shrtech}). Additionally, shrinkage techniques often yield very similar, results when we use the corresponding matrix with $\lambda = 0$ (full covariance matrix). It is important to consider these limitations when interpreting the results.
+A limitation of this simulation experiment is that we are using a high number of residuals, which may result in a potential loss of benefit when using forms of covariance matrix parameterization such as $HB$, $H$, or $B$ (see \autoref{sec:shrtech}). Additionally, shrinkage techniques often yield very similar, results when we use the corresponding matrix with $\lambda = 0$ (full covariance matrix). It is important to consider these limitations when interpreting the results.
 
 \begin{table}[p]
 \centering
@@ -1062,7 +1057,7 @@ A limitation of this simulation experiment is that we are using a high number of
 \fontsize{9}{11}\selectfont
 \input{tab/Sim/sam_crps.tex}
 \endgroup
-\caption{CRPS skill score defined in (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:sim_br}.}
+\caption{CRPS skill score defined in (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:sim_br}.}
 \label{tab:ar2crps}
 \end{table}
 
@@ -1073,7 +1068,7 @@ A limitation of this simulation experiment is that we are using a high number of
 \fontsize{9}{11}\selectfont
 \input{tab/Sim/sam_es.tex}
 \endgroup
-\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:sim_br}.}
+\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:sim_br}.}
 \label{tab:ar2es}
 \end{table}
 
@@ -1096,12 +1091,12 @@ Univariate ARIMA models were used to obtain quarterly base forecasts for the $n 
 
 \subsection{Base and reconciled samples}\label{ssec:aus_br}
 
-To construct the base forecasts samples in the Gaussian case, we used the \textit{Global} (G) and \textit{High frequency} (H) sample covariance matrices presented in Section \ref{sec:shrtech} (the results with shrinkage version are available in the online appendix), since it is not possible to identify a unique representation \citep{giro2022} for the other two structures \textit{High frequency Bottom time series} (HB) and \textit{Bottom time series} (B). In addition, we will use multi-step residuals with and without overlapping to calculate these quantities, as the number of residuals available is very small compared to the cross-temporal dimensions presented in Table \ref{tab:num_param_data}. In the nonparametric case, we use the cross-temporal joint bootstrap presented in Section \ref{ssec:boot}.
+To construct the base forecasts samples in the Gaussian case, we used the \textit{Global} (G) and \textit{High frequency} (H) sample covariance matrices presented in \autoref{sec:shrtech} (the results with shrinkage version are available in the online appendix), since it is not possible to identify a unique representation \citep{giro2022} for the other two structures \textit{High frequency Bottom time series} (HB) and \textit{Bottom time series} (B). In addition, we will use multi-step residuals with and without overlapping to calculate these quantities, as the number of residuals available is very small compared to the cross-temporal dimensions presented in \autoref{tab:num_param_data}. In the nonparametric case, we use the cross-temporal joint bootstrap presented in \autoref{ssec:boot}.
 Finally, to reconcile the resulting (1000) base forecasts samples, we have used the following techniques using the \textsf{R}-package \texttt{FoReco} \citep{girolimetto2022}:
 \begin{itemize}[nosep, leftmargin = 2.5cm]
-	\item[\textbf{ct}$(\;\cdot\;, bu_{te})$] partly bottom-up (Section \ref{ssec:ctbu}) starting from cross-sectional reconciled forecasts using the $shr$ and $wls$ approaches (Table \ref{tab:cov_app});
-	\item[\textbf{oct}$_o(\;\cdot\;)$] optimal cross-temporal reconciliation with overlapping residuals for the $wlsv$ (Section \ref{ssec:oct}), $bdshr$ (Section \ref{ssec:oct}), $shr$ (\textit{Global shrinkage} in Section \ref{sec:shrtech}), and $hshr$ (\textit{High frequency shrinkage} in Section \ref{sec:shrtech}) approaches;
-	\item[\textbf{oct}$_{oh}(\;\cdot\;)$] optimal cross-temporal reconciliation with overlapping and multi-step residuals for the $shr$ (\textit{Global shrinkage} in Section \ref{sec:shrtech}) and $hshr$ (\textit{High frequency shrinkage} in Section \ref{sec:shrtech}) approaches.
+	\item[\textbf{ct}$(\;\cdot\;, bu_{te})$] partly bottom-up (\autoref{ssec:ctbu}) starting from cross-sectional reconciled forecasts using the $shr$ and $wls$ approaches (\autoref{tab:cov_app});
+	\item[\textbf{oct}$_o(\;\cdot\;)$] optimal cross-temporal reconciliation with overlapping residuals for the $wlsv$ (\autoref{ssec:oct}), $bdshr$ (\autoref{ssec:oct}), $shr$ (\textit{Global shrinkage} in \autoref{sec:shrtech}), and $hshr$ (\textit{High frequency shrinkage} in \autoref{sec:shrtech}) approaches;
+	\item[\textbf{oct}$_{oh}(\;\cdot\;)$] optimal cross-temporal reconciliation with overlapping and multi-step residuals for the $shr$ (\textit{Global shrinkage} in \autoref{sec:shrtech}) and $hshr$ (\textit{High frequency shrinkage} in \autoref{sec:shrtech}) approaches.
 \end{itemize}
 In the online appendix, we also report the results using in-sample residuals in the reconciliation.
 
@@ -1117,7 +1112,7 @@ Additionally, we utilized the non-parametric Friedman test and the post hoc “M
 \fontsize{9}{11}\selectfont
 \input{tab/AusGDP/sam_crps.tex}
 \endgroup
-\caption{CRPS skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:aus_br}.}
+\caption{CRPS skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:aus_br}.}
 \label{tab:auscrps}
 \end{table}
 
@@ -1128,7 +1123,7 @@ Additionally, we utilized the non-parametric Friedman test and the post hoc “M
 \fontsize{9}{11}\selectfont
 \input{tab/AusGDP/sam_es.tex}
 \endgroup
-\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:aus_br}.}
+\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:aus_br}.}
 \label{tab:auses}
 \end{table}
 
@@ -1150,15 +1145,15 @@ At the base forecasts level, we found that using a parametric approach with the 
 \label{fig:mcb}
 \end{figure}
 
-Figure \ref{fig:gdptrace} shows the base (first row) and reconciled (second and third rows) forecasts for Australian GDP at the second iteration of our forecasting experiment for the bootstrap and Gaussian approaches in the first and second columns respectively. The green shading represents the 80\% confidence interval, while the black line with the triangle represents the observed true values. The red line and dot represent the median value, and the blue line and dot represent the mean value. In the nonparametric case, the median and mean are not always overlapped and centered within the confidence interval (asymmetrical), as is the case in the Gaussian distribution. This is because the nonparametric case does not assume a specific underlying distribution for the data.
+\autoref{fig:gdptrace} shows the base (first row) and reconciled (second and third rows) forecasts for Australian GDP at the second iteration of our forecasting experiment for the bootstrap and Gaussian approaches in the first and second columns respectively. The green shading represents the 80\% confidence interval, while the black line with the triangle represents the observed true values. The red line and dot represent the median value, and the blue line and dot represent the mean value. In the nonparametric case, the median and mean are not always overlapped and centered within the confidence interval (asymmetrical), as is the case in the Gaussian distribution. This is because the nonparametric case does not assume a specific underlying distribution for the data.
 
-Figure \ref{fig:mcb} compare the MCB using the CRPS for the non-parametric bootstrap approach and the Gaussian approach using overlapping and multi-step residuals, with the covariance matrix calculated from the matrix of high frequency time series (H). Also in this case, ct$(wls_{cs},bu_{te})$ and oct$_o(wlsv)$ were found to be significantly better than base forecasts at any level of aggregation, and for $k>1$, oct$_{o}(shr)$ also performed similarly to the first two in the Gaussian framework.
+\autoref{fig:mcb} compare the MCB using the CRPS for the non-parametric bootstrap approach and the Gaussian approach using overlapping and multi-step residuals, with the covariance matrix calculated from the matrix of high frequency time series (H). Also in this case, ct$(wls_{cs},bu_{te})$ and oct$_o(wlsv)$ were found to be significantly better than base forecasts at any level of aggregation, and for $k>1$, oct$_{o}(shr)$ also performed similarly to the first two in the Gaussian framework.
 
 Overall, we found that using overlapping residuals almost always leads to a greater improvement in terms of ES and CRPS, and this is also generally true for reconciliation. Forecasts at the most aggregated level (year) seem to benefit the most from reconciliation, and using in-sample residuals with overlapping appears to be sufficient to improve forecasts if the base forecasts take into account the multi-step structure.
 
 \section{Australian Tourism Demand dataset}\label{sec:vn525}
 
-The Australian Tourist Flows (Visitors Night, VN) dataset \citep{wickramasuriya2019, wickramasuriya2020} measures the number of tourists arriving and spending nights in tourist facilities. It includes 228 monthly observations from January 1998 to December 2016, and has a cross-sectional clustered structure based on a geographic hierarchy and a disaggregation by purpose of travel. The geographic hierarchy is divided into seven states, 27 zones of states, and 76 regions of zones, for a total of 111 geographic divisions. However, six of these zones (see Table \ref{tab:australia} in the Appendix \ref{app:australia}) are each formed by a single region, resulting in a total of 105 unique nodes in the hierarchy. The purpose of travel is divided into four categories: holiday (Hol), visiting friends and relatives (Vis), business (Bus), and other (Oth). According to \cite{difonzo2022a}, 24 nodes should not be considered, resulting in an unbalanced hierarchy of 525 unique nodes, referred to as VN525, instead of the theoretical 555. The dataset includes 304 most disaggregated variables, which can be aggregated into 221 upper time series for a total of 525 variables. Table \ref{tab:nseries}  does not include duplicated entries and updates the information in Table 7 from \cite{wickramasuriya2019}. This data can be temporally aggregated into 2, 3, 4, 6, or 12 months ($\mathcal{K} = \{1,2,3,4,6,12\}$).
+The Australian Tourist Flows (Visitors Night, VN) dataset \citep{wickramasuriya2019, wickramasuriya2020} measures the number of tourists arriving and spending nights in tourist facilities. It includes 228 monthly observations from January 1998 to December 2016, and has a cross-sectional clustered structure based on a geographic hierarchy and a disaggregation by purpose of travel. The geographic hierarchy is divided into seven states, 27 zones of states, and 76 regions of zones, for a total of 111 geographic divisions. However, six of these zones (see \autoref{tab:australia} in the Appendix \ref{app:australia}) are each formed by a single region, resulting in a total of 105 unique nodes in the hierarchy. The purpose of travel is divided into four categories: holiday (Hol), visiting friends and relatives (Vis), business (Bus), and other (Oth). According to \cite{difonzo2022a}, 24 nodes should not be considered, resulting in an unbalanced hierarchy of 525 unique nodes, referred to as VN525, instead of the theoretical 555. The dataset includes 304 most disaggregated variables, which can be aggregated into 221 upper time series for a total of 525 variables. \autoref{tab:nseries}  does not include duplicated entries and updates the information in Table 7 from \cite{wickramasuriya2019}. This data can be temporally aggregated into 2, 3, 4, 6, or 12 months ($\mathcal{K} = \{1,2,3,4,6,12\}$).
 
 \begin{table}[tbp]
 \spacingset{1.1}
@@ -1186,18 +1181,18 @@ The forecasting experiment involves using a recursive training sample with an ex
 
 \subsection{Base and reconciled samples}\label{ssec:vn_br}
 
-To calculate the base forecasts sample, we use the cross-temporal joint bootstrap method described in Section \ref{ssec:boot} for the nonparametric framework. In the Gaussian scenario, we utilize all four covariance matrices outlined in section \ref{sec:shrtech} with $\lambda=0$ (sample covariance matrix): the \textit{Global} (G), \textit{High frequency} (H), \textit{Bottom time series} (B) and \textit{High frequency Bottom time series} (HB) sample covariance matrices. To compute these matrices, we use multi-step residuals to accurately assess the temporal and cross-sectional relationships, but do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see Section \ref{ssec:over_res}).
+To calculate the base forecasts sample, we use the cross-temporal joint bootstrap method described in \autoref{ssec:boot} for the nonparametric framework. In the Gaussian scenario, we utilize all four covariance matrices outlined in \autoref{sec:shrtech} with $\lambda=0$ (sample covariance matrix): the \textit{Global} (G), \textit{High frequency} (H), \textit{Bottom time series} (B) and \textit{High frequency Bottom time series} (HB) sample covariance matrices. To compute these matrices, we use multi-step residuals to accurately assess the temporal and cross-sectional relationships, but do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).
 
 To reconciled the 1000 base forecast samples, we have implemented the following approaches:
 \begin{itemize}[nosep, leftmargin = 2.5cm]
-	\item[\textbf{ct}$(bu)$] cross-temporal bottom up (see Section \ref{ssec:ctbu});
-	\item[\textbf{ct}$(\;\cdot\;, bu_{te})$] partly bottom-up (Section \ref{ssec:ctbu}) starting from cross-sectionally reconciled forecasts using the $shr$ approach (Table \ref{tab:cov_app});
-	\item[\textbf{ct}$(\;\cdot\;, bu_{cs})$] partly bottom-up (Section \ref{ssec:ctbu}) starting from temporally reconciled forecasts using the $wlsv$ approach (Table \ref{tab:cov_app});
-	\item[\textbf{oct}$(\;\cdot\;)$] optimal cross-temporal reconciliation for the $ols$, $struc$, $wlsv$ and $bdshr$ approach (see Section \ref{ssec:oct}). When necessary ($wlsv$ and $bdshr$), in-sample residuals were used.;
-	\item[\textbf{oct}$_{h}(\;\cdot\;)$] optimal cross-temporal reconciliation with multi-step residuals (see Section \ref{ssec:multi_res}) for the shrinkage approaches presented in Section \ref{sec:shrtech}: $shr$ stand for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}, $bshr$ for \textit{bottom time series shrinkage}, $hbshr$ for \textit{High frequency bottom time series shrinkage}.
+	\item[\textbf{ct}$(bu)$] cross-temporal bottom up (see \autoref{ssec:ctbu});
+	\item[\textbf{ct}$(\;\cdot\;, bu_{te})$] partly bottom-up (\autoref{ssec:ctbu}) starting from cross-sectionally reconciled forecasts using the $shr$ approach (\autoref{tab:cov_app});
+	\item[\textbf{ct}$(\;\cdot\;, bu_{cs})$] partly bottom-up (\autoref{ssec:ctbu}) starting from temporally reconciled forecasts using the $wlsv$ approach (\autoref{tab:cov_app});
+	\item[\textbf{oct}$(\;\cdot\;)$] optimal cross-temporal reconciliation for the $ols$, $struc$, $wlsv$ and $bdshr$ approach (see \autoref{ssec:oct}). When necessary ($wlsv$ and $bdshr$), in-sample residuals were used.;
+	\item[\textbf{oct}$_{h}(\;\cdot\;)$] optimal cross-temporal reconciliation with multi-step residuals (see \autoref{ssec:multi_res}) for the shrinkage approaches presented in \autoref{sec:shrtech}: $shr$ stand for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}, $bshr$ for \textit{bottom time series shrinkage}, $hbshr$ for \textit{High frequency bottom time series shrinkage}.
 \end{itemize}
 One issue in working with time series data is the presence of negative values, which can cause difficulties for certain types of models or analyses.
-For the base forecasts, using the bootstrap approach forecasts are naturally non negative (ETS model with the log-transformation), while this is not true for the Gaussian approach. In this case, to satisfy the constraint, we simply set negative values to zero. For the cross-temporal reconciliation, \citet{difonzo2023} offer two potential solutions: a state-of-the-art numerical optimization procedure like \texttt{osqp} (\citealp{stellato2019, stellato2020}) and a simple heuristic strategy called set-negative-to-zero (sntz). In the sntz approach, possible negative values of the reconciled high frequency bottom time series forecasts without any non-negativity constraints are set to zero and finally a cross-temporal reconciliation bottom-up (see Section \ref{ssec:ctbu}) is used to obtain the complete cross-temporal forecasts. \cite{difonzo2023a} found that both methods produced similar quality forecasts for the photovoltaic power generation dataset, but the optimization method required much more time and effort compared to the heuristic method. To reduce computational demands, we chose to use the less time-intensive heuristic approach for reconciliation. Following Theorem \ref{thm:rs}, we are able to obtain the reconciled sample respecting non-negativity constraints starting from an incoherent sample simulated from a normal.
+For the base forecasts, using the bootstrap approach forecasts are naturally non negative (ETS model with the log-transformation), while this is not true for the Gaussian approach. In this case, to satisfy the constraint, we simply set negative values to zero. For the cross-temporal reconciliation, \citet{difonzo2023} offer two potential solutions: a state-of-the-art numerical optimization procedure like \texttt{osqp} (\citealp{stellato2019, stellato2020}) and a simple heuristic strategy called set-negative-to-zero (sntz). In the sntz approach, possible negative values of the reconciled high frequency bottom time series forecasts without any non-negativity constraints are set to zero and finally a cross-temporal reconciliation bottom-up (see \autoref{ssec:ctbu}) is used to obtain the complete cross-temporal forecasts. \cite{difonzo2023a} found that both methods produced similar quality forecasts for the photovoltaic power generation dataset, but the optimization method required much more time and effort compared to the heuristic method. To reduce computational demands, we chose to use the less time-intensive heuristic approach for reconciliation. Following Theorem \ref{thm:rs}, we are able to obtain the reconciled sample respecting non-negativity constraints starting from an incoherent sample simulated from a normal.
 
 Finally, to evaluate the performance, we employed the Continuous Ranked Probability Score (CRPS), the Energy Score (ES), and “Multiple Comparison with the Best" (MCB) Nemenyi test. These were introduced and discussed in Sections \ref{ssec:acc_scores} and \ref{ssec:aus_br}. %We use the bootstrap base forecasts as benchmark ($s=0$ and $j=0$) for the scores (\ref{eq:skill}), (\ref{eq:skillCRPS_all}), and (\ref{eq:skillES_all})
 
@@ -1210,7 +1205,7 @@ Finally, to evaluate the performance, we employed the Continuous Ranked Probabil
 \fontsize{9}{10}\selectfont
 \input{tab/VN525/sam_crps_more.tex}
 \endgroup
-\caption{CRPS skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:vn_br}.}
+\caption{CRPS skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillCRPS_all}) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:vn_br}.}
 \label{tab:vncrps}
 \end{table}
 
@@ -1221,7 +1216,7 @@ Finally, to evaluate the performance, we employed the Continuous Ranked Probabil
 \fontsize{9}{10}\selectfont
 \input{tab/VN525/sam_es_more.tex}
 \endgroup
-\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in Section \ref{ssec:vn_br}.}
+\caption{ES skill score defined in equation (\ref{eq:skill}) and (\ref{eq:skillES_all}) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:vn_br}.}
 \label{tab:vnes}
 \end{table}
 
@@ -1243,10 +1238,10 @@ Looking at the base rows of each table, base forecasts using a Gaussian approach
 \label{fig:vnmcb_h}
 \end{figure}
 
-In the Gaussian case, bottom up ct$(bu)$ and partly bottom-up techniques like ct$(shr_{cs}, bu_{te})$ and ct$(wlsv_{te}, bu_{cs})$ lead to better results than the benchmark (bootstrap base forecasts). However, it's not always guaranteed that the improvement is higher than the starting base forecasts (by comparing the value of each column). This is particularly true for higher levels of temporal aggregation ($k \in \{12, 6, 4, 3\}$). Overall, oct$(bdshr)$ in terms of CRPS is almost always the best. The shrinkage approach oct$_h(hshr)$ has good performance in the bootstrap case: it is competitive with oct$(bdshr)$ in lower temporal level ($k \in \{1,2\}$) and it is able to improve for $k\ge 3$. In terms of ES, oct$(bdshr)$ still competitive, although it is not always the approach with the best improvement. In this case, approaches that attempt to establish a temporal and cross-sectional relationship, such as oct$_h(hbshr)$ and oct$_h(bshr)$, are better. %The difference in performance is due to the nature of the calculation of the indices (see Section \ref{ssec:acc_scores}).
+In the Gaussian case, bottom up ct$(bu)$ and partly bottom-up techniques like ct$(shr_{cs}, bu_{te})$ and ct$(wlsv_{te}, bu_{cs})$ lead to better results than the benchmark (bootstrap base forecasts). However, it's not always guaranteed that the improvement is higher than the starting base forecasts (by comparing the value of each column). This is particularly true for higher levels of temporal aggregation ($k \in \{12, 6, 4, 3\}$). Overall, oct$(bdshr)$ in terms of CRPS is almost always the best. The shrinkage approach oct$_h(hshr)$ has good performance in the bootstrap case: it is competitive with oct$(bdshr)$ in lower temporal level ($k \in \{1,2\}$) and it is able to improve for $k\ge 3$. In terms of ES, oct$(bdshr)$ still competitive, although it is not always the approach with the best improvement. In this case, approaches that attempt to establish a temporal and cross-sectional relationship, such as oct$_h(hbshr)$ and oct$_h(bshr)$, are better. %The difference in performance is due to the nature of the calculation of the indices (see \autoref{ssec:acc_scores}).
 It is also worth noting that techniques that don't make use of residuals like oct$(ols)$ and oct$(struc)$ prove to be competitive by consistently improving the base forecasts in terms of CRPS and ES.
 
-Figure \ref{fig:vnmcb_ctjb} and \ref{fig:vnmcb_h} show the MCB using the CRPS for the non-parametric bootstrap approach and the Gaussian approach using multi-step residuals (HB). In general, partly bottom-up procedure improves with respect to base forecasts at monthly level, but optimal cross-temporal procedures are always better. In the bootstrap framework, we can identify a group of three procedure, oct$(bdshr)$, oct$(hshr)$ and oct$(struc)$ that are almost always in the group of the best approaches (underlying with the blue dot). In the Gaussian framework, oct$(wlsv)$, oct$(struc)$, and oct$(bdshr)$ are always significantly better than base forecasts and equivalent in terms of results for temporal aggregation orders greater than 2. For monthly series, oct$(bdshr)$ is always significantly better than all other approaches.
+\autoref{fig:vnmcb_ctjb} and \ref{fig:vnmcb_h} show the MCB using the CRPS for the non-parametric bootstrap approach and the Gaussian approach using multi-step residuals (HB). In general, partly bottom-up procedure improves with respect to base forecasts at monthly level, but optimal cross-temporal procedures are always better. In the bootstrap framework, we can identify a group of three procedure, oct$(bdshr)$, oct$(hshr)$ and oct$(struc)$ that are almost always in the group of the best approaches (underlying with the blue dot). In the Gaussian framework, oct$(wlsv)$, oct$(struc)$, and oct$(bdshr)$ are always significantly better than base forecasts and equivalent in terms of results for temporal aggregation orders greater than 2. For monthly series, oct$(bdshr)$ is always significantly better than all other approaches.
 
 \section{Conclusion}\label{sec:conclusion}
 
