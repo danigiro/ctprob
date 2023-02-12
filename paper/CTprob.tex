@@ -276,14 +276,16 @@ Finally, \autoref{sec:conclusion} presents conclusions and the research agenda o
 
 %\subsection{Notation}\label{ssec:not}
 
-Denote with $\yvet_t = [y_{1,t},\dots,y_{i,t},\dots,y_{n,t}]'$ an $n$-variate linearly constrained time series observed at the most temporally disaggregated level, with a seasonality of period $m$ (e.g., $m = 12$ for monthly data, $m = 4$ for quarterly data, $m = 24$ for hourly data). Suppose that the constraints are expressed by linear equations, and more generally grouped in a homogeneous linear system (zero-constrained representation, \citealp{wickramasuriya2019} and  \citealp{difonzo2023}), such that
+Let $\yvet_t = [y_{1,t},\dots,y_{i,t},\dots,y_{n,t}]'$ be an $n$-variate linearly constrained time series observed at the most temporally disaggregated level, with a seasonality of period $m$ (e.g., $m = 12$ for monthly data, $m = 4$ for quarterly data, $m = 24$ for hourly data). Suppose that the constraints are expressed by linear equations such that \citep{difonzo2023}
 \begin{equation}
 	\label{eq:cs_con}
 	\Cvet_{cs}\yvet_t = \Zerovet_{(n_a \times 1)}, \qquad t = 1, \;\dots, \;T,
 \end{equation}
-where $\Cvet_{cs}$ is the $(n_a \times n)$ zero constraints cross-sectional matrix , that can be seen as the coefficient matrix of a linear system with $n_a$ equations and $n$ variables. An example is the hierarchical/grouped time series where the bottom-level series can be thought of as building blocks that cannot be obtained as a sum of other series in the hierarchy, while all the series at upper levels can be expressed by appropriately summing part or all of them. For example, \autoref{fig:hierS}(a) shows the two-level hierarchical structure for 3 linearly constrained time series such that $T = X + Y$.
+where $\Cvet_{cs}$ is the $(n_a \times n)$ zero constraints cross-sectional matrix, that can be seen as the coefficient matrix of a linear system with $n_a$ equations and $n$ variables.
 
-Now let $\yvet_t = \begin{bmatrix}\uvet_t' & \bvet_t'\end{bmatrix}'$ where $\uvet_t = \begin{bmatrix} y_{1,t}, \dots, y_{n_a,t}\end{bmatrix}'$ is the $n_a$-vector of upper levels time series and $\bvet_t = \begin{bmatrix} y_{(n_a+1),t}, \dots, y_{n,t} \end{bmatrix}'$ is the $n_b$-vector of bottom level time series with $n = n_a+n_b$. Following \cite{giro2022}, we can always construct a zero-constraints cross-sectional matrix $\Cvet_{cs}=\begin{bmatrix}\Ivet_{n_v} & -\Avet_{cs}\end{bmatrix}$ where $\Avet_{cs}$ is the cross-sectional aggregation matrix such that $\Avet_{cs}\bvet_t = \uvet_t$. In general there is no reason for $\uvet_t$ to be restricted to simple sums of $\bvet_t$. This means that $\Avet_{cs} \in \mathbb{R}^{n_a\times n_b}$ does not consist in just 0s and 1s. Finally, the cross-sectional structural matrix is given by $\Svet_{cs} = \begin{bmatrix}\Avet' & \Ivet_{n_b}\end{bmatrix}'$, providing the structural representation \citep{hyndman2011}
+\input{./fig/hier.tex}
+
+An example is a hierarchical time series where series at upper levels can be expressed by appropriately summing part or all of the series at the bottom level. For example, \autoref{fig:hierS}(a) shows the two-level hierarchical structure for three linearly constrained time series such that $T = X + Y$. Now let $\yvet_t = [\uvet_t',~ \bvet_t']'$, where $\uvet_t = [y_{1,t}, \dots, y_{n_a,t}]'$ is the $n_a$-vector of upper levels time series and $\bvet_t = [y_{(n_a+1),t}, \dots, y_{n,t}]'$ is the $n_b$-vector of bottom level time series with $n = n_a+n_b$. The upper and lower level time series are connected by the cross-sectional aggregation matrix $\Avet_{cs}$ such that $\uvet_t = \Avet_{cs}\bvet_t$. Following \cite{giro2022}, we can always construct a zero-constraints cross-sectional matrix from the aggregation matrix, $\Cvet_{cs}=[\Ivet_{n_a} ~~ {-\Avet_{cs}}]$ . Finally, the cross-sectional structural matrix is given by $\Svet_{cs} = [\Avet' ~~ \Ivet_{n_b}]'$, providing the structural representation \citep{hyndman2011}
 $$
 	\yvet_t = \Svet_{cs} \bvet_t.
 $$
@@ -296,13 +298,13 @@ $$
 	\end{bmatrix}.
 $$
 
-\input{./fig/hier.tex}
+In general there is no reason for $\uvet_t$ to be restricted to simple sums of $\bvet_t$; therefore $\Avet_{cs} \in \mathbb{R}^{n_a\times n_b}$ may contain any real values, and not only 0s and 1s.
 
-Considering now the temporal framework, we denote with $\mathcal{K} = \{ k_p , k_{p-1}, \dots, k_2, k_1 \}$ the set of $p$ factors of $m$, in descending order, where $k_1= 1$ and $k_p= m$ \citep{athanasopoulos2017}. Given a factor $k$ of $m$ and assuming that $T = N m$ (where $N$ is the length of the most temporally aggregated version of the series), we can construct a temporally aggregated version of the time series of a single variable $\{\yvet_{i,t}\}_{t = 1, \dots, T}$, through the non-overlapping sums of its $k$ successive values, which has a seasonal period equal to $M_k= m/k$:
+Considering now the temporal framework, we denote with $\mathcal{K} = \{ k_p , k_{p-1}, \dots, k_2, k_1 \}$ the set of $p$ factors of $m$, in descending order, where $k_1= 1$ and $k_p= m$ \citep{athanasopoulos2017}. Given a factor $k$ of $m$, and assuming that $T = N m$ (where $N$ is the length of the most temporally aggregated version of the series), we can construct a temporally aggregated version of the time series of a single variable $\{\yvet_{i,t}\}_{t = 1, \dots, T}$, through the non-overlapping sums of its $k$ successive values, which has a seasonal period equal to $M_k= m/k$:
 $$
 	x_{i,j}^{[k]} = \sum_{t=(j-1)k+1}^{jk} y_{i,t},\qquad j = 1,\dots, T/k, \qquad i = 1,\dots,n.
 $$
-Note that $x_{i,j}^{[1]}=y_{i,t}$. Define cycle $\tau$ as the observation index of the most aggregated level $k_p$. For a fixed temporal aggregation order $k \in \mathcal{K}$, we stack the observations in the column vector
+Note that $x_{i,j}^{[1]}=y_{i,t}$. Define $\tau$ as the observation index of the most aggregated level $k_p$. For a fixed temporal aggregation order $k \in \mathcal{K}$, we stack the observations in the column vector
 $$
 	\xvet_{i,\tau}^{k} = \begin{bmatrix}x_{i,M_k(\tau-1)+1}^{[k]} & x_{i,M_k(\tau-1)+2}^{[k]} & \dots & x_{i,M_k\tau}^{[k]}\end{bmatrix}',
 $$
@@ -313,13 +315,13 @@ $$
 		\xvet_{i,\tau}^{[k_{p-1}]\prime} &
 		\dots                            &
 		\xvet_{i,\tau}^{[1]\prime}
-	\end{bmatrix}'\quad \tau = 1,\dots,N.
+	\end{bmatrix}',\qquad \tau = 1,\dots,N.
 $$
 The structural representation of the temporal hierarchy \citep{athanasopoulos2017} is then
 $$
 	\xvet_{i,\tau} = \Svet_{te}\xvet_{i,\tau}^{[1]},
 $$
-where $\Svet_{te} = \begin{bmatrix}\Avet_{te}' & \Ivet_{m}\end{bmatrix}'$ is the $[(m+k^\ast) \times m]$ temporal structural matrix, and
+where $\Svet_{te} = [\Avet_{te}' ~~ \Ivet_{m}]'$ is the $[(m+k^\ast) \times m]$ temporal structural matrix, and
 $$
 	\Avet_{te} = \begin{bmatrix}
 		\multicolumn{3}{c}{\Unovet_{k_p}'}                       \\
@@ -333,7 +335,7 @@ is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \sum_{k \i
 	\label{eq:te_con}
 	\Cvet_{te}\xvet_{i,\tau} = \Zerovet_{[k^\ast \times (m+k^\ast)]}, \qquad \tau = 1,\dots,N, \qquad i = 1,\dots, n
 \end{equation}
-where $\Cvet_{te} = \begin{bmatrix}\Ivet_{k^\ast} & -\Avet_{te}\end{bmatrix}$ is the $\left[k^\ast \times (m+k^\ast)\right]$ zero constraints temporal matrix.
+where $\Cvet_{te} = [\Ivet_{k^\ast} ~~ {-\Avet_{te}}]$ is the $[k^\ast \times (m+k^\ast)]$ zero constraints temporal matrix.
 \autoref{fig:hierS}(b) shows the hierarchical representation of a quarterly time series, for which $m = 4$, $\mathcal{K} = \{4,2,1\}$, and
 $$
 	\Avet_{te} = \begin{bmatrix}
@@ -354,10 +356,7 @@ When we temporally aggregate each series, the cross-sectional constraints for th
 	\label{eq:cs_con2}
 	\Cvet_{cs}\xvet^{[k]}_t = \Zerovet_{(n_a \times 1)}, \quad \mathrm{for} \quad k \in \mathcal{K} \quad \mathrm{and} \quad t = 1, \;\dots, \;T,
 \end{equation}
-where $\xvet_t^{[k]} = \begin{bmatrix}
-		\uvet_t^{[k]\prime} & \bvet_t^{[k]\prime}
-	\end{bmatrix}'$ with $\uvet^{[k]}_t = \begin{bmatrix} x^{[k]}_{1,t} & \dots & x^{[k]}_{n_a,t}
-	\end{bmatrix}'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_t = \begin{bmatrix} x^{[k]}_{(n_a+1),t} & \dots & x^{[k]}_{n,t} \end{bmatrix}'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
+where $\xvet_t^{[k]} = \left[\uvet_t^{[k]\prime},~ \bvet_t^{[k]\prime}\right]'$ with $\uvet^{[k]}_t = \left[ x^{[k]}_{1,t}, \dots, x^{[k]}_{n_a,t}\right]'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_t = \left[x^{[k]}_{(n_a+1),t},\dots,x^{[k]}_{n,t}\right]'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
 
 To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, whose rows and columns represent, respectively, the cross-sectional and the temporal dimension:
 \begin{equation}
@@ -371,20 +370,20 @@ To include both cross-sectional and temporal constraints at the same time in a u
 	\quad \text{with} \quad \Xvet_{\tau}^{[k]} = \begin{bmatrix}
 		\Uvet_{\tau}^{[k]} \\
 		\Bvet_{\tau}^{[k]},
-	\end{bmatrix}
+	\end{bmatrix},
 	%= \begin{bmatrix}
 	%\Uvet_{\tau}^{[k_p]} & \dots & \Uvet_{\tau}^{[k_1]} \\[0.25cm]
 	%\Bvet_{\tau}^{[k_p]} & \dots & \Bvet_{\tau}^{[k_1]} \\ \end{bmatrix}
 \end{equation}
 where for any fixed $k$,
-$\Uvet_{\tau}^{[k]}$ is the ($n_a\times T/k$) matrix grouping the upper time series, $\Bvet_{\tau}^{[k]}$ is the ($n_b\times T/k$) matrix grouping the bottom time series. In addition, it is
+$\Uvet_{\tau}^{[k]}$ is the ($n_a\times T/k$) matrix grouping the upper time series, $\Bvet_{\tau}^{[k]}$ is the ($n_b\times T/k$) matrix grouping the bottom time series. Further,
 $$
 	\Cvet_{cs}\Xvet_\tau = \Zerovet_{\left[n_a \times (m+k^\ast)\right]} \qquad \text{and} \qquad \Cvet_{te}\Xvet_\tau' = \Zerovet_{(k^\ast \times n)} .
 $$
 
 \input{./fig/Stilde_mat.tex}
 
-\cite{difonzo2023} show that the cross-temporal constraints working on the complete set of observations at cycle $\tau$ can be expressed in the zero-constrained representation through the $\left[(n_am+nk^\ast)\times n(m+k^\ast)\right]$ zero constraints cross-temporal kernel matrix $\Cvet_{ct}$ such that
+\cite{difonzo2023} show that the cross-temporal constraints working on the complete set of observations corresponding to time period $\tau$ can be expressed in the zero-constrained representation through the $\left[(n_am+nk^\ast)\times n(m+k^\ast)\right]$ zero constraints cross-temporal kernel matrix $\Cvet_{ct}$ such that
 \begin{equation}
 	\label{eq:Cct}
 	\Cvet_{ct} = \begin{bmatrix}
@@ -394,29 +393,24 @@ $$
 	\Cvet_{ct} \xvet_{\tau} = \Zerovet_{[(n_am+nk^\ast)\times1]} \quad \mathrm{for} \quad \tau = 1,\dots,N,
 \end{equation}
 where
-$\xvet_{\tau} = \mathrm{vec}\left(\Xvet_{\tau}'\right) = \begin{bmatrix}
-		\xvet_{1, \tau}' &
-		\dots            &
-		\xvet_{n, \tau}'
-	\end{bmatrix}'$, %($\mathrm{vec}(\cdot)$ is the “vectorization" operator),
-$\Cvet_\ast = \begin{bmatrix}\Zerovet_{(n_a m\times nk^\ast)} & \Ivet_m \otimes \Cvet_{cs}\end{bmatrix}\Pvet'$ and $\Pvet$ is the commutation matrix (\citealp{magnus2019}, p. 54) $\Pvet \mathrm{vec}\left(\Yvet_{\tau}\right) = \mathrm{vec}\left(\Yvet_{\tau}'\right)$. A structural representation can be considered as well:
+$\xvet_{\tau} = \mathrm{vec}(\Xvet_{\tau}') = [\xvet_{1, \tau}',~ 	\dots, ~ \xvet_{n, \tau}']'$, $\Cvet_\ast = [\Zerovet_{(n_a m\times nk^\ast)} ~~ \Ivet_m \otimes \Cvet_{cs}]\Pvet'$, and $\Pvet$ is the commutation matrix \citep[][p.54]{magnus2019} such that $\Pvet \mathrm{vec}(\Yvet_{\tau}) = \mathrm{vec}(\Yvet_{\tau}')$. A structural representation can be considered as well:
 $$
-	\xvet_\tau = \Svet_{ct}\bvet^{[1]}_\tau = s\left(\bvet_{\tau}^{[1]}\right),
+	\xvet_\tau = \Svet_{ct}\bvet^{[1]}_\tau = s(\bvet_{\tau}^{[1]}),
 $$
 where
 \begin{equation}
 	\label{eq:Sct}
 	\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}
 \end{equation}
-is the $\left[n(k^\ast+m)\times n_b m\right]$ cross-temporal summation matrix, $s: \mathbb{R}^{n_b m} \rightarrow \mathbb{R}^{n(m+k^\ast)}$ is the operator describing the pre-multiplication by $\Svet_{ct}$, and $\bvet^{[1]}_\tau = \mathrm{vec}\left(\Bvet^{[1]\prime}_{\tau}\right)$. We observe that, in agreement with \cite{panagiotelis2021}, $\xvet_{\tau}$ lies in an $(n_b m)$-dimensional subspace $\mathfrak{s}_{ct}$ of $\mathbb{R}^{n(k^\ast+m)}$, which we refer to as “cross-temporal coherent subspace”, spanned by the columns of $\Svet_{ct}$.
-In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for 3 linearly constrained quarterly time series, like \autoref{fig:hierS}.
+is the $\left[n(k^\ast+m)\times n_b m\right]$ cross-temporal summation matrix, $s: \mathbb{R}^{n_b m} \rightarrow \mathbb{R}^{n(m+k^\ast)}$ is the operator describing the pre-multiplication by $\Svet_{ct}$, and $\bvet^{[1]}_\tau = \mathrm{vec}(\Bvet^{[1]\prime}_{\tau})$. We observe that, in agreement with \cite{panagiotelis2021}, $\xvet_{\tau}$ lies in an $(n_b m)$-dimensional subspace $\mathfrak{s}_{ct}$ of $\mathbb{R}^{n(k^\ast+m)}$, which we refer to as the “cross-temporal coherent subspace”, spanned by the columns of $\Svet_{ct}$.
+In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for 3 linearly constrained quarterly time series, as shown in \autoref{fig:hierS}.
 
 %\section{Point forecast reconciliation}\label{sec:point}
 
 \subsection{Optimal point forecast reconciliation}\label{ssec:oct}
 %Given a set of incoherent, however obtained, base forecasts for a system of hierarchical time series, forecast reconciliation is in practice a post-forecasting process aimed to improve the quality of the base forecasts.
 
-Let $\widehat{\xvet}_{h} = \mathrm{vec}\left(\widehat{\Xvet}_{h}'\right)$, $h = 1, \dots, H$, be the base forecasts (however obtained) where $H$ is the forecast horizon for the most temporally aggregated time series. Denote
+Let $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$, $h = 1, \dots, H$, be the base forecasts (however obtained) where $H$ is the forecast horizon for the most temporally aggregated time series. Denote
 $$
 	\widehat{\Xvet}_{h} = \begin{bmatrix}
 		\widehat{\xvet}_{1,h} \\
@@ -430,7 +424,7 @@ where $\widehat{\Uvet}_{h}^{[k]}$ is the ($n_a\times M_k$) matrix grouping the u
 $$
 	\Cvet_{ct} \widehat{\xvet}_{h} \neq \Zerovet_{[(n_am+nk^\ast)\times1]} \quad h = 1, \dots, H
 $$
-with $\widehat{\xvet}_{h} = \mathrm{vec}\left(\widehat{\Xvet}_{h}'\right)$. In this framework, the definition for the forecast reconciliation in the cross-sectional framework given by \cite{panagiotelis2021} can be generalized as follows.
+with $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$. In this framework, the definition for the forecast reconciliation in the cross-sectional framework given by \cite{panagiotelis2021} can be generalized as follows.
 \begin{definition}
 	The forecast reconciliation aims to adjust the base forecast $\widehat{\xvet}_{h}$ finding a mapping $\psi: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathfrak{s}$ such that $\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}_{h}\right)$, where $\widetilde{\xvet}_{h} \in \mathfrak{s}$ is the vector of the reconciled forecasts.
 \end{definition}
@@ -439,12 +433,12 @@ For a given forecast horizon $h = 1,\dots, H$, the mapping $\psi$ may be defined
 $$
 	\widehat{\Xvet}_{h} = \Xvet_{h} + \Evet_{h},
 $$
-where the involved matrices have each dimension $[n \times (k^\ast + m)]$ and contain, respectively, the base $\Big(\widehat{\Xvet}_{h}\Big)$ and the target forecasts $\Big(\Xvet_{h}\Big)$, and the coherency errors $\Big(\Evet_{h}\Big)$. We consider now the vectorized version of this multivariate model, such that
+where each matrix has dimension $[n \times (k^\ast + m)]$ and contain, respectively, the base $(\widehat{\Xvet}_{h})$ and the target forecasts $(\Xvet_{h})$, and the coherency errors $(\Evet_{h})$. We consider now the vectorized version of this multivariate model, such that
 $$
 	\widehat{\xvet}_{h} = \xvet_{h} + \etavet_{h}
 $$
-where $\widehat{\xvet}_{h} = \mathrm{vec}\Big(\widehat{\Xvet}'_{h}\Big)$, $\xvet_{h} = \mathrm{vec}\Big(\Xvet'_{h}\Big)$ and $\etavet_{h} = \mathrm{vec}\Big(\Evet'_{h}\Big)$  is the cross-temporal reconciliation error with zero mean and p.d. covariance matrix $\Omegavet_{ct}$.
-Assuming $\Omegavet_{ct}$ known, the reconciled forecasts are the solution to the linearly constrained minimization of the generalized least squares (GLS) objective function
+where $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}'_{h})$, $\xvet_{h} = \mathrm{vec}(\Xvet'_{h})$ and $\etavet_{h} = \mathrm{vec}(\Evet'_{h})$  is the cross-temporal reconciliation error with zero mean and p.d. covariance matrix $\Omegavet_{ct}$.
+Assuming $\Omegavet_{ct}$ is known, the reconciled forecasts are the solution to the linearly constrained minimization of the generalized least squares (GLS) objective function
 $$
 	\left(\xvet_h - \widehat{\xvet}_h\right)' \Omegavet_{ct}^{-1}\left(\xvet_h - \widehat{\xvet}_h\right)  \qquad \text{s.t.} \quad \Cvet_{ct}\xvet_h = \Zerovet_{[(n_am+nk^\ast)\times1]}.
 $$
@@ -453,7 +447,7 @@ According to the projection approach \citep{byron1978,byron1979, vanerven2015, w
 	\label{eq:Mvet}
 	\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}\right) = \Mvet \widehat{\xvet},
 \end{equation}
-where $\Mvet = \Ivet_{n(m+ k^\ast)} - \Omegavet_{ct}\Cvet'_{ct}\left(\Cvet_{ct}\Omegavet_{ct}\Cvet'_{ct}\right)^{-1}\Cvet_{ct}$, and $\widetilde{\xvet}_{h} = \mathrm{vec}\Big(\widetilde{\Xvet}'_{h}\Big)$. It is worth noting that $\Cvet_{ct}$ defined in equation \eqref{eq:Cct} is a full rank matrix.
+where $\Mvet = \Ivet_{n(m+ k^\ast)} - \Omegavet_{ct}\Cvet'_{ct}\left(\Cvet_{ct}\Omegavet_{ct}\Cvet'_{ct}\right)^{-1}\Cvet_{ct}$, and $\widetilde{\xvet}_{h} = \mathrm{vec}(\widetilde{\Xvet}'_{h})$. It is worth noting that $\Cvet_{ct}$ defined in equation \eqref{eq:Cct} is a full rank matrix.
 
 Alternatively, the cross-temporal reconciled forecasts $\widetilde{\Xvet}_{h}$ may be found according to the structural approach proposed by \cite{hyndman2011} for the cross-sectional framework, then extend in terms of minimum variance linear unbiased reconciled forecasts \citep{wickramasuriya2019}:
 $$
@@ -463,7 +457,7 @@ with solution equivalent to the cross-temporally reconciled forecasts in \eqref{
 \begin{equation}\label{eq:SGy}
 	\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}\right) = \left(s \circ g \right)\left(\widehat{\xvet}\right)=\Svet_{ct}\Gvet \widehat{\xvet}_{h},
 \end{equation}
-where $\Gvet = \left(\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct}\right)^{-1} \Svet_{ct}'\Omegavet_{ct}^{-1}$ and $\Mvet = \Svet_{ct} \Gvet$ \citep{wickramasuriya2019, difonzo2023}. In this case, $\psi$ is the composition of two transformations, say $s \circ g$, where $g: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathbb{R}^{n_b m}$ is a continuous function.
+where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omegavet_{ct}^{-1}$ and $\Mvet = \Svet_{ct} \Gvet$ \citep{wickramasuriya2019, difonzo2023}. In this case, $\psi$ is the composition of two transformations, say $s \circ g$, where $g: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathbb{R}^{n_b m}$ is a continuous function.
 
 \cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix:
 \begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
@@ -590,7 +584,7 @@ The original classic bottom-up approach \citep{dunn1976, dangerfield1992} simply
 		\label{fig:csbu}
 	\end{subfigure}
 	\vspace{-1cm}
-	\caption{A visual representation of partly bottom up starting from \eqref{fig:tebu} cross-sectionally reconciled forecasts for the temporal order 1 $\left(\widetilde{\Uvet}^{[1]}\mbox{ and }\widetilde{\Bvet}^{[1]}\right)$ follow by a temporal bottom up, and \eqref{fig:csbu} temporally reconciled forecasts of the cross-sectional bottom time series $\left(\widetilde{\Bvet}^{[k]}, \, k\in \mathcal{K}\right)$ follow by a cross-sectional bottom up. The \colorbox{mybluehl}{blue} background indicates the reconciliation along one dimension, while the \colorbox{pink}{pink} background indicates the forecasts obtained using bottom-up along the other dimension.}
+	\caption{A visual representation of partly bottom up starting from \eqref{fig:tebu} cross-sectionally reconciled forecasts for the temporal order 1 ($\widetilde{\Uvet}^{[1]}$ and $\widetilde{\Bvet}^{[1]}$) follow by a temporal bottom up, and \eqref{fig:csbu} temporally reconciled forecasts of the cross-sectional bottom time series $(\widetilde{\Bvet}^{[k]}, \, k\in \mathcal{K})$ follow by a cross-sectional bottom up. The \colorbox{mybluehl}{blue} background indicates the reconciliation along one dimension, while the \colorbox{pink}{pink} background indicates the forecasts obtained using bottom-up along the other dimension.}
 	\label{fig:bigBU}
 \end{figure}
 
