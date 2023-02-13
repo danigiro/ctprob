@@ -584,53 +584,53 @@ On the right (\autoref{fig:csbu}), we first compute the temporally reconciled fo
 
 \section{Probabilistic forecast reconciliation}\label{sec:prob}
 
-To introduce the idea of coherence and probabilistic forecast reconciliation, we adapt to the cross-temporal framework the notations and the formal definitions introduced in \cite{wickramasuriya2021b} and \cite{panagiotelis2023} for the cross-sectional probabilistic case. These definitions can also be generalized by following the approach developed by \cite{corani2022} for count data. However, in this paper we only focus on the continuous case.
+To introduce the idea of coherence and probabilistic forecast reconciliation, we adapt the notations and the formal definitions introduced in \cite{wickramasuriya2021b} and \cite{panagiotelis2023} for the cross-sectional probabilistic case. These definitions can also be generalized to the cross-temporal framework by following the approach developed by \cite{corani2022} for count data. However, in this paper we only focus on the continuous case.
 
-We want to extend the definition of \textit{cross-temporal coherent probabilistic forecasts} and \textit{cross-temporal probabilistic forecast reconciliation}.
-Let $\left(\mathbb{R}^{n_b m}, \mathcal{F}_{\mathbb{R}^{n_b m}}, \mu\right)$ be a probability space for the high frequency bottom time series ($\bvet_{\tau}^{[1]}$), where $\mathcal{F}_{\mathbb{R}^{n_b m}}$ is the Borel $\sigma$-algebra on $\mathbb{R}^{n_b m}$. Then a $\sigma$-algebra $\mathcal{F}_{\mathfrak{s}}$ can be constructed from the collection of sets $s(\mathcal{B})$ for all $\mathcal{B} \in \mathcal{F}_{\mathbb{R}^{n_b m}}$.
+We want to extend these definitions to \textit{cross-temporal coherent probabilistic forecasts} and \textit{cross-temporal probabilistic forecast reconciliation}.
+Let $(\mathbb{R}^{n_b m}, \mathcal{F}_{\mathbb{R}^{n_b m}}, \mu)$ be a probability space for the bottom time series $\bvet_{\tau}^{[1]}$, where $\mathcal{F}_{\mathbb{R}^{n_b m}}$ is the Borel $\sigma$-algebra on $\mathbb{R}^{n_b m}$. Then a $\sigma$-algebra $\mathcal{F}_{\mathfrak{s}}$ can be constructed from the collection of sets $s(\mathcal{B})$ for all $\mathcal{B} \in \mathcal{F}_{\mathbb{R}^{n_b m}}$.
 \begin{definition}[Cross-temporal coherent probabilistic forecasts]
-	Given the probability space $\left(\mathbb{R}^{n_b m}, \mathcal{F}_{\mathbb{R}^{n_b m}}, \mu\right)$, we call coherent probability space the triple $\left(\mathfrak{s}, \mathcal{F}_{\mathfrak{s}}, \breve{\mu}\right)$ satisfying the following property:
+	Given the probability space $(\mathbb{R}^{n_b m}, \mathcal{F}_{\mathbb{R}^{n_b m}}, \mu)$, we define the coherent probability space as the triple $(\mathfrak{s}, \mathcal{F}_{\mathfrak{s}}, \breve{\mu})$ satisfying the following property:
 	$$
 		\breve{\mu}(s(\mathcal{B}))=\mu(\mathcal{B}), \quad \forall \mathcal{B} \in \mathcal{F}_{\mathbb{R}^{n_b m}} .
 	$$
 \end{definition}
-Let $\left(\mathbb{R}^{n(m+k^\ast)}, \mathcal{F}_{\mathbb{R}^{n(m+k^\ast)}}, \hat{\mu}\right)$ be a probability space referring to the incoherent probabilistic forecast ($\widehat{\xvet}_{h}$) for all the $n$ series at any temporal aggregation $k \in \mathcal{K}$ in the system.
+Let $(\mathbb{R}^{n(m+k^\ast)}, \mathcal{F}_{\mathbb{R}^{n(m+k^\ast)}}, \hat{\mu})$ be a probability space referring to the incoherent probabilistic forecast ($\widehat{\xvet}_{h}$) for all the $n$ series at any temporal aggregation $k \in \mathcal{K}$ in the system.
 \begin{definition}[Cross-temporal probabilistic forecast reconciliation]\label{def:pfr}
 	The reconciled probability measure of $\hat{\mu}$ with respect to $\psi$ is a probability measure $\tilde{\mu}$ on $\mathfrak{s}$ with $\sigma$-algebra $\mathcal{F}_{\mathfrak{s}}$ satisfying
 	\begin{equation}\label{eq:pfr}
-		\tilde{\mu}(\mathcal{A})=\hat{\mu}\left(\psi^{-1}(\mathcal{A})\right), \quad \forall \mathcal{A} \in \mathcal{F}_{\mathfrak{s}},
+		\tilde{\mu}(\mathcal{A})=\hat{\mu}(\psi^{-1}(\mathcal{A})), \quad \forall \mathcal{A} \in \mathcal{F}_{\mathfrak{s}},
 	\end{equation}
-	where $\psi^{-1}(\mathcal{A})=\left\{x \in \mathbb{R}^{n(m+k^\ast)}: \psi(x) \in \mathcal{A}\right\}$ denotes the pre-image of $\mathcal{A}$.
+	where $\psi^{-1}(\mathcal{A})=\{x \in \mathbb{R}^{n(m+k^\ast)}: \psi(x) \in \mathcal{A}\}$ denotes the pre-image of $\mathcal{A}$.
 \end{definition}
 The map $\psi$ may be obtained as the composition of $s \circ g$, as for the cross-temporal point reconciliation \eqref{eq:SGy}.
 
-In the same way, the definitions and theorems presented in \citet{corani2021} for a more general framework valid also for count data ($\mathbb{N}$) can be applied to the cross-temporal case as well.
-
-%\listoftodos[Notes]
+In a similar way, the definitions and theorems presented in \citet{corani2021} can be applied to the cross-temporal case as well.
 
 \subsection{Non-parametric framework: bootstrap reconciliation}\label{ssec:boot}
 
-Analytical expressions for the base and reconciled forecast distributions are sometimes challenging to express, or use unrealistic parametric assumptions.
+Analytical expressions for the base and reconciled forecast distributions are sometimes challenging to express, and they sometimes use unrealistic parametric assumptions.
 
 \begin{theorem}[Cross-temporal reconciled samples] \label{thm:rs}
-	Suppose that $\left(\widehat{\xvet}_1, \ldots, \widehat{\xvet}_L\right)$ is a sample drawn from a (cross-temporal) incoherent probability measure $\widehat{\nu}$. Then $\left(\widetilde{\xvet}_1, \ldots, \widetilde{\xvet}_L\right)$, where $\widetilde{\xvet}_\ell:=\psi\left(\widehat{\xvet}_\ell\right)$, $\ell= 1, \ldots, L\;$, is a sample drawn from the (cross-temporal) reconciled probability measure $\widetilde{\nu}$ as defined in \eqref{eq:pfr}.
+	Suppose that $(\widehat{\xvet}_1, \dots, \widehat{\xvet}_L)$ is a sample drawn from a (cross-temporal) incoherent probability measure $\widehat{\nu}$. Then $(\widetilde{\xvet}_1, \dots, \widetilde{\xvet}_L)$, where $\widetilde{\xvet}_\ell=\psi(\widehat{\xvet}_\ell)$ and $\ell= 1, \dots, L$, is a sample drawn from the (cross-temporal) reconciled probability measure $\widetilde{\nu}$ as defined in \eqref{eq:pfr}.
 \end{theorem}
 \begin{proof}
 	See Theorem 4.5 from \cite{panagiotelis2023} using Definition \ref{def:pfr}.
 \end{proof}
-Theorem \ref{thm:rs} is the cross-temporal extension of the Theorem 4.5 in \cite{panagiotelis2023}. It means that a sample from the reconciled distribution can be obtained by reconciling each member of a sample from the incoherent distribution.
+Theorem \ref{thm:rs} is the cross-temporal extension of Theorem 4.5 in \cite{panagiotelis2023}. It means that a sample from the reconciled distribution can be obtained by reconciling each member of a sample from the incoherent distribution.
 
-An important issue is how to generate base forecasts' samples that preserve cross-temporal relationships. We suggest the cross-temporal joint (block) bootstrap (\textbf{ctjb}) to solve this issue. The approach involves sampling from the most temporally aggregated level ($m$) while maintaining the cross-sectional structure, and using the most temporally aggregated level to determine the samples' indices for the other levels.
+An important issue is how to generate samples from the base forecast distributions that preserve cross-temporal relationships. We suggest the cross-temporal joint (block) bootstrap (\textbf{ctjb}) to solve this issue. The approach involves drawing samples of all series at the same time from the most temporally aggregated level, and using the most temporally aggregated level to determine the corresponding time indices for the other levels.
+
+Let $\widehat{\Evet}^{[k]}$ be the $(n \times T/k)$ matrix of the in-sample residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover four years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Further, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and in-sample residuals for the $i^{th}$ series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models, perhaps for different temporal levels or for groups of historical series.
 
 \input{fig/res_boot.tex}
 
 \input{fig/ct_boot.tex}
 
-Let $\widehat{\Evet}^{[k]}$ be the $(n \times T/k)$ matrix of the in-sample residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover 4 years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Furthermore, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and in-sample residuals for the $i$-th series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models perhaps for different temporal levels or for groups of historical series. Assuming $H = 1$, $\tau$ is a random draw with replacement from $1,\dots, N$ and the $\ell^{th}$ bootstrap incoherent sample is
+Assuming $H = 1$, $\tau$ is a random draw with replacement from $1,\dots, N$ and the $\ell^{th}$ bootstrap incoherent sample is
 $$
-	\widehat{\xvet}_{i,\ell}^{[k]} = f_i\left(\mathcal{M}_i, \widehat{\evet}_{i}^{[k]}\right)
+	\widehat{\xvet}_{i,\ell}^{[k]} = f_i(\mathcal{M}_i, \widehat{\evet}_{i}^{[k]}),
 $$
-where $f_i(\cdot)$ depend on the fitted univariate model $\mathcal{M}_i$. That is, $\widehat{\xvet}_{i,l}^{[k]}$ is a sample path simulated for the $i$-th series with error approximated by the corresponding block bootstrapped sample residual $\widehat{\evet}_{i}^{[k]}$, the $i$-th row of
+where $f_i(\cdot)$ depends on the fitted univariate model $\mathcal{M}_i$. That is, $\widehat{\xvet}_{i,l}^{[k]}$ is a sample path simulated for the $i^{th}$ series with error approximated by the corresponding block bootstrapped sample residual $\widehat{\evet}_{i}^{[k]}$, the $i^{th}$ row of
 $$
 	\widehat{\Evet}^{[k]}_{\tau} = \begin{bmatrix}
 		\widehat{e}^{[k]}_{1,M_k(\tau-1)+1} & \dots  & \widehat{e}^{[k]}_{1,M_k\tau}   \\
@@ -640,7 +640,7 @@ $$
 $$
 where $\widehat{\Evet}_{\tau} = \begin{bmatrix}
 		\widehat{\evet}^{[m]}_\tau & \widehat{\Evet}^{[k_{p-1}]}_{\tau} & \dots & \widehat{\Evet}^{[1]}_{\tau}
-	\end{bmatrix}$ is a $[n \times (k^\ast + m)]$ matrix where $\widehat{\evet}^{[m]}_\tau$ is the $\tau$-th column of $\widehat{\Evet}^{[m]}$ and $\widehat{\Evet}^{[k]}_{\tau}$ is the $(n \times M_k)$ matrix formed by columns $M_k(\tau-1)+1,\dots, M_k \tau$ of $\widehat{\Evet}^{[k]}$. 	\autoref{fig:ct_boot} shows the component of $\widehat{\Evet}_{\tau} = \begin{bmatrix}
+	\end{bmatrix}$ is a $[n \times (k^\ast + m)]$ matrix where $\widehat{\evet}^{[m]}_\tau$ is the $\tau^{th}$ column of $\widehat{\Evet}^{[m]}$ and $\widehat{\Evet}^{[k]}_{\tau}$ is the $(n \times M_k)$ matrix formed by columns $M_k(\tau-1)+1,\dots, M_k \tau$ of $\widehat{\Evet}^{[k]}$. 	\autoref{fig:ct_boot} shows the component of $\widehat{\Evet}_{\tau} = \begin{bmatrix}
 		\widehat{\evet}^{[4]}_\tau & \widehat{\Evet}^{[2]}_{\tau} & \widehat{\Evet}^{[1]}_{\tau}
 	\end{bmatrix}$ for the quarterly cross-temporal hierarchy in \autoref{fig:hierS}.
 
@@ -676,7 +676,7 @@ where $\lambda \in [0,1]$ is the shrinkage intensity parameter.
 $$
 	\widehat{\lambda}=\frac{\sum_{i \neq j} \widehat{\mathrm{Var}}(\widehat{\sigma}_{i j})}{\sum_{i \neq j} \widehat{\sigma}_{i j}^2},
 $$
-where $\widehat{\sigma}_{i j}$ is the $i j$-th element of $\widehat{\Omegavet}$. In finite samples, $\widehat{\lambda}$ may exceed unity or even become negative; to avoid over-shrinkage or negative shrinkage, the condition
+where $\widehat{\sigma}_{i j}$ is the $i j^{th}$ element of $\widehat{\Omegavet}$. In finite samples, $\widehat{\lambda}$ may exceed unity or even become negative; to avoid over-shrinkage or negative shrinkage, the condition
 $$
 	\widehat{\lambda}^\ast=\max \left[0, \min \left(1, \widehat{\lambda}\right)\right]
 $$
@@ -863,7 +863,7 @@ where $\widehat{Z}_{t+h|t}$ is the $h$-step fitted value, calculated as the $h$-
 		Cov\left[\left(Z_{t+2}-\widehat{Z}_{t+2|t}\right), \left(Z_{t+1}-\widehat{Z}_{t+1|t}\right)\right] & = Cov\left[\left(\phi_{i, 1}\varepsilon_{t+1} + \varepsilon_{t+2}\right), \varepsilon_{t+1}\right] = \phi_{1}\sigma^2.
 	\end{aligned}
 \end{equation*}
-Using multi-step residuals does not require any changes to the matrix structure \eqref{eq:Emat}; we simply replace the $h$-th column of the matrix $\Evet_i^{[k]}$ in equation \eqref{eq:Evetki} with the corresponding shifted residuals at $h$-step ($h = 1, \dots, m/k$).
+Using multi-step residuals does not require any changes to the matrix structure \eqref{eq:Emat}; we simply replace the $h^{th}$ column of the matrix $\Evet_i^{[k]}$ in equation \eqref{eq:Evetki} with the corresponding shifted residuals at $h$-step ($h = 1, \dots, m/k$).
 
 \subsection{Overlapping residuals}\label{ssec:over_res}
 
@@ -1011,7 +1011,7 @@ The accuracy of the probabilistic forecasts is evaluated using the Continuous Ra
 \begin{equation}\label{eq:crps}
 	\operatorname{CRPS}(\hat{P}_i, z_i)=\frac{1}{L} \sum_{l=1}^{L}\left|x_{i,l}-z_i\right|-\frac{1}{2 L^{2}} \sum_{l=1}^{L} \sum_{j=1}^{L}\left|x_{i,l}-x_{i,j}\right|, \quad i = 1,\dots,n,
 \end{equation}
-where $\hat{P}_i(\omega)=\frac{1}{L} \sum_{l=1}^{L} \mathbf{1}\left(x_{i,l} \leq \omega\right)$, $\xvet_{1}, \xvet_{2}, \ldots, \xvet_{L}\in \mathbb{R}^{n}$ is a collection of $L$ random draws taken from the predictive distribution and $\zvet \in \mathbb{R}^{n}$ is the observation vector. This scoring rule is implemented in the \textsf{R} package \texttt{scoringRules} \citep{jordan2019}. CRPS is an index that considers the single series and provides us a marginal evaluation of the approaches.
+where $\hat{P}_i(\omega)=\frac{1}{L} \sum_{l=1}^{L} \mathbf{1}\left(x_{i,l} \leq \omega\right)$, $\xvet_{1}, \xvet_{2}, \dots, \xvet_{L}\in \mathbb{R}^{n}$ is a collection of $L$ random draws taken from the predictive distribution and $\zvet \in \mathbb{R}^{n}$ is the observation vector. This scoring rule is implemented in the \textsf{R} package \texttt{scoringRules} \citep{jordan2019}. CRPS is an index that considers the single series and provides us a marginal evaluation of the approaches.
 In addition, we employ the Energy Score (ES, \citealp{gneiting2014}), that is the CRPS extension to the multivariate case, to evaluate the forecasting accuracy for the whole system \citep{wickramasuriya2021b, panagiotelis2023} ,
 \begin{equation}\label{eq:es}
 	\operatorname{ES}(\hat{P}, \zvet)=\frac{1}{L} \sum_{l=1}^{L}\left\|\xvet_{l}-\zvet\right\|_{2}-\frac{1}{2(L-1)} \sum_{i=1}^{L-1}\left\|\xvet_{l}-\xvet_{l+1}\right\|_{2}
@@ -1256,7 +1256,7 @@ Note that,
 $$
 	Y_{i,t} = \phi_{i,1}Y_{i,t-1} + \phi_{i,2}Y_{i,t-2} + \varepsilon_{i,t}
 $$
-where $\epsvet_t \sim \mathcal{N}_{2}\left(\Zerovet_{(2\times 1)}, \Omegavet_{cs}\right)$. Let $Y_{i,T+h}$ be the true observation for the $i$-th series and $\widetilde{Y}_{i,T+h}$ the corresponding forecasts such that
+where $\epsvet_t \sim \mathcal{N}_{2}\left(\Zerovet_{(2\times 1)}, \Omegavet_{cs}\right)$. Let $Y_{i,T+h}$ be the true observation for the $i^{th}$ series and $\widetilde{Y}_{i,T+h}$ the corresponding forecasts such that
 $$
 	\begin{array}{rl}
 		Y_{i,T+1} & = \phi_{i,1}Y_{i,T} + \phi_{i,2}Y_{i,T-1} + \varepsilon_{i,T+1} \\
