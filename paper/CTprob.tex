@@ -410,7 +410,7 @@ In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for 3 linearly constra
 \subsection{Optimal point forecast reconciliation}\label{ssec:oct}
 %Given a set of incoherent, however obtained, base forecasts for a system of hierarchical time series, forecast reconciliation is in practice a post-forecasting process aimed to improve the quality of the base forecasts.
 
-Let $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$, $h = 1, \dots, H$, be the base forecasts (however obtained) where $H$ is the forecast horizon for the most temporally aggregated time series. Denote
+Let $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$, $h = 1, \dots, H$, be the base forecasts (however obtained) with error covariance matrix given by $\bm{W}_h = \text{Var}(\widehat{\xvet}_h - \xvet)$, where $H$ is the forecast horizon for the most temporally aggregated time series. Denote
 $$
 	\widehat{\Xvet}_{h} = \begin{bmatrix}
 		\widehat{\xvet}_{1,h} \\
@@ -422,42 +422,31 @@ $$
 $$
 where $\widehat{\Uvet}_{h}^{[k]}$ is the ($n_a\times M_k$) matrix grouping the upper time series and $\widehat{\Bvet}_{h}^{[k]}$ is the ($n_b\times M_k$) matrix grouping the bottom time series for a given temporal aggregation order $k$. The matrix $\widehat{\Xvet}_{h}$, organized as ${\Xvet}_{\tau}$ in expression \eqref{eq:Xtau}, contains incoherent forecasts, that is:
 $$
-	\Cvet_{ct} \widehat{\xvet}_{h} \neq \Zerovet_{[(n_am+nk^\ast)\times1]} \quad h = 1, \dots, H
+	\Cvet_{ct} \widehat{\xvet}_{h} \neq \Zerovet_{[(n_am+nk^\ast)\times1]} \qquad h = 1, \dots, H,
 $$
-with $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$. In this framework, the definition for the forecast reconciliation in the cross-sectional framework given by \cite{panagiotelis2021} can be generalized as follows.
+with $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$. In this framework, the definition for forecast reconciliation in the cross-sectional framework given by \cite{panagiotelis2021} can be generalized as follows.
 \begin{definition}
-	The forecast reconciliation aims to adjust the base forecast $\widehat{\xvet}_{h}$ finding a mapping $\psi: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathfrak{s}$ such that $\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}_{h}\right)$, where $\widetilde{\xvet}_{h} \in \mathfrak{s}$ is the vector of the reconciled forecasts.
+	Forecast reconciliation aims to adjust the base forecast $\widehat{\xvet}_{h}$ by finding a mapping $\psi: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathfrak{s}$ such that $\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}_{h}\right)$, where $\widetilde{\xvet}_{h} \in \mathfrak{s}$ is the vector of the reconciled forecasts.
 \end{definition}
 
-For a given forecast horizon $h = 1,\dots, H$, the mapping $\psi$ may be defined as the solution to the multivariate regression model (\citealp{difonzo2023})
-$$
-	\widehat{\Xvet}_{h} = \Xvet_{h} + \Evet_{h},
-$$
-where each matrix has dimension $[n \times (k^\ast + m)]$ and contain, respectively, the base $(\widehat{\Xvet}_{h})$ and the target forecasts $(\Xvet_{h})$, and the coherency errors $(\Evet_{h})$. We consider now the vectorized version of this multivariate model, such that
-$$
-	\widehat{\xvet}_{h} = \xvet_{h} + \etavet_{h}
-$$
-where $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}'_{h})$, $\xvet_{h} = \mathrm{vec}(\Xvet'_{h})$ and $\etavet_{h} = \mathrm{vec}(\Evet'_{h})$  is the cross-temporal reconciliation error with zero mean and p.d. covariance matrix $\Omegavet_{ct}$.
-Assuming $\Omegavet_{ct}$ is known, the reconciled forecasts are the solution to the linearly constrained minimization of the generalized least squares (GLS) objective function
-$$
-	\left(\xvet_h - \widehat{\xvet}_h\right)' \Omegavet_{ct}^{-1}\left(\xvet_h - \widehat{\xvet}_h\right)  \qquad \text{s.t.} \quad \Cvet_{ct}\xvet_h = \Zerovet_{[(n_am+nk^\ast)\times1]}.
-$$
-According to the projection approach \citep{byron1978,byron1979, vanerven2015, wickramasuriya2019, panagiotelis2021, difonzo2023}, the cross-temporally reconciled forecasts are then given by
+For a given forecast horizon $h = 1,\dots, H$, the mapping $\psi$ may be defined as a projection onto $\mathfrak{s}$ given by \citep{panagiotelis2021, difonzo2023}
 \begin{equation}
 	\label{eq:Mvet}
 	\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}\right) = \Mvet \widehat{\xvet},
 \end{equation}
-where $\Mvet = \Ivet_{n(m+ k^\ast)} - \Omegavet_{ct}\Cvet'_{ct}\left(\Cvet_{ct}\Omegavet_{ct}\Cvet'_{ct}\right)^{-1}\Cvet_{ct}$, and $\widetilde{\xvet}_{h} = \mathrm{vec}(\widetilde{\Xvet}'_{h})$. It is worth noting that $\Cvet_{ct}$ defined in equation \eqref{eq:Cct} is a full rank matrix.
+where $\Mvet = \Ivet_{n(m+ k^\ast)} - \Omegavet_{ct}\Cvet'_{ct}\left(\Cvet_{ct}\Omegavet_{ct}\Cvet'_{ct}\right)^{-1}\Cvet_{ct}$, for a positive definite matrix $\Omegavet_{ct}$, and $\widetilde{\xvet}_{h} = \mathrm{vec}(\widetilde{\Xvet}'_{h})$. It is worth noting that $\Cvet_{ct}$ defined in equation \eqref{eq:Cct} is a full rank matrix.
 
-Alternatively, the cross-temporal reconciled forecasts $\widetilde{\Xvet}_{h}$ may be found according to the structural approach proposed by \cite{hyndman2011} for the cross-sectional framework, then extend in terms of minimum variance linear unbiased reconciled forecasts \citep{wickramasuriya2019}:
+\citet{wickramasuriya2019} showed that the minimum variance linear unbiased reconciled forecasts, satisfying
 $$
-	\min_{\Gvet} \; \text{tr}\left(\Svet_{ct}\Gvet\Omegavet_{ct}\Gvet'\Svet_{ct}' \right) \quad \text{s.t.} \; \Svet_{ct}\Gvet\Svet_{ct} = \Svet_{ct},
+  \min \; \text{tr}[\text{Var}(\widetilde{\bm{x}}_h -\bm{x})]\qquad \text{s.t.} \; \text{E}(\widetilde{\bm{x}}_h -\bm{x}) = 0,
 $$
-with solution equivalent to the cross-temporally reconciled forecasts in \eqref{eq:Mvet}, given by
+has solution \eqref{eq:Mvet} when $\Omegavet_{ct} = \bm{W}_h$.
+
+Alternatively, the cross-temporal reconciled forecasts $\widetilde{\Xvet}_{h}$ may be found according to the structural approach proposed by \cite{hyndman2011} for the cross-sectional framework, yielding $\widetilde{\bm{x}}_h = \Svet_{ct}\Gvet \widehat{x}_h$ for some matrix $\Gvet$. \citet{wickramasuriya2019} showed that this leads to a solution equivalent to the cross-temporally reconciled forecasts in \eqref{eq:Mvet}, given by
 \begin{equation}\label{eq:SGy}
 	\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}\right) = \left(s \circ g \right)\left(\widehat{\xvet}\right)=\Svet_{ct}\Gvet \widehat{\xvet}_{h},
 \end{equation}
-where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omegavet_{ct}^{-1}$ and $\Mvet = \Svet_{ct} \Gvet$ \citep{wickramasuriya2019, difonzo2023}. In this case, $\psi$ is the composition of two transformations, say $s \circ g$, where $g: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathbb{R}^{n_b m}$ is a continuous function.
+where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omegavet_{ct}^{-1}$,~ and $\Mvet = \Svet_{ct} \Gvet$. In this case, $\psi$ is the composition of two transformations, say $s \circ g$, where $g: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathbb{R}^{n_b m}$ is a continuous function.
 
 \cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix:
 \begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
@@ -480,9 +469,9 @@ where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omeg
 \end{itemize}
 where the symbol $\odot$ denotes the Hadamard product, $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
 
-We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal ones, that takes simultaneously into account both types of constraints. In addition, the cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$). \autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
+We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal frameworks, that simultaneously takes into account both types of constraints. In addition, the cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$). \autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
 
-\begin{table}[bt]
+\begin{table}[!b]
 	\caption{Approximations for the cross-sectional (\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) and temporal (\citealp{athanasopoulos2017}, \citealp{difonzo2023}) covariance matrix, respectively $\Wvet$ and $\Omegavet$.}
 	\label{tab:cov_app}
 	\centering
@@ -503,9 +492,13 @@ We can consider the cross-temporal framework as a generalization of the cross-se
 
 \subsection{Cross-temporal bottom-up forecast reconciliation}\label{ssec:ctbu}
 
-The original classic bottom-up approach \citep{dunn1976, dangerfield1992} simply consists in summing-up the base forecasts of the most disaggregated level in the hierarchy to obtain upper-level series’ forecasts. To reduce the computational cost involved in optimal cross-temporal reconciliation, we may be interested in applying a reconciliation along only one dimension (cross-sectional or temporal) and reconstructing the cross-temporal structure using a partly bottom-up approach \citep{difonzo2022b, difonzo2023a, sanguri2022}.
+The classic bottom-up approach \citep{dunn1976, dangerfield1992} simply consists in summing-up the base forecasts of the most disaggregated level in the hierarchy to obtain forecasts of the upper-level series. To reduce the computational cost involved in optimal cross-temporal reconciliation, we may be interested in applying a reconciliation along only one dimension (cross-sectional or temporal) and reconstructing the cross-temporal structure using a partly bottom-up approach \citep{difonzo2022b, difonzo2023a, sanguri2022}.
 
-\begin{figure}[!b]
+\autoref{fig:bigBU} gives a visual representation of partly bottom-up as a two-step cross-temporal reconciliation approach. On the left (\autoref{fig:tebu}), we first compute the cross-sectionally reconciled forecasts at the highest frequency ($k = 1$), and then apply the temporal bottom-up to each series' forecasts.
+
+On the right (\autoref{fig:csbu}), we first compute the temporally reconciled forecasts for the most disaggregated cross-sectional level, and then apply the cross-sectional bottom-up approach. We denote this two-step reconciliation as, respectively, ct$(rec_{te},bu_{cs})$, and ct$(rec_{cs},bu_{te})$, where ‘$rec_{te}$’ and ‘$rec_{cs}$’ denote a generic forecast reconciliation approach in the temporal and in cross-sectional framework.
+
+\begin{figure}[!hbt]
 	\centering
 
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -588,9 +581,6 @@ The original classic bottom-up approach \citep{dunn1976, dangerfield1992} simply
 	\label{fig:bigBU}
 \end{figure}
 
-\autoref{fig:bigBU} gives a visual representation of partly bottom-up as a two-step cross-temporal reconciliation approach. On the left (\autoref{fig:tebu}), we first compute the cross-sectionally reconciled forecasts at the highest frequency ($k = 1$), and then apply the temporal bottom-up to each series' forecasts.
-
-On the right (\autoref{fig:csbu}), we first compute the temporally reconciled forecasts for the most disaggregated cross-sectional level, and then apply the cross-sectional bottom-up approach. We denote this two-step reconciliation as, respectively, ct$(rec_{te},bu_{cs})$, and ct$(rec_{cs},bu_{te})$, where ‘$rec_{te}$’ and ‘$rec_{cs}$’ denote a generic forecast reconciliation approach in the temporal and in cross-sectional framework.
 
 \section{Probabilistic forecast reconciliation}\label{sec:prob}
 
