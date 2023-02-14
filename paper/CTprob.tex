@@ -321,7 +321,7 @@ The structural representation of the temporal hierarchy \citep{athanasopoulos201
 $$
 	\xvet_{i,\tau} = \Svet_{te}\xvet_{i,\tau}^{[1]},
 $$
-where $\Svet_{te} = [\Avet_{te}' ~~ \Ivet_{m}]'$ is the $[(m+k^\ast) \times m]$ temporal structural matrix, and
+where $\Svet_{te} = [\Avet_{te}' ~~ \Ivet_{m}]'$ is the $[(m+k^\ast) \times m]$ temporal structural matrix,
 $$
 	\Avet_{te} = \begin{bmatrix}
 		\multicolumn{3}{c}{\Unovet_{k_p}'}                       \\
@@ -330,7 +330,7 @@ $$
 		\Ivet_{\frac{m}{k_{2}}}   & \otimes & \Unovet_{k_2}'
 	\end{bmatrix}
 $$
-is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \sum_{k \in \mathcal{K}\setminus\{k_1\}} m/k$. For each series $y_{i,t}$, $i = 1,\dots,n$, we have also the zero-constrained representation
+is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \sum_{k \in \mathcal{K}\setminus\{k_1\}} m/k$, and $\otimes$ is the Kronecker product. For each series $y_{i,t}$, $i = 1,\dots,n$, we have also the zero-constrained representation
 \begin{equation}
 	\label{eq:te_con}
 	\Cvet_{te}\xvet_{i,\tau} = \Zerovet_{[k^\ast \times (m+k^\ast)]}, \qquad \tau = 1,\dots,N, \qquad i = 1,\dots, n
@@ -380,6 +380,9 @@ $\Uvet_{\tau}^{[k]}$ is the ($n_a\times T/k$) matrix grouping the upper time ser
 $$
 	\Cvet_{cs}\Xvet_\tau = \Zerovet_{\left[n_a \times (m+k^\ast)\right]} \qquad \text{and} \qquad \Cvet_{te}\Xvet_\tau' = \Zerovet_{(k^\ast \times n)} .
 $$
+We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal frameworks, that simultaneously takes into account both types of constraints. The cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$).
+
+
 
 \input{./fig/Stilde_mat.tex}
 
@@ -448,11 +451,11 @@ Alternatively, the cross-temporal reconciled forecasts $\widetilde{\Xvet}_{h}$ m
 \end{equation}
 where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omegavet_{ct}^{-1}$,~ and $\Mvet = \Svet_{ct} \Gvet$. In this case, $\psi$ is the composition of two transformations, say $s \circ g$, where $g: \mathbb{R}^{n(m+k^\ast)} \rightarrow \mathbb{R}^{n_b m}$ is a continuous function.
 
-\cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix:
+\cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix.
 \begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
-	\item[oct$(ols)$ -] identity: $\Omegavet_{ct} = \Ivet_{n(k^*+m)}$
-	\item[oct$(struc)$ -] structural: $\Omegavet_{ct} = \mathrm{diag}(\Svet_{ct} \mathbf{1}_{mn_b})$
-	\item[oct$(wlsv)$ -] series variance scaling: $\Omegavet_{ct} = \widehat{\Omegavet}_{ct,wlsv}$, that is a straightforward extension of the series variance scaling matrix presented by \cite{athanasopoulos2017} in the temporal framework
+	\item[oct$(ols)$ -] identity: $\Omegavet_{ct} = \Ivet_{n(k^*+m)}$.
+	\item[oct$(struc)$ -] structural: $\Omegavet_{ct} = \mathrm{diag}(\Svet_{ct} \mathbf{1}_{mn_b})$.
+	\item[oct$(wlsv)$ -] series variance scaling: $\Omegavet_{ct} = \widehat{\Omegavet}_{ct,wlsv}$, a straightforward extension of the series variance scaling matrix presented by \cite{athanasopoulos2017} in the temporal framework.
 	\item[oct$(bdshr)$ -] block-diagonal shrunk cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,shr}\Pvet'$, with
 		$$
 			\widehat{\Wvet}^{BD}_{ct,shr} = \begin{bmatrix}
@@ -460,35 +463,35 @@ where $\Gvet = (\Svet_{ct}' \Omegavet_{ct}^{-1}\Svet_{ct})^{-1} \Svet_{ct}'\Omeg
 				\Zerovet                    & \hspace{10pt}\Ivet_{\frac{m}{k_{p-1}}} \otimes \widehat{\Wvet}^{[k_{p-1}]}_{shr} & \dots  & \Zerovet                                                   \\
 				\vdots                      & \vdots                                                                           & \ddots & \vdots                                                     \\
 				\Zerovet                    & \Zerovet                                                                         & \dots  & \hspace{15pt}\Ivet_{m} \otimes \widehat{\Wvet}^{[1]}_{shr} \\
-			\end{bmatrix}
+			\end{bmatrix},
 		$$
 		a block diagonal matrix where $\widehat{\Wvet}^{[k]}_{shr}$ is the shrunk cross-sectional estimates of matrix proposed by \cite{wickramasuriya2019} fixed the temporal aggregation level $k$.
 		%\item[oct$(bdsam)$ -] block-diagonal cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,sam}\Pvet'$
-	\item[oct$(shr)$ -] MinT-shr:   $\Omegavet_{ct} = \hat{\lambda}\widehat{\Omegavet}_{ct,D} + (1-\hat{\lambda})\widehat{\Omegavet}_{ct}$
-	\item[oct$(sam)$ -] MinT-sam:  $\Omegavet_{ct} = \widehat{\Omegavet}_{ct}$
+	\item[oct$(shr)$ -] MinT-shr:   $\Omegavet_{ct} = \hat{\lambda}\widehat{\Omegavet}_{ct,D} + (1-\hat{\lambda})\widehat{\Omegavet}_{ct}$,
+	where $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$ with $\odot$ denoting the Hadamard product, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
+	\item[oct$(sam)$ -] MinT-sam:  $\Omegavet_{ct} = \widehat{\Omegavet}_{ct}$.
 \end{itemize}
-where the symbol $\odot$ denotes the Hadamard product, $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
 
-We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal frameworks, that simultaneously takes into account both types of constraints. In addition, the cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$). \autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
+% \autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residuals' autocorrelation.
 
-\begin{table}[!b]
-	\caption{Approximations for the cross-sectional (\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) and temporal (\citealp{athanasopoulos2017}, \citealp{difonzo2023}) covariance matrix, respectively $\Wvet$ and $\Omegavet$.}
-	\label{tab:cov_app}
-	\centering
-	\footnotesize
-	\begin{tabular}{>{\raggedleft\arraybackslash}m{0.15\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}}
-		\toprule
-		                & \textbf{Cross-sectional framework}                                                     & \textbf{Temporal framework}                                                                        \\
-		\midrule
-		identity        & cs$(ols)$: $\Wvet = \Ivet_n$                                                           & te$(ols)$: $\Omegavet = \Ivet_{k^\ast + m}$                                                        \\[0.1cm]
-		structural      & cs$(struc)$: $\Wvet = \mathrm{diag}(\Svet_{cs} \mathbf{1}_{nb})$                       & te$(struc)$: $\Omegavet = \mathrm{diag}(\Svet_{te} \mathbf{1}_{m})$                                \\[0.1cm]
-		series variance & cs$(wls)$: $\Wvet = \widehat{\Wvet}_D = \Ivet_n \odot \widehat{\Wvet}$                 & te$(wlsv)$: $\Omegavet = \widehat{\Omegavet}_{wlsv}$                                               \\[0.1cm]
-		MinT-shr        & cs$(shr)$: $\Wvet = \hat{\lambda}\widehat{\Wvet}_D + (1-\hat{\lambda})\widehat{\Wvet}$ & te$(shr)$: $\Omegavet = \hat{\lambda}\widehat{\Omegavet}_D + (1-\hat{\lambda})\widehat{\Omegavet}$ \\[0.1cm]
-		MinT-sam        & cs$(sam)$: $\Wvet = \widehat{\Wvet}$                                                   & te$(sam)$: $\Omegavet = \widehat{\Omegavet}$                                                       \\
-		\bottomrule \addlinespace[0.1cm]
-		\multicolumn{3}{p{0.9\linewidth}}{\footnotesize \textbf{Note:} $\widehat{\Wvet}$ ($\widehat{\Omegavet}$) is the covariance matrix of the cross-sectional (temporal) one-step ahead in-sample forecast errors, $\widehat{\Omegavet}_{wlsv}$ is a diagonal matrix presented by \cite{athanasopoulos2017}, and $\widehat{\Omegavet}_D = \Ivet_{k^\ast + m} \odot \widehat{\Omegavet}$.}
-	\end{tabular}
-\end{table}
+% \begin{table}[!b]
+% 	\caption{Approximations for the cross-sectional (\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) and temporal (\citealp{athanasopoulos2017}, \citealp{difonzo2023}) covariance matrix, respectively $\Wvet$ and $\Omegavet$.}
+% 	\label{tab:cov_app}
+% 	\centering
+% 	\footnotesize
+% 	\begin{tabular}{>{\raggedleft\arraybackslash}m{0.15\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}}
+% 		\toprule
+% 		                & \textbf{Cross-sectional framework}                                                     & \textbf{Temporal framework}                                                                        \\
+% 		\midrule
+% 		identity        & cs$(ols)$: $\Wvet = \Ivet_n$                                                           & te$(ols)$: $\Omegavet = \Ivet_{k^\ast + m}$                                                        \\[0.1cm]
+% 		structural      & cs$(struc)$: $\Wvet = \mathrm{diag}(\Svet_{cs} \mathbf{1}_{nb})$                       & te$(struc)$: $\Omegavet = \mathrm{diag}(\Svet_{te} \mathbf{1}_{m})$                                \\[0.1cm]
+% 		series variance & cs$(wls)$: $\Wvet = \widehat{\Wvet}_D = \Ivet_n \odot \widehat{\Wvet}$                 & te$(wlsv)$: $\Omegavet = \widehat{\Omegavet}_{wlsv}$                                               \\[0.1cm]
+% 		MinT-shr        & cs$(shr)$: $\Wvet = \hat{\lambda}\widehat{\Wvet}_D + (1-\hat{\lambda})\widehat{\Wvet}$ & te$(shr)$: $\Omegavet = \hat{\lambda}\widehat{\Omegavet}_D + (1-\hat{\lambda})\widehat{\Omegavet}$ \\[0.1cm]
+% 		MinT-sam        & cs$(sam)$: $\Wvet = \widehat{\Wvet}$                                                   & te$(sam)$: $\Omegavet = \widehat{\Omegavet}$                                                       \\
+% 		\bottomrule \addlinespace[0.1cm]
+% 		\multicolumn{3}{p{0.9\linewidth}}{\footnotesize \textbf{Note:} $\widehat{\Wvet}$ ($\widehat{\Omegavet}$) is the covariance matrix of the cross-sectional (temporal) one-step ahead in-sample forecast errors, $\widehat{\Omegavet}_{wlsv}$ is a diagonal matrix presented by \cite{athanasopoulos2017}, and $\widehat{\Omegavet}_D = \Ivet_{k^\ast + m} \odot \widehat{\Omegavet}$.}
+% 	\end{tabular}
+% \end{table}
 
 \subsection{Cross-temporal bottom-up forecast reconciliation}\label{ssec:ctbu}
 
