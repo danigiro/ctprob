@@ -665,22 +665,22 @@ Focusing on the computational aspect, we can take several steps to reduce the ti
 
 \section{Shrinkage techniques for cross-temporal covariance matrix estimation}\label{sec:shrtech}
 
-In this section, our focus will be exclusively on the cross-temporal framework. As a result, we will not be including the $ct$ subscript in our discussion at this time in order to simplify the notation.
+In this section, our focus will be exclusively on the cross-temporal framework, and so  we will drop the $ct$ subscript in order to simplify the notation.
 
-As the covariance matrix $\Omegavet$ is unknown in practice, a natural estimate is the empirical sample covariance matrix of the base forecasts $\widehat{\Omegavet}$. In the cross-temporal framework this means that we have to estimate $r = n(k^\ast+m)[n(k^\ast+m)-1]/2$ different parameters. A possible solution to estimating a large number of parameters when we have less observations than $r$, is to construct an shrinkage estimator \citep{efron1975a,efron1975,efron1977}. The so called “biased estimation” may improved the quality of the estimated variance-covariance matrix by variance reduction though a convex combination of $\widehat{\Omegavet}$ and a target matrix $\widehat{\Omegavet}_D = \widehat{\Omegavet} \odot \Ivet_{n(k^\ast+m)}$, such that
+As the covariance matrix $\Omegavet$ is unknown in practice, a natural estimate is the empirical sample covariance matrix of the base forecasts $\widehat{\Omegavet}$. In the cross-temporal framework, this means that we have to estimate $r = n(k^\ast+m)[n(k^\ast+m)-1]/2$ different parameters. A possible solution to estimating many parameters when we have fewer observations than $r$, is to construct a shrinkage estimator \citep{efron1975a,efron1975,efron1977}, using a convex combination of $\widehat{\Omegavet}$ and a target matrix $\widehat{\Omegavet}_D = \widehat{\Omegavet} \odot \Ivet_{n(k^\ast+m)}$, such that
 \begin{equation}\label{eq:global}
 	\widehat{\Omegavet}_{G} = \lambda \widehat{\Omegavet}_D + (1-\lambda) \widehat{\Omegavet},
 \end{equation}
 where $\lambda \in [0,1]$ is the shrinkage intensity parameter.
-\cite{schafer2005} proposed an unbiased estimator for the shrinkage intensity parameter, which is defined as
+\cite{schafer2005} proposed an unbiased estimator for the shrinkage intensity parameter, given by
 $$
 	\widehat{\lambda}=\frac{\sum_{i \neq j} \widehat{\mathrm{Var}}(\widehat{\sigma}_{i j})}{\sum_{i \neq j} \widehat{\sigma}_{i j}^2},
 $$
 where $\widehat{\sigma}_{i j}$ is the $i j^{th}$ element of $\widehat{\Omegavet}$. In finite samples, $\widehat{\lambda}$ may exceed unity or even become negative; to avoid over-shrinkage or negative shrinkage, the condition
 $$
-	\widehat{\lambda}^\ast=\max \left[0, \min \left(1, \widehat{\lambda}\right)\right]
+	\widehat{\lambda}^\ast=\max \big[0, \min (1, \widehat{\lambda})\big]
 $$
-is imposed to ensure that the estimated $\lambda$ stays within the range $[0,1]$. According to expression \eqref{eq:global}, there are two possible target matrices: a full matrix ($\lambda=0$), and a diagonal matrix ($\lambda=1$). These matrices are shown in the first column of \autoref{fig:shr_grid}. This linear combination, which reduces all elements outside the diagonal to zero, can be referred to as \textit{Global shrinkage} (\textit{G}). $\widehat{\Omegavet}_{G}$ corresponds to the matrix used by the reconciliation approach oct$(shr)$ shown in \autoref{ssec:oct}. This method allows us to shrink the entire off-diagonal portion of the covariance matrix, effectively reducing its complexity and potentially improving its estimation accuracy.
+is imposed to ensure that the estimated $\lambda$ stays within the range $[0,1]$. The two matrices obtained with $\lambda=0$ and $\lambda=1$ respectively are shown in the first column of \autoref{fig:shr_grid}. The linear combination involving these two matrices is referred to as \textit{Global shrinkage} (\textit{G}), where all off-diagonal elements are shrunk towards zero. $\widehat{\Omegavet}_{G}$ corresponds to the matrix used by the reconciliation approach oct$(shr)$ shown in \autoref{ssec:oct}.
 
 \begin{figure}[!h]
 	\centering
@@ -689,58 +689,58 @@ is imposed to ensure that the estimated $\lambda$ stays within the range $[0,1]$
 	\label{fig:shr_grid}
 \end{figure}
 
-However, arbitrarily setting the off-diagonal elements to zero when we know that the covariance matrix has a cross-sectional and/or temporal structure would result in information loss. The idea is therefore to estimate a smaller matrix (in terms of dimensions) and then to use the cross-sectional and/or temporal structure to obtain a better estimator for the covariance matrix of the entire system. We consider three different approaches at this purpose.
+However, shrinking all off-diagonal elements to zero, when we know that the covariance matrix has a cross-sectional and/or temporal structure, results in information loss. Therefore, we propose to estimate a smaller matrix, and to use the cross-sectional and/or temporal structure to obtain a better estimator for the covariance matrix of the entire system. We consider three different approaches at this purpose.
 
-The first idea is to use both cross-sectional and temporal structure simultaneously. Thus, in general we know that the true covariance matrix can be written as
+The first idea is to use both cross-sectional and temporal structure simultaneously. In general we know that the true covariance matrix can be written as
 \begin{equation}
 	\label{eq:OmSct}
-	\Omegavet= \Svet_{ct}\Omegavet_{hf-bts}\Svet_{ct}'
+	\Omegavet= \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'
 \end{equation}
-where $\Omegavet_{hf-bts}$ is the covariance matrix for the bottom time series at aggregation level $k = 1$ (high frequency bottom time series).
-Therefore, we can apply the idea of “Stein-type shrinkage" to $\Omegavet_{hf-bts}$ by using the empirical covariance matrix of the high frequency bottom base forecasts $\widehat{\Omegavet}_{hf-bts}$, such that
+where $\Omegavet_{\textit{hf-bts}}$ is the covariance matrix for the bottom time series at aggregation level $k = 1$ (highest frequency bottom time series).
+Therefore, we can apply the idea of “Stein-type shrinkage" to $\Omegavet_{\textit{hf-bts}}$ by using the empirical covariance matrix of the high frequency bottom base forecasts $\widehat{\Omegavet}_{\textit{hf-bts}}$, such that
 $$
-	\widehat{\Omegavet}_{hf-bts, HB} = \lambda \widehat{\Omegavet}_{hf-bts, D} + (1-\lambda) \widehat{\Omegavet}_{hf-bts}
+	\widehat{\Omegavet}_{\textit{hf-bts}, HB} = \lambda \widehat{\Omegavet}_{\textit{hf-bts}, D} + (1-\lambda) \widehat{\Omegavet}_{\textit{hf-bts}}
 $$
 and
 \begin{align*}
-	\widehat{\Omegavet}_{HB} & = \Svet_{ct}\widehat{\Omegavet}_{hf-bts, HB}\Svet_{ct}'                                                                        \\
-	                         & = \lambda \Svet_{ct}\widehat{\Omegavet}_{hf-bts, D}\Svet_{ct}'+ (1-\lambda) \Svet_{ct}\widehat{\Omegavet}_{hf-bts}\Svet_{ct}',
+	\widehat{\Omegavet}_{HB} & = \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'                                                                        \\
+	                         & = \lambda \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, D}\Svet_{ct}'+ (1-\lambda) \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}}\Svet_{ct}',
 \end{align*}
-where $\widehat{\Omegavet}_{hf-bts, D} = \Ivet_{n_b m}\odot\widehat{\Omegavet}_{hf-bts, HB}$ is a diagonal matrix, $\lambda$ is the shrinkage parameter that can be estimate using \cite{schafer2005} and $\widehat{\Omegavet}_{HB}$ is the cross-temporal covariance matrix for the complete system (\textit{High frequency Bottom time series shrinkage, HB}).
-It is worth noting that when using this approach, the covariance matrix of the reconciliation and the base forecasts will be identical. This means that the reconciliation process does not affect the covariance structure of the forecasts, which is determined only by the covariance matrix of the base forecasts errors. In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet \widehat{\Omegavet}_{HB} \Mvet'$ where $\Mvet = \Svet_{ct}\Gvet$ is the projection matrix. Indeed, it can be shown (see \citealp{panagiotelis2021} for more details) that if $\Mvet$ is a projection matrix \eqref{eq:Mvet} then $\Mvet\Svet_{ct} = \Svet_{ct}\Gvet\Svet_{ct} = \Svet_{ct}$, and we obtain that
+where $\widehat{\Omegavet}_{\textit{hf-bts}, D} = \Ivet_{n_b m}\odot\widehat{\Omegavet}_{\textit{hf-bts}, HB}$ is a diagonal matrix, $\lambda$ is the shrinkage parameter that can be estimate using \cite{schafer2005} and $\widehat{\Omegavet}_{HB}$ is the cross-temporal covariance matrix for the complete system, with HB denoting High frequency Bottom time series shrinkage.
+When using this approach, the covariance matrix of the reconciliation and the base forecasts will be identical. In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet \widehat{\Omegavet}_{HB} \Mvet'$ where $\Mvet = \Svet_{ct}\Gvet$ is the projection matrix. Indeed, it can be shown (see \citealp{panagiotelis2021} for more details) that if $\Mvet$ is a projection matrix \eqref{eq:Mvet} then $\Mvet\Svet_{ct} = \Svet_{ct}\Gvet\Svet_{ct} = \Svet_{ct}$, and we obtain that
 $$
 	\begin{aligned}
-		\Mvet \widehat{\Omegavet}_{HB} \Mvet' & = \Mvet\Svet_{ct}\widehat{\Omegavet}_{hf-bts, HB}\Svet_{ct}'\Mvet'                      \\
-		                                      & = \Svet_{ct}\Gvet\Svet_{ct}\widehat{\Omegavet}_{hf-bts, HB}\Svet_{ct}'\Gvet'\Svet_{ct}' \\
-		                                      & = \Svet_{ct}\widehat{\Omegavet}_{hf-bts, HB}\Svet_{ct}' = \widehat{\Omegavet}_{HB}.
+		\Mvet \widehat{\Omegavet}_{HB} \Mvet' & = \Mvet\Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'\Mvet'                      \\
+		                                      & = \Svet_{ct}\Gvet\Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'\Gvet'\Svet_{ct}' \\
+		                                      & = \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}' = \widehat{\Omegavet}_{HB}.
 	\end{aligned}
 $$
 
 However, when working with general linearly constrained multiple time series (where a natural hierarchy representation is not available), we may prefer not to impose the cross-sectional structure. Starting from \eqref{eq:OmSct}, we know that
 \begin{align*}
-	\Omegavet & = \Svet_{ct}\Omegavet_{hf-bts}\Svet_{ct}'                                                                                                                                                            \\
-	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{hf-bts}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                            \\
-	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{hf-bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
-	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{hf}\left(\Ivet_n \otimes \Svet_{te}\right)'
+	\Omegavet & = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'                                                                                                                                                            \\
+	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                            \\
+	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
+	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf}}\left(\Ivet_n \otimes \Svet_{te}\right)'
 \end{align*}
-where $\Omegavet_{hf} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{hf-bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'$ is the covariance matrix related to all the high frequency time series and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)$. We can estimate the matrix $\Omegavet_{hf}$ using the high frequency base forecasts $\widehat{\Omegavet}_{hf}$. Therefore,
+where $\Omegavet_{\textit{hf}} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'$ is the covariance matrix related to all the high frequency time series and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)$. We can estimate the matrix $\Omegavet_{\textit{hf}}$ using the high frequency base forecasts $\widehat{\Omegavet}_{\textit{hf}}$. Therefore,
 $$
-	\widehat{\Omegavet}_{hf, H} = \lambda \widehat{\Omegavet}_{hf, D} + (1-\lambda) \widehat{\Omegavet}_{hf}
+	\widehat{\Omegavet}_{hf, H} = \lambda \widehat{\Omegavet}_{hf, D} + (1-\lambda) \widehat{\Omegavet}_{\textit{hf}}
 $$
 and
 \begin{align*}
 	\widehat{\Omegavet}_{H} & = (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf, H} (\Ivet_{n} \otimes \Svet_{te})'                                                                                                            \\
-	                        & = \lambda (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf, D}(\Ivet_{n} \otimes \Svet_{te})' + (1-\lambda) (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf}(\Ivet_{n} \otimes \Svet_{te})'
+	                        & = \lambda (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf, D}(\Ivet_{n} \otimes \Svet_{te})' + (1-\lambda) (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{\textit{hf}}(\Ivet_{n} \otimes \Svet_{te})'
 \end{align*}
-where $\widehat{\Omegavet}_{hf, D} = \Ivet_{nm}\odot\widehat{\Omegavet}_{hf, HB}$ is a diagonal matrix, and $\widehat{\Omegavet}_{H}$ is the cross-temporal covariance matrix for the complete system (\textit{High frequency shrinkage, H}).
+where $\widehat{\Omegavet}_{hf, D} = \Ivet_{nm}\odot\widehat{\Omegavet}_{hf, HB}$ is a diagonal matrix, and $\widehat{\Omegavet}_{H}$ is the cross-temporal covariance matrix for the complete system, with $H$ denoting High frequency shrinkage.
 
 Finally, we can impose only the cross-sectional structure. We know that \begin{align*}
-	\Omegavet & = \Svet_{ct}\Omegavet_{hf-bts}\Svet_{ct}'                                                                                                                                                   \\
-	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{hf-bts}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                   \\
-	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{hf-bts}\left(\Ivet_n \otimes \Svet_{te}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
-	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'
+	\Omegavet & = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'                                                                                                                                                   \\
+	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                   \\
+	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Ivet_n \otimes \Svet_{te}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
+	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)',
 \end{align*}
-where $\Omegavet_{bts} = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{hf-bts}\left(\Ivet_n \otimes \Svet_{te}\right)'$ is the covariance matrix related to bottom time series at any temporal aggregation, and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)$. We can estimate the matrix $\Omegavet_{bts}$ using the bottom time series base forecasts $\widehat{\Omegavet}_{bts}$:
+where $\Omegavet_{bts} = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Ivet_n \otimes \Svet_{te}\right)'$ is the covariance matrix related to bottom time series at any temporal aggregation, and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)$. We can estimate the matrix $\Omegavet_{bts}$ using the bottom time series base forecasts $\widehat{\Omegavet}_{bts}$:
 $$
 	\widehat{\Omegavet}_{bts, B} = \lambda \widehat{\Omegavet}_{bts, D} + (1-\lambda) \widehat{\Omegavet}_{bts}
 $$
@@ -750,7 +750,7 @@ and
 	                        & = \lambda \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts, D}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)' +             \\
 	                        & \qquad \qquad (1-\lambda) \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)',
 \end{align*}
-where $\widehat{\Omegavet}_{bts, D} = \Ivet_{n_b(m+k^\ast)}\odot\widehat{\Omegavet}_{bts, B}$ is a diagonal matrix, and $\widehat{\Omegavet}_{B}$ is the cross-temporal covariance matrix for the complete system (\textit{Bottom time series shrinkage, B}).
+where $\widehat{\Omegavet}_{bts, D} = \Ivet_{n_b(m+k^\ast)}\odot\widehat{\Omegavet}_{bts, B}$ is a diagonal matrix, and $\widehat{\Omegavet}_{B}$ is the cross-temporal covariance matrix for the complete system, with $B$ denoting Bottom time series shrinkage.
 
 \begin{figure}[!tbp]
 	\centering
@@ -759,11 +759,11 @@ where $\widehat{\Omegavet}_{bts, D} = \Ivet_{n_b(m+k^\ast)}\odot\widehat{\Omegav
 	\label{fig:num_param}
 \end{figure}
 
-These four approaches differ not only in their target matrices (see \autoref{fig:shr_grid}), but also in the number of parameters to be estimated through the residuals of the base forecasts. \autoref{tab:num_param} shows the total number of different parameters in the covariance matrix, while \autoref{fig:num_param} shows these values for different values of $m$ and $n$ with $n_b$ fixed to approximately $60\%$ of n. As we can see, a global approach (\textit{G}) usually involves a considerable number of parameters compared to other procedures. The right panel of \autoref{fig:num_param} reports the boxplot of the $\%$ reductions in the number of parameters compared to the global approach, that is:
+These four approaches differ not only in their target matrices (see \autoref{fig:shr_grid}), but also in the number of parameters to be estimated through the residuals of the base forecasts. \autoref{tab:num_param} shows the total number of different parameters in the covariance matrix, while \autoref{fig:num_param} shows these values for different values of $m$ and $n$, with $n_b$ fixed to approximately $60\%$ of $n$. As we can see, a global approach (\textit{G}) usually involves a considerable number of parameters compared to other procedures. The right panel of \autoref{fig:num_param} reports the boxplot of the percentage reductions in the number of parameters compared to the global approach, that is:
 $$
-	\% \text{ reduction} = 100\left(1-\frac{r_i}{r_G}\right) \quad \mathrm{with} \; i \in \{HB, H, B\},
+	\% \text{ reduction} = 100(1-r_i/r_G) \quad \mathrm{with} \; i \in \{\textit{HB}, H, B\},
 $$
-we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series require the estimation of a smaller number of parameters. In \autoref{tab:num_param_data} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
+we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series requires the estimation of a smaller number of parameters. In \autoref{tab:num_param_data} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
 
 \begin{table}[!htb]
 	\centering
@@ -811,8 +811,7 @@ we observe that using only the high frequency bottom time series (\textit{HB}) l
 	\label{tab:num_param_data}
 \end{table}
 
-In our simulations and empirical analysis, we will be closely analyzing these different constructions with a dual purpose. First, we will use the full covariance matrix ($\lambda = 0$) of the base forecasts to obtain a sample of the linearly constrained time series when we assume normality in our sample. Additionally, we will use the shrinkage versions as approximations for reconciliation. This will allow us to have a more comprehensive understanding of the data and the relationships within it.
-
+In our simulations and empirical analysis, we will be closely analyzing these different constructions with a dual purpose. First, we will use the full covariance matrix ($\lambda = 0$) of the base forecasts to obtain a sample of the linearly constrained time series when we assume normality in our sample. Additionally, we will use the shrinkage versions as approximations for reconciliation. This will allow us to have a more comprehensive understanding of the data and the relationships between the series.
 
 \section{Residual analysis}\label{sec:res}
 
@@ -954,9 +953,9 @@ The bottom series are then cross-temporally aggregated to obtain the series at a
 
 For the forecast experiment, base forecasts using AR models will be used. The order of the AR models is not fixed at the true order, but rather is determined using the algorithm proposed by \cite{hyndman2008a} in the \textsf{R} package \texttt{forecast} \citep{Rforecast}. This allows for the possibility of mis-specification in the models. The training window length is 500 years, consisting of 1000 observations. The experiment will be replicated 500 times, with a forecast horizon of 1 year.
 
-Since the models used for the data generating process (DPG) for the bottom series $B$ and $C$ at the most aggregated temporal level are two AR(2) models, we have calculated the true covariance matrix for one-step ahead forecasts at the annual level. Therefore, we have that $\Omegavet_{ct} = \Svet_{ct}\Omegavet_{hf-bts}\Svet_{ct}'$ where
+Since the models used for the data generating process (DPG) for the bottom series $B$ and $C$ at the most aggregated temporal level are two AR(2) models, we have calculated the true covariance matrix for one-step ahead forecasts at the annual level. Therefore, we have that $\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'$ where
 $$
-	\Omegavet_{hf-bts} = \begin{bmatrix}
+	\Omegavet_{\textit{hf-bts}} = \begin{bmatrix}
 		\sigma^2_B            &                                                 &                      &                                        \\
 		\phi_{B,1}\sigma_B^2  & \sigma_B^2\left(1+\phi_{B,1}^2\right)           &                      &                                        \\
 		\sigma_{BC}           & \phi_{B,1}\sigma_{BC}                           & \sigma_C^2           &                                        \\
@@ -974,6 +973,7 @@ In \autoref{fig:covcorMC} we have represented both the covariance matrix and the
 \end{figure}
 
 \subsection{Base and reconciled samples}\label{ssec:sim_br}
+
 To construct cross-temporal samples of the base forecasts, we use the bootstrap and Gaussian approaches discussed in Sections \ref{ssec:boot} and \ref{ssec:prob_pf}, respectively. For the non-parametric approach, we use in-sample residuals, while for the parametric approach we use in-sample residuals and multi-step forecasting with the different covariance matrix structures analyzed in \autoref{sec:shrtech}: $G$ for the global covariance matrix, $H$ for the High frequency covariance matrix, $B$ for the bottom time series covariance matrix and $HB$ for the high frequency bottom time series covariance matrix. We do not use overlapping residuals in our analysis because the large number of available observations made it unnecessary %and using overlapping residuals did not significantly affect the results of our analysis.
 
 Regarding reconciliation, we have several options: cross-temporal bottom-up (\textit{ct bu}); cross-sectional reconciliation using the $shr$ approach (see \autoref{tab:cov_app}) and then temporally aggregated (ct$(shr_{cs}, bu_{te})$, \autoref{ssec:ctbu});  temporal reconciliation using the $wlsv$ approach (see \autoref{tab:cov_app}) and then cross-sectionally aggregated (ct$(wlsv_{te}, bu_{cs})$, \autoref{ssec:ctbu}); optimal cross-temporal reconciliation \citep{difonzo2023} with in-sample residuals (\textbf{oct}) using the $wlsv$, $bdshr$ approaches presented in \autoref{ssec:oct}, and $shr$, $hshr$, $bshr$ and $hbshr$ approaches that use, respectively, the Global, High frequency, Bottom time series, High frequency Bottom time series shrinkage presented in \autoref{sec:shrtech}. In addition, we propose the optimal cross-temporal reconciliation with multi-step residuals (\textbf{oct$_h$}) for $shr$, $hshr$, $bshr$ and $hbshr$ approaches. All this procedure are available in the \textsf{R} package \texttt{FoReco} \citep{girolimetto2022} that provides a set of functions and algorithms for point forecast reconciliation.
@@ -1089,6 +1089,7 @@ In order to provide a comprehensive understanding of our evaluation results, we 
 Additionally, we utilized the non-parametric Friedman test and the post hoc “Multiple Comparison with the Best" (MCB) Nemenyi test \citep{koning2005, kourentzes2019, makridakis2022} to determine if the forecasting performances of the different techniques are significantly different from one another.
 
 \subsection{Results}
+
 \begin{table}[p]
 	\centering
 	\begingroup
@@ -1237,6 +1238,7 @@ Finally, we performed two empirical analysis on two classical data set for the f
 
 \phantomsection\addcontentsline{toc}{section}{Acknowledgements}
 \section*{Acknowledgements}
+
 \noindent Tommaso Di Fonzo and Daniele Girolimetto acknowledge financial support from project PRIN2017 “HiDEA: Advanced Econometrics for High-frequency Data”, 2017RSMPZZ. Rob Hyndman acknowledges the support of the Australian Government through the Australian Research Council Industrial Transformation Training Centre in Optimisation Technologies, Integrated Methodologies, and Applications (OPTIMA), Project ID IC200100009.
 
 \phantomsection\addcontentsline{toc}{section}{References}
@@ -1252,6 +1254,7 @@ Finally, we performed two empirical analysis on two classical data set for the f
 %\input{tex/app_paper.tex}
 
 \section{\large The AR(2) processes' cross-temporal covariance matrix}\label{app:ar2}
+
 Note that,
 $$
 	Y_{i,t} = \phi_{i,1}Y_{i,t-1} + \phi_{i,2}Y_{i,t-2} + \varepsilon_{i,t}
@@ -1288,7 +1291,7 @@ Finally, we can compute each element of the high frequency bottom time series co
 \end{align*}
 In conclusion,
 $$
-	\Omegavet_{hf-bts} = \begin{bmatrix}
+	\Omegavet_{\textit{hf-bts}} = \begin{bmatrix}
 		\sigma^2_B            &                                                 &                      &                                       \\
 		\phi_{B,1}\sigma_B^2  & \sigma_B^2\left(1+\phi_{B,1}^2\right)           &                      &                                       \\
 		\sigma_{BC}           & \phi_{B,1}\sigma_{BC}                           & \sigma_C^2           &                                       \\
@@ -1297,13 +1300,14 @@ $$
 $$
 and
 $$
-	\Omegavet_{ct} = \Svet_{ct}\Omegavet_{hf-bts}\Svet_{ct}'.
+	\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'.
 $$
 
 \newpage
 
 \section{Geographic divisions of Australia}
 \label{app:australia}
+
 \begin{table}[H]
 	\caption{Geographic divisions of Australia in States, Zones e Regions. Zones formed by a single region have been highlighted in italics.}
 	\spacingset{1}
