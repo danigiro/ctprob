@@ -819,22 +819,22 @@ In our simulations and empirical analysis, we will be closely analyzing these di
 
 Model residuals may be used to estimate the covariance matrix in cross-temporal reconciliation. It is common in time series analysis to use residuals corresponding to one-step forecasts, but because of the temporal hierarchy, we need residuals corresponding to different forecast horizons. We define multi-step residuals as
 $$
-	e_{i,h,t}^{[k]} = x_{i,t}^{[k]} - \widehat{x}_{i,t+h|t}^{[k]}\,,
+	e_{i,h,t}^{[k]} = x_{i,t+h}^{[k]} - \widehat{x}_{i,t+h|t}^{[k]}\,, % \quad h \le t \le T-h
 $$
 where $\widehat{x}_{i,t+h|t}^{[k]}$ is the $h$-step fitted value, calculated as the $h$-step-ahead forecast using data to time $t$. In general, these residuals will be autocorrelated except when $h=1$.
 
-Following \cite{difonzo2023}, we use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vector of residuals with $N_k = Nm/k$ for the temporal aggregation $k$ and the series $i$,
+Following \cite{difonzo2023}, we use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vectors of multi-step residuals with $N_k = Nm/k$ for the temporal aggregation $k$ and the series $i$,
 $$
-	\evet_i^{[k]} = \begin{bmatrix}
-		e_{i,1}^{[k]} & e_{i,2}^{[k]} & \dots & e_{i,N_k}^{[k]}
-	\end{bmatrix}',
+	\evet_{i,h}^{[k]} = \begin{bmatrix}
+		e_{i,h,1}^{[k]} & e_{i,h,2}^{[k]} & \dots & e_{i,h,N_k}^{[k]}
+	\end{bmatrix}' \quad h = 1,\dots, \frac{m}{k},
 $$
 can be organized in matrix form as
 \begin{equation}\label{eq:Evetki}
 	\Evet_i^{[k]} = \begin{bmatrix}
 		e_{i,1,1}^{[k]}                     & e_{i,2,2}^{[k]}                     & \dots & e_{i,\frac{m}{k},\frac{m}{k}}^{[k]} \\
 		\vdots                            & \vdots                            &       & \vdots                  \\
-		e_{i,1,N_k - \frac{m}{k} + 1}^{[k]} & e_{i,2,N_k - \frac{m}{k} + 2}^{[k]} & \dots & e_{i,N_k,N_k}^{[k]}         \\
+		e_{i,1,N_k - \frac{m}{k} + 1}^{[k]} & e_{i,2,N_k - \frac{m}{k} + 2}^{[k]} & \dots & e_{i,\frac{m}{k},N_k}^{[k]}         \\
 	\end{bmatrix}.
 \end{equation}
 Let $\Evet_i = \begin{bmatrix}
