@@ -815,25 +815,31 @@ In our simulations and empirical analysis, we will be closely analyzing these di
 
 \section{Residual analysis}\label{sec:res}
 
-\subsection{In-sample and multi-step residuals} \label{ssec:multi_res}
+\subsection{Multi-step residuals} \label{ssec:multi_res}
 
-In-sample residuals may be used to approximate the covariance matrix in point cross-temporal reconciliation. \cite{difonzo2023} use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. In details, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vector of in sample residuals with $N_k = N\frac{m}{k}$ for the temporal aggregation $k$ and the series $i$,
+Model residuals may be used to estimate the covariance matrix in cross-temporal reconciliation. It is common in time series analysis to use residuals corresponding to one-step forecasts, but because of the temporal hierarchy, we need residuals corresponding to different forecast horizons. We define multi-step residuals as
+$$
+	e_{i,h,t}^{[k]} = x_{i,t}^{[k]} - \widehat{x}_{i,t+h|t}^{[k]}\,,
+$$
+where $\widehat{x}_{i,t+h|t}^{[k]}$ is the $h$-step fitted value, calculated as the $h$-step-ahead forecast using data to time $t$. In general, these residuals will be autocorrelated except when $h=1$.
+
+Following \cite{difonzo2023}, we use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vector of residuals with $N_k = Nm/k$ for the temporal aggregation $k$ and the series $i$,
 $$
 	\evet_i^{[k]} = \begin{bmatrix}
 		e_{i,1}^{[k]} & e_{i,2}^{[k]} & \dots & e_{i,N_k}^{[k]}
 	\end{bmatrix}',
 $$
-can be organized in the matrix form as
+can be organized in matrix form as
 \begin{equation}\label{eq:Evetki}
 	\Evet_i^{[k]} = \begin{bmatrix}
-		e_{i,1}^{[k]}                     & e_{i,2}^{[k]}                     & \dots & e_{i,\frac{m}{k}}^{[k]} \\
+		e_{i,1,1}^{[k]}                     & e_{i,2,2}^{[k]}                     & \dots & e_{i,\frac{m}{k},\frac{m}{k}}^{[k]} \\
 		\vdots                            & \vdots                            &       & \vdots                  \\
-		e_{i,N_k - \frac{m}{k} + 1}^{[k]} & e_{i,N_k - \frac{m}{k} + 2}^{[k]} & \dots & e_{i,N_k}^{[k]}         \\
+		e_{i,1,N_k - \frac{m}{k} + 1}^{[k]} & e_{i,2,N_k - \frac{m}{k} + 2}^{[k]} & \dots & e_{i,N_k,N_k}^{[k]}         \\
 	\end{bmatrix}.
 \end{equation}
-Consider now $\Evet_i = \begin{bmatrix}
+Let $\Evet_i = \begin{bmatrix}
 		\Evet_i^{[m]} & \Evet_i^{[k_p-1]} & \dots & \Evet_i^{[1]} \\
-	\end{bmatrix}$, the $[N \times n(m+k^\ast)]$ cross-temporal residuals' matrix is given by
+	\end{bmatrix}$. Then the $[N \times n(m+k^\ast)]$ cross-temporal residual matrix is given by
 \begin{equation}
 	\label{eq:Emat}
 	\Evet = \begin{bmatrix}
@@ -841,28 +847,7 @@ Consider now $\Evet_i = \begin{bmatrix}
 	\end{bmatrix}.
 \end{equation}
 
-In time series analysis, there are several characteristics of in-sample residuals that are worth considering. One of the most crucial features is that in-sample residuals should be uncorrelated \citep{tsay2014,hyndman2021}. %On the other hand, if the in-sample residuals are correlated, it could indicate that the model is not an adequate fit for the data and may require revision or improvement.
-This means that we can not use the in-sample residuals if the model is well-specified to estimate the correlation between different multiple step ahead forecasts (i.e. one-step ahead and two-step ahead). In fact the multiple steps ahead forecasts are correlated by construction. For example, let $Z_t = \phi_1 Z_{t-1} + \phi_2 Z_{t-2} + \varepsilon_t$ with $\varepsilon_t\sim \mathcal{N}(0, \sigma^2)$ and $\varepsilon_t$ for $t = 1,\dots,T$, then
-\begin{equation}\label{eq:covZ}
-	Cov\left[\left(Z_{T+2}-\widehat{Z}_{T+2}\right), \left(Z_{T+1}-\widehat{Z}_{T+1}\right)\right] = Cov\left[\left(\phi_{i, 1}\varepsilon_{T+1} + \varepsilon_{T+2}\right), \varepsilon_{T+1}\right] = \phi_{1}\sigma^2
-\end{equation}
-and
-$$
-	Cor\left[\left(Z_{T+2}-\widehat{Z}_{T+2}\right), \left(Z_{T+1}-\widehat{Z}_{T+1}\right)\right] = \frac{\phi_{1}}{\sqrt{1+\phi_1^2}} \neq 0.
-$$
-where $\widehat{Z}_{T+h} = \widehat{Z}_{T+h|T}$ is the $h$-step ahead forecasts.
 
-To address this issue, \cite{difonzo2023} use approximation structures such as oct($bdshr$) and oct($wlsv$), that assume temporal uncorrelation. However, if we want to include a temporal correlation structure, one option is to use multi-step residuals define as
-$$
-	\varepsilon_{h,t} = Z_t - \widehat{Z}_{t+h|t}\quad h<t<T-h
-$$
-where $\widehat{Z}_{t+h|t}$ is the $h$-step fitted value, calculated as the $h$-step ahead forecast given the time $t$. In this case, the covariance \eqref{eq:covZ} is equivalent to the covariance between the one-step and the two-step residual given by
-\begin{equation*}
-	\begin{aligned}
-		Cov\left[\left(Z_{t+2}-\widehat{Z}_{t+2|t}\right), \left(Z_{t+1}-\widehat{Z}_{t+1|t}\right)\right] & = Cov\left[\left(\phi_{i, 1}\varepsilon_{t+1} + \varepsilon_{t+2}\right), \varepsilon_{t+1}\right] = \phi_{1}\sigma^2.
-	\end{aligned}
-\end{equation*}
-Using multi-step residuals does not require any changes to the matrix structure \eqref{eq:Emat}; we simply replace the $h^{th}$ column of the matrix $\Evet_i^{[k]}$ in equation \eqref{eq:Evetki} with the corresponding shifted residuals at $h$-step ($h = 1, \dots, m/k$).
 
 \subsection{Overlapping residuals}\label{ssec:over_res}
 
