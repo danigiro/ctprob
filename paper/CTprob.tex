@@ -823,7 +823,7 @@ $$
 $$
 where $\widehat{x}_{i,t+h|t}^{[k]}$ is the $h$-step fitted value, calculated as the $h$-step-ahead forecast using data to time $t$. In general, these residuals will be autocorrelated except when $h=1$.
 
-Following \cite{difonzo2023}, we use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vectors of multi-step residuals with $N_k = Nm/k$ for the temporal aggregation $k$ and the series $i$,
+Following \cite{difonzo2023}, we use a matrix organization of residuals that is similar to the one seen for base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vectors of multi-step residuals, with $N_k = Nm/k$ for the temporal aggregation $k$ and the series $i$,
 $$
 	\evet_{i,h}^{[k]} = \begin{bmatrix}
 		e_{i,h,1}^{[k]} & e_{i,h,2}^{[k]} & \dots & e_{i,h,N_k}^{[k]}
@@ -847,48 +847,35 @@ Let $\Evet_i = \begin{bmatrix}
 	\end{bmatrix}.
 \end{equation}
 
-
-
 \subsection{Overlapping residuals}\label{ssec:over_res}
 
-Another issue that arises in the case of cross-temporal reconciliation is the low number of residuals available, as the number of parameters to be estimated is larger compared to the simple framework with a single dimension (cross-sectional or temporal). As seen in \autoref{sec:shrtech}, one possible solution can be to use shrinkage methods that reduce the number of parameters for the covariance matrix. However, sometimes the number is still high. For this reason, a possible solution can be to use residuals calculated using overlapping series. To better explain how to calculate overlapping residuals, assume we have a single series
-$
-	\yvet = \begin{bmatrix}
-		y_1 & y_2 & y_3 & \dots & y_{T-1} & y_{T} \\
-	\end{bmatrix}'.
-$
-We can construct $k$ non overlapping series such that
+Another issue that arises in the case of cross-temporal reconciliation is the low number of residuals available, especially for the higher levels of temporal aggregation. A possible solution is to use residuals calculated using overlapping series by allowing the year to have a varying starting time. To better explain how to calculate overlapping residuals, assume we have a single series
+$\yvet = [y_1, y_2, y_3, \dots, y_{T-1}, y_{T}]'$. We can construct $k$ non overlapping series such that
 $$
 	\xvet^{[k], s} = \left\{x^{[k],s}_{j}\right\}_{j = 1}^{\frac{T}{k}-s} \qquad \mathrm{where} \quad x^{[k],s}_{j} = \sum_{t = (j-1)k+s+1}^{jk-s} y_t,
 $$
 with $s = 0, \dots, (k-1)$.
-For example, fixed $k = 2$ and $T = 6$, we have
+For example, suppose we have a biannual series with $k = 2$ and $T = 6$, then we can construct two annual time series depending on which time is deemed the start of the year:
 $$
-	\xvet^{[2], 0} = \begin{bmatrix}
-		x_1^{[2], 0} & x_2^{[2], 0} & x_{3}^{[2], 0} \\
-	\end{bmatrix}' =\begin{bmatrix}
-		y_1 + y_2 & y_3 + y_4 & y_5 + y_6 \\
-	\end{bmatrix}'
+	\xvet^{[2], 0} =  \Big[x_1^{[2], 0},~ x_2^{[2], 0},~ x_{3}^{[2], 0} \Big]' =
+										\Big[y_1 + y_2,~ y_3 + y_4,~ y_5 + y_6\Big]'
 $$
 and
 $$
-	\xvet^{[2], 1} = \begin{bmatrix}
-		x_1^{[2], 1} & x_2^{[2], 1} \\
-	\end{bmatrix}' =\begin{bmatrix}
-		y_2 + y_3 & y_4 + y_5 \\
-	\end{bmatrix}'.
+	\xvet^{[2], 1} = \Big[x_1^{[2], 1},~ x_2^{[2], 1} \Big]' =
+									 \Big[y_2 + y_3,~  y_4 + y_5 \Big]'.
 $$
 To calculate overlapping residuals, we propose the following steps:
 \begin{itemize}[leftmargin = 2.5cm, nosep]
-	\item[\textbf{step 1)}] Estimate and fit a model for $\xvet^{[k], 0}$. This step involves selecting an appropriate model and estimating the model parameters using the available data. Furthermore, this is the same model used to calculate the base forecasts for the original series at temporal aggregation $k$.
-	\item[\textbf{step 2)}] Calculate the residuals for $\xvet^{[k], 0}$. In-sample or multi-step residuals can be used in this step.
-	\item[\textbf{step 3)}] Apply the model in step 1 to $\xvet^{[k], s}$ for $s = 1, \dots, (k-1)$. This step involves applying the same model to different non overlapping series. The model parameters are fixed as determined in step 1.
-	\item[\textbf{step 4)}] Calculate the residuals for $\xvet^{[k], s}$ for $s = 1, \dots, (k-1)$ using the same method as step 2.
-	\item[\textbf{step 5)}] Organize the residuals from step 2 and step 4. This step involves arranging the residuals according to the structure in equation \eqref{eq:Emat}.
+	\item[\textbf{step 1)}] Fit a model to $\xvet^{[k], 0}$; i.e., select an appropriate model and estimate the model parameters using the available data.
+	\item[\textbf{step 2)}] Calculate the residuals for $\xvet^{[k], 0}$.
+	\item[\textbf{step 3)}] Apply the same model in step 1 to $\xvet^{[k], s}$ for $s = 1, \dots, k-1$, without re-estimating the parameters.
+	\item[\textbf{step 4)}] Calculate the residuals for $\xvet^{[k], s}$ for $s = 1, \dots, k-1$ using the same method as step 2.
+	\item[\textbf{step 5)}] Organize the residuals from steps 2 and 4 according to the structure in equation \eqref{eq:Emat}.
 \end{itemize}
-The resulting residuals can be used to estimate the covariance matrix in cross-temporal reconciliation. However, it is important to note that this approach assumes that the model used in step 1 is appropriate for all the different series $\xvet^{[k], s}$.
+The resulting residuals can be used to estimate the covariance matrix in cross-temporal reconciliation. Using overlapping residuals allows for an increase in the number of available residuals, particularly when working with higher frequency observations such as monthly or daily data.
 
-When seasonality is present, determining the accurate overlapping residuals can be impossible as the model used has different components for each season. For example, using quarterly data, the semi-annual level model (step 1) can estimate seasonal components for the first and second half of the year. However, when applied to overlapping data (step 3), we are building two intermediate semi-annual periods between the first and second half, and vice versa. As a result, our model, in the presence of strong semi-annual seasonality, may use inaccurate estimates for these new intermediate components and produce bad residuals. In conclusion, using the concept of overlapping residuals allows for an increase in the number of available residuals, particularly when working with monthly or daily data. However, when we use model with components related to the season, the residuals calculated are likely to be incorrect and therefore cannot be used. It is important to carefully consider the seasonality structure of the model when using this method and to handle it appropriately to ensure accurate results.
+It is important to note that this approach assumes that the model used in step 1 is appropriate for all the different series $\xvet^{[k], s}$. Some seasonal models will not be appropriate as the seasonal pattern will be shifted for different values of $s$. However, this will not affect seasonal ARIMA models as the seasonality is defined in terms of lags which are unaffected by the value of $s$.
 
 \section{Monte Carlo simulation}\label{sec:mcsim}
 
