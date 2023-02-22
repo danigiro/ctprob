@@ -1,71 +1,55 @@
-\pdfminorversion=1
-\documentclass[a4paper,12pt]{article}
-\newcommand\hmmax{0}
-\newcommand\bmmax{0}
+\documentclass[a4paper,11pt]{article}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
-\usepackage{mathrsfs} 
+\usepackage{mathrsfs}
 \usepackage{amssymb}
+\usepackage{mathpazo}
 \usepackage[dvipsnames]{xcolor}
-%\usepackage{mathabx}
 \usepackage{bm}
-\usepackage{bbm}
+\usepackage[no-weekday]{eukdate}
 \usepackage[bb=boondox]{mathalfa}
 \usepackage{paralist}
 \usepackage{natbib}
 \usepackage{url}
-\usepackage[textwidth=6.1in,textheight = 10in]{geometry}
+\usepackage[textwidth=6.25in,textheight = 10.5in]{geometry}
 \usepackage{placeins}
 \usepackage[hidelinks]{hyperref}
-\usepackage{multirow, float, textcmds, siunitx}
+\usepackage{multirow, float}
 \usepackage{makecell}
-\usepackage[textwidth=24mm, colorinlistoftodos, textsize=scriptsize, backgroundcolor=white, linecolor=black]{todonotes}
+\usepackage{calc}
 \usepackage{graphicx}
 \usepackage{enumitem}
-\usepackage{algorithm, algorithmicx, algpseudocode}
-%\usepackage{newtxtext, newtxmath}
-\usepackage{comment}
-\usepackage{ulem}
+\usepackage{microtype}
+\usepackage{todonotes}
+\usepackage{caption}
+\DeclareCaptionStyle{italic}[justification=centering]
+ {labelfont={bf},textfont={it},labelsep=colon}
+\captionsetup[figure]{style=italic,format=hang,singlelinecheck=true}
+\captionsetup[table]{style=italic,format=hang,singlelinecheck=true}
+
 \setlength{\parskip}{0cm}
 \setlength{\parindent}{1em}
 \usepackage[compact]{titlesec}
 \titlespacing{\section}{0pt}{2ex}{1ex}
 \titlespacing{\subsection}{0pt}{1ex}{0ex}
 \titlespacing{\subsubsection}{0pt}{0.5ex}{0ex}
-
+\usepackage{titling}\pretitle{\begin{center}\LARGE\bfseries}
 \usepackage[bottom,hang,flushmargin]{footmisc}
-
-\makeatletter
-\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
-\newcommand*\widebar[1]{%
-  \begingroup
-  \def\mathaccent##1##2{%
-    \rel@kern{0.8}%
-    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
-    \rel@kern{-0.2}%
-  }%
-  \macc@depth\@ne
-  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
-  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
-  \macc@set@skewchar\relax
-  \let\mathaccentV\macc@nested@a
-  \macc@nested@a\relax111{#1}%
-  \endgroup
-}
-\makeatother
-
 \usepackage{adjustbox}
+
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Section}
 
 %% LINE AND PAGE BREAKING
 \sloppy
+\allowdisplaybreaks
 \clubpenalty = 10000
 \widowpenalty = 10000
 \brokenpenalty = 10000
-\RequirePackage{microtype}
 
 % NOTE: To produce blinded version, replace "0" with "1" below.
-\newcommand{\blind}{0}
+\newcommand{\blind}{1}
 
 %\usepackage{setspace}
 \usepackage{caption}
@@ -81,66 +65,53 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
 
-
-\newcommand{\alphavet}{\mathbf{\alpha}}
-\newcommand{\betavet}{\pmb{\beta}}
-\newcommand{\epsvet}{\mathbf{\varepsilon}}
-\newcommand{\etavet}{\pmb{\eta}}
-\newcommand{\lambdavet}{\mathbf{\lambda}}
-\newcommand{\Unovet}{\mathbf{1}}
-\newcommand{\avet}{\textbf{a}}
-\newcommand{\bvet}{\textbf{b}}
-\newcommand{\cvet}{\textbf{c}}
-\newcommand{\dvet}{\textbf{d}}
-\newcommand{\evet}{\textbf{e}}
-\newcommand{\pvet}{\textbf{p}}
-\newcommand{\fvet}{\textbf{f}}
-\newcommand{\tvet}{\textbf{t}}
-\newcommand{\uvet}{\textbf{u}}
-\newcommand{\vvet}{\textbf{v}}
-\newcommand{\wvet}{\textbf{w}}
-\newcommand{\xvet}{\textbf{x}}
-\newcommand{\yvet}{\textbf{y}}
-\newcommand{\zvet}{\textbf{z}}
-\newcommand{\Avet}{\textbf{A}}
-\newcommand{\Bvet}{\textbf{B}}
-\newcommand{\Cvet}{\textbf{C}}
-\newcommand{\Dvet}{\textbf{D}}
-\newcommand{\Evet}{\textbf{E}}
-\newcommand{\Fvet}{\textbf{F}}
-\newcommand{\Gvet}{\textbf{G}}
-\newcommand{\Hvet}{\textbf{H}}
-\newcommand{\Ivet}{\textbf{I}}
-\newcommand{\Jvet}{\textbf{J}}
-\newcommand{\Kvet}{\textbf{K}}
-\newcommand{\Lvet}{\textbf{L}}
-\newcommand{\Mvet}{\textbf{M}}
-\newcommand{\Nvet}{\textbf{N}}
-\newcommand{\Pvet}{\textbf{P}}
-\newcommand{\Qvet}{\textbf{Q}}
-\newcommand{\Rvet}{\textbf{R}}
-\newcommand{\Svet}{\textbf{S}}
-\newcommand{\Tvet}{\textbf{T}}
-\newcommand{\Uvet}{\textbf{U}}
-\newcommand{\Wvet}{\textbf{W}}
-\newcommand{\Xvet}{\textbf{X}}
-\newcommand{\Yvet}{\textbf{Y}}
-\newcommand{\Zvet}{\textbf{Z}}
-\newcommand{\Zerovet}{\textbf{0}}
-\bmdefine{\xhvet}{\mathsf{x}}
-\bmdefine{\yhvet}{\mathsf{y}}
-\bmdefine{\Chvet}{\mathsf{C}}
-\bmdefine{\Ghvet}{\mathsf{G}}
-\bmdefine{\Jhvet}{\mathsf{J}}
-\bmdefine{\Shvet}{\mathsf{S}}
-\bmdefine{\Uhvet}{\mathsf{U}}
-\bmdefine{\Gammavet}{\mathsf{\Gamma}}
-%\bmdefine{\Omegavet}{\mathsf{\Omega}}
-\newcommand{\Omegavet}{\mathbf{\Omega}}
-\newcommand{\Sigmavet}{\mathbf{\Sigma}}
-\bmdefine{\Thetavet}{\mathsf{\Theta}}
-\bmdefine{\ahvet}{\mathfrak{a}}
-\bmdefine{\bhvet}{\mathfrak{b}}
+\newcommand{\alphavet}{\bm{\alpha}}
+\newcommand{\betavet}{\bm{\beta}}
+\newcommand{\epsvet}{\bm{\varepsilon}}
+\newcommand{\etavet}{\bm{\eta}}
+\newcommand{\lambdavet}{\bm{\lambda}}
+\newcommand{\Unovet}{\bm{1}}
+\newcommand{\avet}{\bm{a}}
+\newcommand{\bvet}{\bm{b}}
+\newcommand{\cvet}{\bm{c}}
+\newcommand{\dvet}{\bm{d}}
+\newcommand{\evet}{\bm{e}}
+\newcommand{\pvet}{\bm{p}}
+\newcommand{\fvet}{\bm{f}}
+\newcommand{\tvet}{\bm{t}}
+\newcommand{\uvet}{\bm{u}}
+\newcommand{\vvet}{\bm{v}}
+\newcommand{\wvet}{\bm{w}}
+\newcommand{\xvet}{\bm{x}}
+\newcommand{\yvet}{\bm{y}}
+\newcommand{\zvet}{\bm{z}}
+\newcommand{\Avet}{\bm{A}}
+\newcommand{\Bvet}{\bm{B}}
+\newcommand{\Cvet}{\bm{C}}
+\newcommand{\Dvet}{\bm{D}}
+\newcommand{\Evet}{\bm{E}}
+\newcommand{\Fvet}{\bm{F}}
+\newcommand{\Gvet}{\bm{G}}
+\newcommand{\Hvet}{\bm{H}}
+\newcommand{\Ivet}{\bm{I}}
+\newcommand{\Jvet}{\bm{J}}
+\newcommand{\Kvet}{\bm{K}}
+\newcommand{\Lvet}{\bm{L}}
+\newcommand{\Mvet}{\bm{M}}
+\newcommand{\Nvet}{\bm{N}}
+\newcommand{\Pvet}{\bm{P}}
+\newcommand{\Qvet}{\bm{Q}}
+\newcommand{\Rvet}{\bm{R}}
+\newcommand{\Svet}{\bm{S}}
+\newcommand{\Tvet}{\bm{T}}
+\newcommand{\Uvet}{\bm{U}}
+\newcommand{\Wvet}{\bm{W}}
+\newcommand{\Xvet}{\bm{X}}
+\newcommand{\Yvet}{\bm{Y}}
+\newcommand{\Zvet}{\bm{Z}}
+\newcommand{\Zerovet}{\bm{0}}
+\newcommand{\Omegavet}{\bm{\Omega}}
+\newcommand{\Sigmavet}{\bm{\Sigma}}
 
 \definecolor{mybluehl}{HTML}{cbd3ff}
 
@@ -156,7 +127,6 @@
 
 \usetikzlibrary{arrows,shapes,positioning,shadows,trees}
 \usetikzlibrary{matrix, decorations.pathreplacing, arrows, calc, fit, arrows.meta, decorations.pathmorphing, decorations.markings}
-
 
 \tikzset{
   basic/.style  = {draw, text width=2cm, drop shadow, font=\sffamily, rectangle},
@@ -194,19 +164,12 @@
 \newtheorem{theorem}{Theorem}[section]
 
 % Title page
-\makeatletter  
+\makeatletter
 \newcommand{\maketitleblind}{\begingroup%
 \if1\blind
 {
-\clearpage\maketitle
-\thispagestyle{empty}
-\vfill
-%\vskip2cm
-%\noindent\textit{\large\textbf{Preliminary Working Draft}}\\
-%\noindent\textbf{Please do not quote or cite without authors' permission}
-\vfill
-\newpage
-\setcounter{page}{1}
+\maketitle
+
 }\fi
 
 \if0\blind
@@ -223,11 +186,11 @@
 \makeatother
 
 % Authors code
-\usepackage[affil-it]{authblk}
+\usepackage[affil-it, blocks]{authblk}
 \setlength{\affilsep}{0em}
 \newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
 \renewcommand\Affilfont{\itshape\normalsize}
-  
+
 % Abstract code
 \makeatletter
 \renewenvironment{abstract}{%
@@ -242,112 +205,218 @@
     {\if@twocolumn\else\endquotation\fi}
 \makeatother
 
+%% Title page
+%\makeatletter  
+%\newcommand{\maketitleblind}{\begingroup%
+%\if1\blind
+%{
+%\clearpage\maketitle
+%\thispagestyle{empty}
+%\vfill
+%%\vskip2cm
+%%\noindent\textit{\large\textbf{Preliminary Working Draft}}\\
+%%\noindent\textbf{Please do not quote or cite without authors' permission}
+%\vfill
+%\newpage
+%\setcounter{page}{1}
+%}\fi
+%
+%\if0\blind
+%{
+%\begin{center}%
+%  \let \footnote \thanks
+%    {\LARGE \@title \par}%
+%    \vskip 1.5em%
+%    {\large \@date}%
+%  \end{center}
+%  \bigskip
+%} \fi
+%\endgroup}
+%\makeatother
+%
+%% Authors code
+%\usepackage[affil-it]{authblk}
+%\setlength{\affilsep}{0em}
+%\newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
+%\renewcommand\Affilfont{\itshape\normalsize}
+%  
+%% Abstract code
+%\makeatletter
+%\renewenvironment{abstract}{%
+%    \if@twocolumn
+%      \section*{\abstractname}%
+%    \else %
+%      \begin{center}%
+%        {\bfseries \large\abstractname\vspace{\z@}}%
+%      \end{center}%
+%      \quotation
+%    \fi}
+%    {\if@twocolumn\else\endquotation\fi}
+%\makeatother
+
 %% Settings
 \title{\bf Cross-temporal Probabilistic Forecast Reconciliation: online appendix}
-\author{Tommaso Di Fonzo}
-\affil{Department of Statistical Sciences, University of Padova}
-\email{tommaso.difonzo@unipd.it}
 \author{Daniele Girolimetto}
 \affil{Department of Statistical Sciences, University of Padova}
 \email{daniele.girolimetto@phd.unipd.it}
-
-
+\author{George Athanasopoulos}
+\affil{Department of Econometrics and Business Statistics, Monash University}
+\email{george.athanasopoulos@monash.edu}
+\author{Tommaso Di Fonzo}
+\affil{Department of Statistical Sciences, University of Padova}
+\email{tommaso.difonzo@unipd.it}
+\author{Rob J Hyndman}
+\affil{Department of Econometrics and Business Statistics, Monash University}
+\email{rob.hyndman@monash.edu}
 
 \begin{document}
 
 \def\spacingset#1{\renewcommand{\baselinestretch}{#1}\small\normalsize}
 \spacingset{1.1}
   
-\thispagestyle{empty} \clearpage\maketitleblind
+\maketitleblind
 
-\spacingset{1.5}
-\tableofcontents
+\spacingset{1.3}
+%\tableofcontents
 %\listoftables
 \appendix
 
-\section{AR2}
+\section{Monte Carlo Simulation: one-step residuals and shrinkage covariance matrix}
+
+In Section 5.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition. This can be seen clearly in \autoref{fig:ar2covcor_app}, where we have reported the covariance and correlation matrix corresponding to Figure 11 in the paper, but where we have used one-step residuals. 
+In addition, Tables \ref{tab:ar2norm_app}, \ref{tab:ar2crps_app} and \ref{tab:ar2es_app} show the Frobenius norm, CRPS, and ES skill scores as explained in the paper to investigate the effectiveness of one-step residuals. 
+Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we have utilized a shrinkage matrix rather than the sample covariance matrix to assess the performance of our approach.
+
+\begin{figure}[!hp]
+	\centering
+	\includegraphics[width = 0.85\linewidth]{fig/AR/base_cov_app.pdf}
+	\caption{Comparison of estimated covariance and correlation matrices (first simulation) for base forecasts using a parametric Gaussian (with one-step residuals) approach. The true covariance and correlation matrices are shown in Figure 10 in the paper.}
+	\label{fig:ar2covcor_app}
+\end{figure}
+
+\begin{table}[!hp]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/norm_cov_app.tex}
+	\endgroup
+	\caption{Frobenius norm between the true (in Figure 10 in the paper) and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. In bold, it is reported the lowest value for each column, in blue the minimum.}
+	\label{tab:ar2norm_app}
+\end{table}
+
+\begin{table}[!hp]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_crps_app.tex}
+	\endgroup
+	\caption{CRPS skill score defined in (17) and (18). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:ar2crps_app}
+\end{table}
+
+\begin{table}[!hp]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_es_app.tex}
+	\endgroup
+	\caption{ES skill score defined in equation (17) and (19). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:ar2es_app}
+\end{table}
+
+\begin{table}[!hp]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/shr_crps_app.tex}
+	\endgroup
+	\caption{CRPS skill score defined in (17) and (18). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:ar2crps_app_shr}
+\end{table}
+
+\begin{table}[!hp]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/shr_es_app.tex}
+	\endgroup
+	\caption{ES skill score defined in equation (17) and (19). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:ar2es_app_shr}
+\end{table}
+
+\section{Australian GDP dataset: one-step residuals and shrinkage covariance matrix}
 
 \begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/Sim/shr_crps.tex}
-\endgroup
-\caption{CRPS skill score presented in equation (18) and (19) of the paper. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold and in blue the lowest value. The notation used to refer to the reconciliation and base forecast samples is explained in more details in Section 7.1 of the paper.}
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/sam_crps_com.tex}
+	\endgroup
+	\caption{CRPS skill score defined in equation (17) and (18) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:auscrps}
 \end{table}
 
 \begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/Sim/shr_es.tex}
-\endgroup
-\caption{ES skill score presented in equation (18) and (19) of the paper. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (base, $G$) are highlighted in red, the best for each column is marked in bold and in blue the lowest value. The notation used to refer to the reconciliation and base forecast samples is explained in more details in Section 7.1 of the paper.}
-\end{table}
-
-\section{AusGDP}
-
-\begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/shr_crps.tex}
-\endgroup
-\caption{CRPS skill score presented in equation (18) and (19) of the paper for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold and in blue the lowest value.The notation used to refer to the reconciliation and base forecast samples is explained in more details in Section 8.1 of the paper.}
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/sam_es_com.tex}
+	\endgroup
+	\caption{ES skill score defined in equation (17) and (19) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:auses}
 \end{table}
 
 \begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/shr_es.tex}
-\endgroup
-\caption{ES skill score presented in equation (18) and (19) of the paper for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold and in blue the lowest value. The notation used to refer to the reconciliation and base forecast samples is explained in more details in Section 8.1 of the paper.}
-\end{table}
-
-
-\begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/sam_crps_com.tex}
-\endgroup
-\caption{CRPS}
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/shr_crps_com.tex}
+	\endgroup
+	\caption{CRPS skill score defined in equation (17) and (18) for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:auscrps}
 \end{table}
 
 \begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/shr_crps_com.tex}
-\endgroup
-\caption{CRPS}
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/shr_es_com.tex}
+	\endgroup
+	\caption{ES skill score defined in equation (17) and (19) and \eqref{eq:skillES_all} for the Australian Quarterly National Accounts dataset (AusGDP). The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:auses}
+\end{table}
+
+\newpage
+\section{Australian Tourism Demand dataset: shrinkage covariance matrix}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/shr_crps_more.tex}
+	\endgroup
+	\caption{CRPS skill score defined in equation (17) and (18) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:vncrps}
 \end{table}
 
 \begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/sam_es_com.tex}
-\endgroup
-\caption{ES}
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/shr_es_more.tex}
+	\endgroup
+	\caption{ES skill score defined in equation (17) and (19) for VN525 dataset. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue.}
+	\label{tab:vnes}
 \end{table}
-
-\begin{table}[H]
-\centering
-\begingroup
-\spacingset{1}
-\fontsize{9}{11}\selectfont
-\input{tab/AusGDP/shr_es_com.tex}
-\endgroup
-\caption{ES}
-\end{table}
-
 \end{document}
