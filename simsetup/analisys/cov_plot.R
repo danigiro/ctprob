@@ -74,9 +74,10 @@ ggsave("./analisys/covcor.pdf",
        width = 10,
        height = 5)
 
-load("./analisys/cov_sam_figure.RData")
+load("./analisys/base_cov_plot.RData")
 
-c1 <- rbind(ctjb_base, ctsam_base, ctsamh_base) |>
+c1 <- rbind(ctjb_base, #ctsam_base, 
+            ctsamh_base) |>
                filter(type == "cov") |>
                mutate(type = recode(type, "cor" = "Correlation matrix",
                                     "cov" = "Covariance matrix"),
@@ -94,7 +95,8 @@ c1 <- rbind(ctjb_base, ctsam_base, ctsamh_base) |>
                theme(legend.position = "bottom",
                      legend.title = element_blank(),
                      strip.text.y = element_text(angle = -90))
-c2 <- rbind(ctjb_base, ctsam_base, ctsamh_base) |>
+c2 <- rbind(ctjb_base, #ctsam_base, 
+            ctsamh_base) |>
                filter(type == "cor") |>
                mutate(type = recode(type, "cor" = "Correlation matrix",
                                     "cov" = "Covariance matrix"),
@@ -116,4 +118,47 @@ c2 <- rbind(ctjb_base, ctsam_base, ctsamh_base) |>
 ggsave("./analisys/base_cov.pdf",
        gridExtra::grid.arrange(c1, c2, ncol = 2),
        width = 7,
-       height = 14)
+       height = 7)
+
+
+c1_app <- rbind(ctsam_base) |>
+  filter(type == "cov") |>
+  mutate(type = recode(type, "cor" = "Correlation matrix",
+                       "cov" = "Covariance matrix"),
+         prob = recode(prob, "ctjb" = "Bootstrap", 
+                       "ctsam" = "Gaussian with\nin-sample residuals", 
+                       "ctsamh" = "Gaussian with\nmulti-step residuals")) |>
+  ggplot(aes(x = row, y = col, fill = value)) +
+  geom_tile(col = "black") +
+  scale_fill_gradient2() +
+  scale_y_reverse() +
+  geom_text(aes(label = round(value, 1)), size = 2.5) +
+  theme_void() +
+  facet_grid(prob ~ type, switch="y") +
+  coord_fixed()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        strip.text.y = element_text(angle = -90))
+c2_app <- rbind(ctsam_base) |>
+  filter(type == "cor") |>
+  mutate(type = recode(type, "cor" = "Correlation matrix",
+                       "cov" = "Covariance matrix"),
+         prob = recode(prob, "ctjb" = "Bootstrap", 
+                       "ctsam" = "Gaussian with\nin-sample residuals", 
+                       "ctsamh" = "Gaussian with\nmulti-step residuals")) |>
+  ggplot(aes(x = row, y = col, fill = value)) +
+  geom_tile(col = "black") +
+  scale_fill_gradient2() +
+  scale_y_reverse() +
+  geom_text(aes(label = round(value, 1)), size = 2.5) +
+  theme_void() +
+  facet_grid(prob ~ type) +
+  coord_fixed()+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        strip.text.y = element_text(angle = -90))
+
+ggsave("./analisys/base_cov_app.pdf",
+       gridExtra::grid.arrange(c1_app, c2_app, ncol = 2),
+       width = 7,
+       height = 4)

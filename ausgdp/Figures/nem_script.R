@@ -25,8 +25,8 @@ sel_mc <- c("arima lev" = "base",
             "csbu wls" = "ct(wls[cs],bu[te])",
             "octo wlsv" = "oct[o](wlsv)",
             "octo bdshr" = "oct[o](bdshr)",
-            "octo shr" = "oct[o](shr)",
-            "octo hshr" = "oct[o](hshr)",
+            #"octo shr" = "oct[o](shr)",
+            #"octo hshr" = "oct[o](hshr)",
             "octoh shr" = "oct[oh](shr)",
             "octoh hshr" = "oct[oh](hshr)")
 sel_prob <- c("ctjb", "hsamoh")

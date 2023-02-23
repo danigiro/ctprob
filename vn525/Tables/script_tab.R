@@ -2,7 +2,7 @@
 library(formattable)
 library(kableExtra)
 library(tidyverse)
-load("./ProbScore/arima_lev_scores.RData")
+load("./ProbScore/ets_log_scores.RData")
 
 ## Paper ----
 sel_mc <- c("ets log NA" = "base",
@@ -80,7 +80,7 @@ rbind(crps_0, crps_k) |>
       escape = FALSE)  |>
   footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
                             "The Gaussian method employs a sample covariance matrix and includes ",
-                            "four techniques (G, B, H, HB)\\\\\\\\ with multi-step residuals.",
+                            "four techniques\\\\\\\\ (G, B, H, HB) with multi-step residuals..",
                             "}"), 
            escape = FALSE, general_title = "")|>
   pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
@@ -167,7 +167,7 @@ rbind(es_0, es_k) |>
       escape = FALSE)  |>
   footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
                             "The Gaussian method employs a sample covariance matrix and includes ",
-                            "four techniques (G, B, H, HB)\\\\\\\\ with multi-step residuals.",
+                            "four techniques\\\\\\\\ (G, B, H, HB) with multi-step residuals..",
                             "}"), 
            escape = FALSE, general_title = "")|>
   pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
@@ -258,7 +258,7 @@ rbind(crps_0, crps_k) |>
       escape = FALSE)  |>
   footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
                             "The Gaussian method employs a shrikage covariance matrix and includes ",
-                            "four techniques (G, B, H, HB)\\\\\\\\ with multi-step residuals.",
+                            "four techniques\\\\\\\\ (G, B, H, HB) with multi-step residuals..",
                             "}"), 
            escape = FALSE, general_title = "")|>
   pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
@@ -345,7 +345,7 @@ rbind(es_0, es_k) |>
       escape = FALSE)  |>
   footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
                             "The Gaussian method employs a shrikage covariance matrix and includes ",
-                            "four techniques (G, B, H, HB)\\\\\\\\ with multi-step residuals.",
+                            "four techniques\\\\\\\\ (G, B, H, HB) with multi-step residuals.",
                             "}"), 
            escape = FALSE, general_title = "")|>
   pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 

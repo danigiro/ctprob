@@ -10,12 +10,12 @@ sel_mc <- c("arima lev" = "base",
             "csbu wls" = "ct$(wls_{cs}, bu_{te})$",
             "octo wlsv" = "oct$_o(wlsv)$",
             "octo bdshr" = "oct$_o(bdshr)$",
-            "octo shr" = "oct$_o(shr)$",
-            "octo hshr" = "oct$_o(hshr)$",
+            #"octo shr" = "oct$_o(shr)$",
+            #"octo hshr" = "oct$_o(hshr)$",
             "octoh shr" = "oct$_{oh}(shr)$",
             "octoh hshr" = "oct$_{oh}(hshr)$")
 sel_prob <- c("ctjb", "ctsamh", "hsamh", "ctsamoh", "hsamoh")
-K <- setNames(c("$\\forall k \\\\in \\\\{4,2,1\\\\}$", 
+K <- setNames(c("$\\\\forall k \\\\in \\\\{4,2,1\\\\}$", 
                 paste0("$k = ", c(1,2,4), "$")), c(0,1,2,4))
 
 ### CRPS ----
@@ -54,30 +54,39 @@ rbind(crps_0, crps_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
-  arrange(k) |> select(-k) |>
+  arrange(k) |>
+  select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: sample covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a sample covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/sam_crps.tex"), self_contained = FALSE)
 
 ### ES ----
@@ -118,31 +127,39 @@ rbind(es_0, es_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
   arrange(k) |>
   select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: sample covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a sample covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/sam_es.tex"), self_contained = FALSE)
 
 
@@ -167,30 +184,39 @@ rbind(crps_0, crps_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
-  arrange(k) |> select(-k) |>
+  arrange(k) |>
+  select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: shrinkage covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a shrinkage covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/shr_crps.tex"), self_contained = FALSE)
 
 #### ES ----
@@ -211,31 +237,39 @@ rbind(es_0, es_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
   arrange(k) |>
   select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: shrinkage covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a shrinkage covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/shr_es.tex"), self_contained = FALSE)
 
 ### Complete set ----
@@ -273,30 +307,39 @@ rbind(crps_0, crps_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
-  arrange(k) |> select(-k) |>
+  arrange(k) |>
+  select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: sample covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a sample covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/sam_crps_com.tex"), self_contained = FALSE)
 
 ##### ES ----
@@ -317,31 +360,39 @@ rbind(es_0, es_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
   arrange(k) |>
   select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: sample covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a sample covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/sam_es_com.tex"), self_contained = FALSE)
 
 
@@ -365,30 +416,39 @@ rbind(crps_0, crps_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
-  arrange(k) |> select(-k) |>
+  arrange(k) |>
+  select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: shrinkage covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a shrinkage covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/shr_crps_com.tex"), self_contained = FALSE)
 
 ##### ES ----
@@ -409,30 +469,37 @@ rbind(es_0, es_k) |>
                            color = ifelse(red, "red", ifelse(blue, "blue", "black"))))|>
   ungroup() |>
   select(-bold, -blue, -red, -ming, -mink) |>
-  pivot_wider(names_from = c(prob), names_sep = "-") |>
+  mutate(colgk = recode(k, !!!setNames(c(0,0,1,1), c(0,2,1,4))),
+         colgk2 = recode(k, !!!setNames(c(1,2,1,2), c(0,2,1,4)))) |>
   mutate(k = factor(k, 0:12, ordered = TRUE)) |>
   arrange(k) |>
   select(-k) |>
+  pivot_wider(names_from = c(prob, colgk), names_sep = "-") |>
+  select(-colgk2) |>
   kbl(format = "latex", digits = 3, booktabs = TRUE, 
       linesep = "",
-      align = "cccccc",
-      col.names = c("\\multirow{-5}{*}{\\parbox{2cm}{\\centering\\textbf{Reconciliation\\\\approach}}}", 
-                    "\\multirow{-4}{*}{Bootstrap}", "G", "H", "G", "H"),
-      caption = paste0("ES - selected"), 
+      align = "c",
+      col.names = c("\\multicolumn{1}{c}{}", 
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}",
+                    "", "G$_{h}$", "H$_{h}$", "G$_{oh}$", "\\multicolumn{1}{c}{H$_{oh}$}"),
       escape = FALSE) |>
-  pack_rows(K[1], start_row = 1, end_row = length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[2], start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[3], start_row = 2*length(sel_mc)+1, end_row = 3*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  pack_rows(K[4], start_row = 3*length(sel_mc)+1, end_row = 4*length(sel_mc), 
-            indent = FALSE, escape = FALSE, latex_align = "c") |>
-  add_header_above(c("", "", "Multi-step residuals" = 2, "Overlapping and\nmulti-step residuals" = 2), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "", "Gaussian frameworks: shrinkage covariance matrix" = 4), 
-                   escape = TRUE, line_sep = 0, line = FALSE) |>
-  add_header_above(c("", "Base forecasts' sample approach" = 5), 
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[1], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[2], "}"), 
+            start_row = 1, end_row = length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  pack_rows(paste0("} & \\multicolumn{5}{c}{\\\\textbf{", K[3], "}} & \\\\multicolumn{5}{c}{\\\\textbf{", K[4], "}"), 
+            start_row = length(sel_mc)+1, end_row = 2*length(sel_mc), colnum = 1,
+            indent = FALSE, escape = FALSE, latex_align = "c", bold = FALSE) |>
+  add_header_above(c("\\\\makecell[c]{\\\\bfseries Reconciliation\\\\\\\\\\\\bfseries approach}", 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4, 
+                     "ctjb", "\\\\makecell[c]{Gaussian approach\\\\textsuperscript{*}}" = 4), 
+                   escape = FALSE, line_sep = 0, line = FALSE) |>
+  add_header_above(c("", "Base forecasts' sample approach" = 10), 
                    escape = TRUE, bold = TRUE, line_sep = 0) |>
-  column_spec(2:6, width = "1.5cm") |> column_spec(1, width = "2.5cm") |>
+  footnote(general = paste0("\\\\rule{0pt}{1.75em}\\\\makecell[l]{$^\\\\ast$",
+                            "The Gaussian method employs a shrinkage covariance matrix:\\\\\\\\",
+                            "G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.",
+                            "}"), 
+           escape = FALSE, general_title = "") |>
+  column_spec(6, border_right = T) |> 
+  column_spec(2, border_left = T) |>
   save_kable(paste0("./Tables/shr_es_com.tex"), self_contained = FALSE)
