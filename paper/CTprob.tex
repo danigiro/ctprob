@@ -1059,7 +1059,7 @@ Additionally, we utilized the non-parametric Friedman test and the post hoc “M
 
 \subsection{Results}
 
-\begin{table}[p]
+\begin{table}[!ht]
 	\centering
 	\begingroup
 	\spacingset{1}
@@ -1070,7 +1070,7 @@ Additionally, we utilized the non-parametric Friedman test and the post hoc “M
 	\label{tab:auscrps}
 \end{table}
 
-\begin{table}[p]
+\begin{table}[!ht]
 	\centering
 	\begingroup
 	\spacingset{1}
@@ -1109,7 +1109,9 @@ Overall, we found that using overlapping residuals almost always leads to a grea
 
 The Australian Tourism Demand dataset \citep{wickramasuriya2019, wickramasuriya2020} measures the number of tourists arriving and spending nights in tourist facilities. It includes 228 monthly observations of Visitor Nights (VN) from January 1998 to December 2016, and has a cross-sectional clustered structure based on a geographic hierarchy and a disaggregation by purpose of travel. The geographic hierarchy is divided into seven states, 27 zones of states, and 76 regions of zones, for a total of 111 geographic divisions. However, six of these zones (see \autoref{tab:australia} in the Appendix \ref{app:australia}) are each formed by a single region, resulting in a total of 105 unique nodes in the hierarchy. The purpose of travel is divided into four categories: holiday (Hol), visiting friends and relatives (Vis), business (Bus), and other (Oth). According to \cite{difonzo2022a}, 24 nodes should not be considered, resulting in an unbalanced hierarchy of 525 unique nodes, referred to as VN525, instead of the theoretical 555. The dataset includes the 304 most disaggregated series, which can be aggregated into 221 upper time series for a total of 525 variables. \autoref{tab:nseries} omits duplicated entries and updates the information in Table 7 from \cite{wickramasuriya2019}. This data can be temporally aggregated into 2, 3, 4, 6, or 12 months ($\mathcal{K} = \{1,2,3,4,6,12\}$).
 
-\begin{table}[!b]
+The forecasting experiment involves using a recursive training sample with an expanding window length. The process begins by using the first 10 years of data, from January 1998 to December 2008, to make forecasts for the entire following year (2009). Then, the training set is increased by one month and used to forecast the next 12 months, repeating this process until the last training set is used (January 1998 to December 2015). This results in a total of 85 different forecast origins, with each one being replicated in the forecasting experiment. Additionally, forecasts are computed up to 6 steps ahead for time series aggregated over 2 months, up to 4 steps ahead for those aggregated over 3 months, up to 3 steps ahead for those aggregated over 4 months, up to 2 steps ahead for those aggregated over 6 months, and one step ahead for those aggregated over 12 months. ETS models (minimizing the AICc criterion with the R package \texttt{forecast}) are fitted to the log-transformed data, with the resulting base forecasts being back-transformed to produce non-negative forecasts, as described in \cite{wickramasuriya2020}.
+
+\begin{table}[!t]
 	\spacingset{1.1}
 	\centering
 	\begin{tabular}{c|cc|c}
@@ -1130,8 +1132,6 @@ The Australian Tourism Demand dataset \citep{wickramasuriya2019, wickramasuriya2
 	\end{tabular}
 	\caption{\label{tab:nseries} Grouped time series for Australian tourism flows.}
 \end{table}
-
-The forecasting experiment involves using a recursive training sample with an expanding window length. The process begins by using the first 10 years of data, from January 1998 to December 2008, to make forecasts for the entire following year (2009). Then, the training set is increased by one month and used to forecast the next 12 months, repeating this process until the last training set is used (January 1998 to December 2015). This results in a total of 85 different forecast origins, with each one being replicated in the forecasting experiment. Additionally, forecasts are computed up to 6 steps ahead for time series aggregated over 2 months, up to 4 steps ahead for those aggregated over 3 months, up to 3 steps ahead for those aggregated over 4 months, up to 2 steps ahead for those aggregated over 6 months, and one step ahead for those aggregated over 12 months. ETS models (minimizing the AICc criterion with the R package \texttt{forecast}) are fitted to the log-transformed data, with the resulting base forecasts being back-transformed to produce non-negative forecasts, as described in \cite{wickramasuriya2020}.
 
 \subsection{Base and reconciled samples}\label{ssec:vn_br}
 
