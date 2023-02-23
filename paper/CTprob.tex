@@ -735,6 +735,13 @@ and
 \end{align*}
 where $\widehat{\Omegavet}_{hf, D} = \Ivet_{nm}\odot\widehat{\Omegavet}_{hf, HB}$ is a diagonal matrix, and $\widehat{\Omegavet}_{H}$ is the cross-temporal covariance matrix for the complete system, with $H$ denoting High frequency shrinkage.
 
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width = \linewidth]{fig/shr_cov/parameters.pdf}
+	\caption{The four graphs on the left represent the number of different parameters in the covariance matrix for the various approaches presented for different values of $m$ and $n$ (with $n_b$, the number of bottom time series, is about $60\%$ of the total). On the right, we have the boxplot of the percentage reduction in the number of parameters compared to the global approach.}
+	\label{fig:num_param}
+\end{figure}
+
 Finally, we can impose only the cross-sectional structure. We know that \begin{align*}
 	\Omegavet & = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'                                                                                                                                                   \\
 	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                   \\
@@ -753,64 +760,58 @@ and
 \end{align*}
 where $\widehat{\Omegavet}_{bts, D} = \Ivet_{n_b(m+k^\ast)}\odot\widehat{\Omegavet}_{bts, B}$ is a diagonal matrix, and $\widehat{\Omegavet}_{B}$ is the cross-temporal covariance matrix for the complete system, with $B$ denoting Bottom time series shrinkage.
 
-\begin{figure}[!b]
-	\centering
-	\includegraphics[width = \linewidth]{fig/shr_cov/parameters.pdf}
-	\caption{The four graphs on the left represent the number of different parameters in the covariance matrix for the various approaches presented for different values of $m$ and $n$ (with $n_b$, the number of bottom time series, is about $60\%$ of the total). On the right, we have the boxplot of the percentage reduction in the number of parameters compared to the global approach.}
-	\label{fig:num_param}
-\end{figure}
-
 \begin{table}[!t]
 	\centering
 	\begingroup
 	\spacingset{1.1}
-	\begin{tabular}{M{0.25\linewidth}ccc}
+	\setlength\tabcolsep{2pt}
+	\begin{tabular}{M{0.25\linewidth}ccccc}
 		\toprule
-		\textbf{Shrinkage}                & \textbf{ID} & \textbf{\# of different parameters}                             &                  \\
+		\textbf{Shrinkage}            & \textbf{\# of different parameters}                             & \textbf{AR(2)} & \textbf{AusGDP} & \textbf{VN525}                 \\
 		\midrule
 		\addlinespace[0.25cm]
-		Global                            & $G$         & $r = \displaystyle\frac{n(k^\ast+m)[n(k^\ast+m)-1]}{2}$         &                  \\
+		Global (G)                          & $r = \displaystyle\frac{n(k^\ast+m)[n(k^\ast+m)-1]}{2}$         & 36             & 221445          & 108052350 \\
 		\addlinespace[0.25cm]
-		High frequency bottom time series & $HB$        & $r_{HB} = \displaystyle\frac{n_bm[n_bm-1]}{2}$                  & $r_{HB}<r$       \\
+		High frequency bottom time series (HB) & $r_{HB} = \displaystyle\frac{n_bm[n_bm-1]}{2}<r$       & 6              & 30876           & 6655776 \\
 		\addlinespace[0.25cm]
-		High frequency                    & $H$         & $r_{H} = \displaystyle\frac{nm[nm-1]}{2}$                       & $r_{HB}<r_{H}<r$ \\
+		High frequency (H)               & $r_{HB}<\displaystyle\frac{nm[nm-1]}{2}<r$ & 15             & 72390           & 19848150\\
 		\addlinespace[0.25cm]
-		Bottom time series                & $B$         & $r_{B} = \displaystyle\frac{n_b(k^\ast+m)[n_b(k^\ast+m)-1]}{2}$ & $r_{HB}<r_{B}<r$ \\
+		Bottom time series (B)              & $r_{HB}<\displaystyle\frac{n_b(k^\ast+m)[n_b(k^\ast+m)-1]}{2}<r$ & 15             & 94395           & 36231328\\
 		\addlinespace[0.25cm]
 		\bottomrule
 	\end{tabular}
 	\endgroup
-	\caption{Number of different parameters that need to be estimated for the various approaches. The Shrinkage column indicates the type of shrinking applied, and the ID column shows the abbreviations used.}
+	\caption{Number of different parameters that need to be estimated for the Monte Carlo simulation (\textbf{AR(2)}, see \autoref{sec:mcsim}), the Australian GDP (\textbf{AusGDP}, see \autoref{sec:ausgdp}) dataset and the Australian Tourism Demand (\textbf{VN525}, see \autoref{sec:vn525}): the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; the second one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the last one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper). The Shrinkage column indicates the type of shrinking applied, and the ID.}
 	\label{tab:num_param}
-	\vskip1.5cm
+	%\vskip1.5cm
 	%\end{table}
 	%\begin{table}[hbt]
 	%\centering
-	\begingroup
-	\spacingset{1.1}
-	\begin{tabular}{M{0.25\linewidth}cccc}
-		\toprule
-		\textbf{Shrinkage}                & \textbf{ID} & \textbf{AR(2)} & \textbf{AusGDP} & \textbf{VN525} \\
-		\midrule
-		Global                            & $G$         & 36             & 221445          & 108052350      \\
-		\addlinespace[0.25cm]
-		High frequency bottom time series & $HB$        & 6              & 30876           & 6655776        \\
-		\addlinespace[0.25cm]
-		High frequency                    & $H$         & 15             & 72390           & 19848150       \\
-		\addlinespace[0.25cm]
-		Bottom time series                & $B$         & 15             & 94395           & 36231328       \\
-		\bottomrule
-	\end{tabular}
-	\endgroup
-	\caption{Number of different parameters that need to be estimated for the Monte Carlo simulation (\textbf{AR(2)}, see \autoref{sec:mcsim}), the Australian GDP (\textbf{AusGDP}, see \autoref{sec:ausgdp}) dataset and the Australian Tourism Demand (\textbf{VN525}, see \autoref{sec:vn525}): the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; the second one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the last one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper).}
-	\label{tab:num_param_data}
+%	\begingroup
+%	\spacingset{1.1}
+%	\begin{tabular}{M{0.25\linewidth}cccc}
+%		\toprule
+%		\textbf{Shrinkage}                & \textbf{ID} & \textbf{AR(2)} & \textbf{AusGDP} & \textbf{VN525} \\
+%		\midrule
+%		Global                            & $G$         & 36             & 221445          & 108052350      \\
+%		\addlinespace[0.25cm]
+%		High frequency bottom time series & $HB$        & 6              & 30876           & 6655776        \\
+%		\addlinespace[0.25cm]
+%		High frequency                    & $H$         & 15             & 72390           & 19848150       \\
+%		\addlinespace[0.25cm]
+%		Bottom time series                & $B$         & 15             & 94395           & 36231328       \\
+%		\bottomrule
+%	\end{tabular}
+%	\endgroup
+%	\caption{Number of different parameters that need to be estimated for the Monte Carlo simulation (\textbf{AR(2)}, see \autoref{sec:mcsim}), the Australian GDP (\textbf{AusGDP}, see \autoref{sec:ausgdp}) dataset and the Australian Tourism Demand (\textbf{VN525}, see \autoref{sec:vn525}): the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; the second one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the last one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper).}
+%	\label{tab:num_param_data}
 \end{table}
 
 These four approaches differ not only in their target matrices (see \autoref{fig:shr_grid}), but also in the number of parameters to be estimated through the residuals of the base forecasts. \autoref{tab:num_param} shows the total number of different parameters in the covariance matrix, while \autoref{fig:num_param} shows these values for different values of $m$ and $n$, with $n_b$ fixed to approximately $60\%$ of $n$. As we can see, a global approach (\textit{G}) usually involves a considerable number of parameters compared to other procedures. The right panel of \autoref{fig:num_param} reports the boxplot of the percentage reductions in the number of parameters compared to the global approach, that is:
 $$
 	\% \text{ reduction} = 100(1-r_i/r_G) \quad \mathrm{with} \; i \in \{\textit{HB}, H, B\},
 $$
-we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series requires the estimation of a smaller number of parameters. In \autoref{tab:num_param_data} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
+we observe that using only the high frequency bottom time series (\textit{HB}) leads to a decrease of around 90\%. The \textit{H} and \textit{B} approaches, on the other hand, are a compromise between the previous two. Although there is no clear hierarchy between the two, as $m$ and $n$ increase, using the high frequency time series requires the estimation of a smaller number of parameters. In \autoref{tab:num_param} we report the number of different parameters for the Monte Carlo simulation (\textbf{AR2}), the Australian Tourism Demand (\textbf{VN525}) and the Australian GDP (\textbf{AusGDP}) datasets considered in the next sections.
 
 In our simulations and empirical analysis, we will be closely analyzing these different constructions with a dual purpose. First, we will use the full covariance matrix ($\lambda = 0$) of the base forecasts to obtain a sample of the linearly constrained time series when we assume normality in our sample. Additionally, we will use the shrinkage versions as approximations for reconciliation. This will allow us to have a more comprehensive understanding of the data and the relationships between the series.
 
@@ -917,6 +918,13 @@ The bottom series are then cross-temporally aggregated to obtain the series at a
 
 For the forecast experiment, base forecasts using AR models will be used. The order of the AR models is not fixed at the true order, but rather is determined using the algorithm proposed by \cite{hyndman2008a} in the R package \texttt{forecast} \citep{Rforecast}, thus allowing for the possibility of mis-specification in the models. The training window length is 500 years, consisting of 1000 observations. The experiment will be replicated 500 times, with a forecast horizon of 1 year.
 
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width = \linewidth]{fig/simAR/covcor.pdf}
+	\caption{True cross-temporal covariance (left) and correlation (right) matrix of forecasts reconciled with $\sigma_B = 0.9$, $\sigma_C = 1.8$, $\phi_B = [1.34, -0.74]'$, $\phi_C = [0.95, -0.42]'$ and $\rho = -0.8$.}
+	\label{fig:covcorMC}
+\end{figure}
+
 Since the models used for the data generating process (DPG) for the bottom series $B$ and $C$ at the most aggregated temporal level are two AR(2) models, we have calculated the true covariance matrix for one-step ahead forecasts at the annual level. Therefore, we have that $\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'$ where
 $$
 	\Omegavet_{\textit{hf-bts}} = \begin{bmatrix}
@@ -928,13 +936,6 @@ $$
 $$
 The detailed calculations can be found in Appendix \ref{app:ar2}.
 In \autoref{fig:covcorMC} we have represented both the covariance matrix and the correlation matrix for fixed parameters.
-
-\begin{figure}[!hb]
-	\centering
-	\includegraphics[width = \linewidth]{fig/simAR/covcor.pdf}
-	\caption{True cross-temporal covariance (left) and correlation (right) matrix of forecasts reconciled with $\sigma_B = 0.9$, $\sigma_C = 1.8$, $\phi_B = [1.34, -0.74]'$, $\phi_C = [0.95, -0.42]'$ and $\rho = -0.8$.}
-	\label{fig:covcorMC}
-\end{figure}
 
 \subsection{Base and reconciled samples}\label{ssec:sim_br}
 
@@ -977,6 +978,18 @@ From \autoref{tab:ar2norm}, it appears that the reconciled covariance matrices a
 
 \subsection{Accuracy scores}\label{ssec:acc_scores}
 
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_crps.tex}
+	\endgroup
+	\caption{CRPS skill score defined in \eqref{eq:skill} and \eqref{eq:skillCRPS_all}. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:sim_br}.}
+	\label{tab:ar2crps}
+\end{table}
+
 The accuracy of the probabilistic forecasts is evaluated using the Continuous Ranked Probability Score (CRPS, \citealp{gneiting2014}), given by
 \begin{equation}\label{eq:crps}
 	\operatorname{CRPS}(\widehat{P}_i, z_i)=\frac{1}{L} \sum_{l=1}^{L}\left|x_{i,l}-z_i\right|-\frac{1}{2 L^{2}} \sum_{l=1}^{L} \sum_{j=1}^{L}\left|x_{i,l}-x_{i,j}\right|, \quad i = 1,\dots,n,
@@ -987,7 +1000,7 @@ In addition, we employ the Energy Score (ES, \citealp{gneiting2014}), that is th
 	\operatorname{ES}(\hat{P}, \zvet)=\frac{1}{L} \sum_{l=1}^{L}\left\|\xvet_{l}-\zvet\right\|_{2}-\frac{1}{2(L-1)} \sum_{i=1}^{L-1}\left\|\xvet_{l}-\xvet_{l+1}\right\|_{2}
 \end{equation}
 
-In Tables 5 and 6 are reported the results using these two indices. In
+In Tables \ref{tab:ar2crps} and \ref{tab:ar2es} are reported the results using these two indices. In
 particular, we consider the geometric mean of the skill scores of the
 CRPS indices \citep{fleming1986}, and the standard skill score
 for index ES:
@@ -1003,17 +1016,6 @@ and
 	\operatorname{ScoreES}_{j,s}= \left(\prod_{k \in \{1,2\}}\frac{ES^{[k]}_{j, s}}{ES^{[k]}_{0, 0}}\right)^{\frac{1}{(k^\ast+m)}}.
 \end{equation}
 A limitation of this simulation experiment is that we are using a high number of residuals, which may result in a potential loss of benefit when using forms of covariance matrix parameterization such as $HB$, $H$, or $B$ (see \autoref{sec:shrtech}). Additionally, shrinkage techniques often yield very similar, results when we use the corresponding matrix with $\lambda = 0$ (full covariance matrix). It is important to consider these limitations when interpreting the results.
-
-\begin{table}[!t]
-	\centering
-	\begingroup
-	\spacingset{1}
-	\fontsize{9}{11}\selectfont
-	\input{tab/Sim/sam_crps.tex}
-	\endgroup
-	\caption{CRPS skill score defined in \eqref{eq:skill} and \eqref{eq:skillCRPS_all}. The smaller this value, the more accurate the forecast. Approaches that performed worse than the benchmark model (Bootstrap base forecasts) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The notation used to refer to the reconciliation and base forecast samples is explained in \autoref{ssec:sim_br}.}
-	\label{tab:ar2crps}
-\end{table}
 
 \begin{table}[!t]
 	\centering
@@ -1057,9 +1059,10 @@ To accurately evaluate the quality of our forecasts, we used the Continuous Rank
 In order to provide a comprehensive understanding of our evaluation results, we will present and analyze these accuracy indices at multiple temporal levels. This will allow us to examine the performance of our forecasting techniques at different durations, giving us a more complete picture of their effectiveness.
 Additionally, we utilized the non-parametric Friedman test and the post hoc “Multiple Comparison with the Best" (MCB) Nemenyi test \citep{koning2005, kourentzes2019, makridakis2022} to determine if the forecasting performances of the different techniques are significantly different from one another.
 
+
 \subsection{Results}
 
-\begin{table}[!ht]
+\begin{table}[!t]
 	\centering
 	\begingroup
 	\spacingset{1}
