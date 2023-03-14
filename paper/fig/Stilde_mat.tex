@@ -18,10 +18,10 @@
 
 \matrix[square matrix](S)
 {
-|[fill=black]| & |[fill=black]| & |[draw=none]|T\\
-|[fill=black]| & |[fill=white]| & |[draw=none]|X\\
-|[fill=white]| & |[fill=black]| & |[draw=none]|Y\\
-|[draw=none]|X & |[draw=none]|Y & |[draw=none]|$i$\\
+|[fill=black]| & |[fill=black]| & |[draw=none]|$T$\\
+|[fill=black]| & |[fill=white]| & |[draw=none]|$X$\\
+|[fill=white]| & |[fill=black]| & |[draw=none]|$Y$\\
+|[draw=none]|$X$ & |[draw=none]|$Y$ & |[draw=none]|$i$\\
 };
 
 \matrix[square matrix, right=of S](K)
@@ -73,9 +73,15 @@
 
 \node[fit=(St-1-9)(St-21-9), draw = blue, xshift = 0.6cm, minimum width = 1.3cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{\tau}$}}]{};
 
-\node[fit=(K-1-5)(K-7-5), draw = blue, xshift = 0.5cm, minimum width = 1.2cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{i,\tau)}$}}]{};
+\node[fit=(K-1-5)(K-7-5), draw = blue, xshift = 0.5cm, minimum width = 1.2cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{i,\tau}$}}]{};
+
+\node[fit=(K-1-1.north west)(K-2-4.south east), label={[font=\normalsize,text=black]above:{$\Svet_{te}$}}]{};
+
+\node[fit=(St-1-1.north west)(St-2-8.south east), label={[font=\normalsize,text=black]above:{$\Svet_{ct}$}}]{};
+
+\node[fit=(S-1-1.north west)(S-2-2.south east), label={[font=\normalsize,text=black]above:{$\Svet_{cs}$}}]{};
 \end{tikzpicture}
 \vspace{-0.5cm}
-  \caption{Representation of the cross-temporal summing matrix $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}$ defined in equation (\ref{eq:Sct}) for a system of 3 linearly constrained quarterly time series.}
+  \caption{Representation of the cross-temporal summing matrix $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}$ defined in equation (\ref{eq:Sct}) for a system of 3 linearly constrained quarterly time series. {\color{red}The white cells indicate a zero, while the black ones a non-zero value}.}
   \label{fig:Stilde}
 \end{figure}

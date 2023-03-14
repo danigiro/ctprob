@@ -1,4 +1,4 @@
-\begin{figure}[!hb]
+\begin{figure}[t]
 	\centering
 	\begingroup
 	\spacingset{0.9}
@@ -14,13 +14,13 @@ $N\left(\widetilde{\xvet}, \widetilde{\Omegavet} \right)$\\
 
 \node[draw, thick, inner sep=1mm, minimum width = 1cm, text width=4.5cm, minimum height = 2.1cm, text centered, left= 1.5cm of cov] (dist2) {{\footnotesize B.F. distribution} \\[0.2cm] $N\left(\widehat{\xvet}, \Sigmavet\right)$};
 
-\node[draw, thick, circle, inner sep=1mm, text width=0.5cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, below = 2cm of cov, label={[align=center, font=\footnotesize]left:{Covariance approx., \\for point R.F.}}] (covapprx) {$\Omegavet_{ct}$};
+\node[draw, thick, circle, inner sep=1mm, text width=0.5cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, below = 1.75cm of cov, label={[align=center, font=\footnotesize]left:{Covariance approx., \\for point R.F.}}] (covapprx) {$\Omegavet_{ct}$};
 
 \node[draw, thick, circle, inner sep=1mm, text width=0.35cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, above = 1cm of cov, label=below:{\footnotesize B.F. mean}] (mean) {$\widehat{\xvet}$};
 
-\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 4cm of dist2] (sim_base) {{\footnotesize B.F. samples} \\[0.1cm] $\widehat{\xvet}_{1}, \;\dots, \;\widehat{\xvet}_{L}$};
+\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 3.5cm of dist2] (sim_base) {{\footnotesize B.F. samples} \\[0.1cm] $\widehat{\xvet}_{1}, \;\dots, \;\widehat{\xvet}_{L}$};
 
-\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 4cm of dist] (sim_reco) {{\footnotesize R.F. samples} \\[0.1cm] $\widetilde{\xvet}_{1}, \;\dots, \;\widetilde{\xvet}_{L}$};
+\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 3.5cm of dist] (sim_reco) {{\footnotesize R.F. samples} \\[0.1cm] $\widetilde{\xvet}_{1}, \;\dots, \;\widetilde{\xvet}_{L}$};
 
 \draw[-{Triangle[scale=1]}, decorate, thick] (mean.east) -- (dist.north west);
 \draw[-{Triangle[scale=1]}, decorate, thick] (cov) -- (dist);
@@ -29,7 +29,7 @@ $N\left(\widetilde{\xvet}, \widetilde{\Omegavet} \right)$\\
 \draw[-{Triangle[scale=1]}, decorate, thick] (covapprx.north east) -- (dist.south west);
 
 
-\path[-{Triangle[scale=1]}, decorate, thick] (sim_base) edge node[ fill=white, anchor=center, pos=0.5,font = \footnotesize, text width = 2.2cm, text centered] (nodemid) {Thm 4.1 \\[0.15cm] $\widetilde{\xvet}_{\ell} = \Mvet\,\widehat{\xvet}_{\ell}$ \\ $\ell = 1,\, \dots,\, L$} (sim_reco);
+\path[-{Triangle[scale=1]}, decorate, thick] (sim_base) edge node[ fill=white, anchor=center, pos=0.5,font = \footnotesize, text width = 2.2cm, text centered] (nodemid) {Thm \ref{thm:rs} \\[0.15cm] $\widetilde{\xvet}_{\ell} = \Mvet\,\widehat{\xvet}_{\ell}$ \\ $\ell = 1,\, \dots,\, L$} (sim_reco);
 
 \draw[-{Triangle[scale=1]}, decorate, thick] (covapprx.south) -- (nodemid.north);
 
