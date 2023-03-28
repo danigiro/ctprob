@@ -71,6 +71,82 @@ nemk <- df_crps_mean |>
          pch_name = str_detect(name, "base"))
 
 ctjb <- rbind(nemk |>
+                filter(prob == "ctjb", k %in% c(1,3,12)) |>
+                mutate(facet = paste0("k==",k)),
+              nem |>
+                filter(prob == "ctjb") |>
+                mutate(k = 0,
+                       facet = 'k %in% group("{",list(12,6,4,3,2,1),"}")')) |>
+  arrange(value) |>
+  mutate(name = factor(name, unique(name), ordered = TRUE)) |>
+  arrange(k) |>
+  mutate(facet = factor(facet, unique(facet), ordered = TRUE)) |>
+  ggplot() + 
+  geom_rect(aes(xmin=l, xmax=u, fill = col), ymin=-Inf, ymax=Inf, alpha = 0.2, 
+            data = function(x) summarise(group_by(x, facet), l = min(l), col = TRUE,
+                                         u = min(u), .groups = "drop"))+
+  geom_segment(aes(x = l, xend = u, yend = name, y = name)) + 
+  geom_point(aes(x = l, y = name), pch = "|", size = 2) + 
+  geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
+  geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
+  geom_label(data = function(x) select(x, facet, fpval) |>
+               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+  scale_shape_manual(values=c(21, 24))+
+  facet_wrap(.~facet, ncol = 1, scales = "free", 
+             labeller = label_parsed)+
+  labs(y = NULL, x = NULL, subtitle = "Cross-temporal Joint Bootstrap approach\n") + 
+  theme_minimal()+
+  scale_y_discrete(labels = scales::label_parse())+
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        text = element_text(size = 10),
+        strip.text = element_text(size = 9),
+        legend.margin = margin())
+
+ggsave("./Figures/ctjb_part.pdf", ctjb,
+       width = 3.75,
+       height = 10)
+
+hsamh <- rbind(nemk |>
+                 filter(prob == "hbsamh0", k %in% c(1,3,12)) |>
+                 mutate(facet = paste0("k==",k)),
+               nem |>
+                 filter(prob == "hbsamh0") |>
+                 mutate(k = 0,
+                        facet = 'k %in% group("{",list(12,6,4,3,2,1),"}")')) |>
+  arrange(value) |>
+  mutate(name = factor(name, unique(name), ordered = TRUE)) |>
+  arrange(k) |>
+  mutate(facet = factor(facet, unique(facet), ordered = TRUE)) |>
+  ggplot() + 
+  geom_rect(aes(xmin=l, xmax=u, fill = col), ymin=-Inf, ymax=Inf, alpha = 0.2, 
+            data = function(x) summarise(group_by(x, facet), l = min(l), col = TRUE,
+                                         u = min(u), .groups = "drop"))+
+  geom_segment(aes(x = l, xend = u, yend = name, y = name)) + 
+  geom_point(aes(x = l, y = name), pch = "|", size = 2) + 
+  geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
+  geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
+  geom_label(data = function(x) select(x, facet, fpval) |>
+               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+  scale_shape_manual(values=c(21, 24))+
+  facet_wrap(.~facet, ncol =1, scales = "free", 
+             labeller = label_parsed)+
+  labs(y = NULL, x = NULL, subtitle = "Gaussian approach\n(multi-step residuals, HB)") + 
+  theme_minimal()+
+  scale_y_discrete(labels = scales::label_parse())+
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        text = element_text(size = 10),
+        strip.text = element_text(size = 9),
+        legend.margin = margin())
+
+ggsave("./Figures/hbsamh_part.pdf", hsamh,
+       width = 3.75,
+       height = 10)
+
+ctjb <- rbind(nemk |>
                 filter(prob == "ctjb") |>
                 mutate(facet = paste0("k==",k)),
               nem |>
