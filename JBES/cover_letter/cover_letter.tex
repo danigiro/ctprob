@@ -1,0 +1,58 @@
+\documentclass[11pt,a4paper]{letter}
+\usepackage{hyperref}
+\addtolength{\topmargin}{-4cm}
+\addtolength{\textheight}{5cm}
+\addtolength{\oddsidemargin}{-1.5cm}
+\addtolength{\evensidemargin}{-1.5cm}
+\addtolength{\textwidth}{3cm}
+%\signature{Daniele Girolimetto}
+\date{}
+
+\makeatletter
+\def\@texttop{}
+\makeatother
+
+%\makelabels
+\begin{document}
+ \begin{letter}{To: Editor of the \textit{Journal of Business \& Economic Statistics}}
+\begin{itemize}
+	\item[From:] Daniele Girolimetto\\ %PhD student\\
+	Department of Statistical Sciences\\
+	University of Padova\\
+	via C. Battisti, 241\\ 35121 Padova, Italy
+\end{itemize}
+
+ \opening{\today\ \\}
+ \medskip
+Dear Sir,
+
+Please find attached the manuscript entitled ``Cross-temporal Probabilistic Forecast Reconciliation" by Daniele Girolimetto, George Athanasopoulos, Tommaso Di Fonzo and Rob Hyndman for your consideration for publication in the \textit{Journal of Business \& Economic Statistics}. 
+This manuscript generalises forecast reconciliation to the cross-temporal probabilistic setting making a number of contributions.
+In particular the paper:
+\begin{enumerate}
+	\item %revises and develops the notation of point forecasts reconciliation which fulfill both cross-sectional and temporal constraints, and 
+	%extends the work of Panagiotelis et al. (2023), 
+	considers both cross-sectional and temporal dimensions in a forecast setting, moving the cross-temporal point forecast reconciliation to a probabilistic framework;
+	\item proposes effective and practical solutions for drawing samples from the base forecast distribution, including a parametric approach that assumes Gaussianity and a non-parametric bootstrap approach;
+	\item addresses issues in combining cross-sectional and temporal dimensions such as how to deal with different forecast horizons and high-dimensional time series;
+%	\item explores the relationships between different forecast horizons in the temporal framework and proposes solutions to high-dimensionality issues;
+	\item proposes new shrinkage procedures to identify a feasible cross-temporal covariance matrix for the Gaussian approach to probabilistic reconciliation;
+	\item applies the proposed approaches in a simulation experiment and with two empirical datasets: the Australian Gross Domestic Product from Income and Expenditure sides %in order to get ‘one-number-forecasts’ (i.e., coherent according to both cross-sectional and temporal dimensions)
+	and the Australian Tourism Demand, a classic dataset in the forecast reconciliation literature;
+	\item evaluates the effectiveness of the proposed approaches, showing significant improvements in forecast accuracy.
+\end{enumerate}
+
+We are aware that the paper, in its current version, may be longer than the editorial standards of the JBES. However, we think possible reductions in the text can be made as a result of the refereeing process. 
+
+The paper is accompanied by a complementary file – to be made available as on-line appendix - on both methodological and practical issues, containing supplementary tables and graphs related to the empirical applications as well. The codes (R sources) and the datasets are available in the public GitHub repository: \url{https://github.com/danigiro/ctprob}.
+
+This paper (or closely related research) has not been published or accepted for publication, and is not under consideration at another journal or at the \textit{Journal of Business \& Economic Statistics}
+
+We look forward to hearing from you.
+
+Kind regards,
+
+Daniele Girolimetto
+
+ \end{letter}
+\end{document} 

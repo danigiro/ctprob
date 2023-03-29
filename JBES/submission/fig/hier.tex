@@ -1,0 +1,44 @@
+\begin{figure}[t]
+\centering
+		\begin{tikzpicture}[baseline=(current  bounding  box.center),
+			rel/.append style={shape=ellipse,
+				draw=black,
+			minimum width=1.5cm,
+			minimum height=1cm},
+			rel2/.append style={shape=rectangle,
+				draw=black,
+			minimum width=1.5cm,
+			minimum height=1cm},
+			connection/.style ={inner sep =0, outer sep =0}]
+			
+			\node[rel] at (0, 0) (X){$y_{X,t}$};
+			\node[rel] at (2, 0) (Y){$y_{Y,t}$};
+			\node[rel] at (1, 1.5) (Tt){$y_{T,t}$};
+			
+			\relation{0.2}{X}{Tt};
+			\relation{0.2}{Y}{Tt};
+			
+			
+			\node[rel2] at (5, 0) (AA){$y_{i,4\tau-3}$};
+			\node[rel2] at (7, 0) (AB){$y_{i,4\tau-2}$};
+			\node[rel2] at (9, 0) (BA){$y_{i,4\tau-1}$};
+			\node[rel2] at (11, 0) (BB){$y_{i,4\tau}$};
+			
+			\node[rel2] at (6, 1.5) (A){$x_{i,2\tau-1}^{[2]}$};
+			\node[rel2] at (10, 1.5) (B){$x_{i,2\tau}^{[2]}$};
+			\node[rel2] at (8, 3) (T){$x_{i,\tau}^{[4]}$};
+			
+			\node at (1, -1) (){\small \textbf{(a)}};
+			\node at (8, -1) (){\small \textbf{(b)}};
+			
+			\relation{0.2}{AA}{A};
+			\relation{0.2}{AB}{A};
+			\relation{0.2}{BA}{B};
+			\relation{0.2}{BB}{B};
+			
+			\relation{0.2}{A}{T};
+			\relation{0.2}{B}{T};
+		\end{tikzpicture}
+		\caption{\textbf{(a)} A simple two-level cross-sectional hierarchy for 3 linearly constrained time series with $n=3$, $n_a = 1$ and $n_b = 2$. \textbf{(b)} A temporal hierarchy for a quarterly series ($m = 4$ and $\mathcal{K} = \{4,2,1\}$).}
+\label{fig:hierS}
+\end{figure}

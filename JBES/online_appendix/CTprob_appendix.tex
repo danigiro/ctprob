@@ -1,0 +1,661 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{mathpazo}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{bm}
+\usepackage[no-weekday]{eukdate}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{paralist}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[textwidth=6.25in,textheight = 10in]{geometry}
+\usepackage{placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage{multirow, float}
+\usepackage{makecell}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{todonotes}
+\usepackage{caption}
+\DeclareCaptionStyle{italic}[justification=centering]
+ {labelfont={bf},textfont={it},labelsep=colon}
+\captionsetup[figure]{style=italic,singlelinecheck=true}
+\captionsetup[table]{style=italic,singlelinecheck=true}
+
+\setlength{\parskip}{0cm}
+\setlength{\parindent}{1em}
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{2ex}{1ex}
+\titlespacing{\subsection}{0pt}{1ex}{0ex}
+\titlespacing{\subsubsection}{0pt}{0.5ex}{0ex}
+\usepackage{titling}\pretitle{\begin{center}\LARGE\bfseries}
+\usepackage[bottom,hang,flushmargin]{footmisc}
+\usepackage{adjustbox}
+
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Section}
+
+%% LINE AND PAGE BREAKING
+\sloppy
+\allowdisplaybreaks
+\clubpenalty = 10000
+\widowpenalty = 10000
+\brokenpenalty = 10000
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{1}
+
+%\usepackage{setspace}
+\usepackage{caption}
+\captionsetup[figure]{labelfont={bf}, font = small, singlelinecheck=true}
+\captionsetup[table]{labelfont={bf}, font = small, singlelinecheck=true}
+\usepackage{subcaption}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+
+\newcommand{\alphavet}{\bm{\alpha}}
+\newcommand{\betavet}{\bm{\beta}}
+\newcommand{\epsvet}{\bm{\varepsilon}}
+\newcommand{\etavet}{\bm{\eta}}
+\newcommand{\lambdavet}{\bm{\lambda}}
+\newcommand{\Unovet}{\bm{1}}
+\newcommand{\avet}{\bm{a}}
+\newcommand{\bvet}{\bm{b}}
+\newcommand{\cvet}{\bm{c}}
+\newcommand{\dvet}{\bm{d}}
+\newcommand{\evet}{\bm{e}}
+\newcommand{\pvet}{\bm{p}}
+\newcommand{\fvet}{\bm{f}}
+\newcommand{\tvet}{\bm{t}}
+\newcommand{\uvet}{\bm{u}}
+\newcommand{\vvet}{\bm{v}}
+\newcommand{\wvet}{\bm{w}}
+\newcommand{\xvet}{\bm{x}}
+\newcommand{\yvet}{\bm{y}}
+\newcommand{\zvet}{\bm{z}}
+\newcommand{\Avet}{\bm{A}}
+\newcommand{\Bvet}{\bm{B}}
+\newcommand{\Cvet}{\bm{C}}
+\newcommand{\Dvet}{\bm{D}}
+\newcommand{\Evet}{\bm{E}}
+\newcommand{\Fvet}{\bm{F}}
+\newcommand{\Gvet}{\bm{G}}
+\newcommand{\Hvet}{\bm{H}}
+\newcommand{\Ivet}{\bm{I}}
+\newcommand{\Jvet}{\bm{J}}
+\newcommand{\Kvet}{\bm{K}}
+\newcommand{\Lvet}{\bm{L}}
+\newcommand{\Mvet}{\bm{M}}
+\newcommand{\Nvet}{\bm{N}}
+\newcommand{\Pvet}{\bm{P}}
+\newcommand{\Qvet}{\bm{Q}}
+\newcommand{\Rvet}{\bm{R}}
+\newcommand{\Svet}{\bm{S}}
+\newcommand{\Tvet}{\bm{T}}
+\newcommand{\Uvet}{\bm{U}}
+\newcommand{\Wvet}{\bm{W}}
+\newcommand{\Xvet}{\bm{X}}
+\newcommand{\Yvet}{\bm{Y}}
+\newcommand{\Zvet}{\bm{Z}}
+\newcommand{\Zerovet}{\bm{0}}
+\newcommand{\Omegavet}{\bm{\Omega}}
+\newcommand{\Sigmavet}{\bm{\Sigma}}
+
+\definecolor{mybluehl}{HTML}{cbd3ff}
+
+% theorem
+\makeatletter
+\def\@endtheorem{\endtrivlist}
+\makeatother
+
+%% tikz
+%% Packages to draw hierarchies
+\usepackage{tikz}
+\usepackage{forest}
+
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+\usetikzlibrary{matrix, decorations.pathreplacing, arrows, calc, fit, arrows.meta, decorations.pathmorphing, decorations.markings}
+
+\tikzset{
+  basic/.style  = {draw, text width=2cm, drop shadow, font=\sffamily, rectangle},
+  root/.style   = {basic, rounded corners=2pt, thin, align=center,
+                   fill=green!30},
+  level 2/.style = {basic, rounded corners=6pt, thin,align=center, fill=green!60,
+                   text width=4em},
+  level 3/.style = {basic, thin, align=left, fill=pink!60, text width=1.5em}
+}
+\newcommand{\relation}[3]
+{
+	\draw (#3.south) -- +(0,-#1) -| ($ (#2.north) $)
+}
+\newcommand{\relationW}[2]
+{
+	\draw (#2.west) -| ($ (#1.north) $)
+}
+\newcommand{\relationE}[2]
+{
+	\draw (#2.east) -| ($ (#1.north) $)
+}
+
+\newcommand{\relationD}[3]
+{
+	\draw (#3.east) -- +(#1,0) |- (#2.west)
+}
+
+\pgfdeclareimage[height=0.85cm]{ngreen}{fig/boot/ngreen.pdf}
+\pgfdeclareimage[height=0.85cm]{nblue}{fig/boot/nblue.pdf}
+\pgfdeclareimage[height=0.85cm]{nred}{fig/boot/nred.pdf}
+\pgfdeclareimage[height=0.85cm]{nblack}{fig/boot/nblack.pdf}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+
+% Title page
+\makeatletter
+\newcommand{\maketitleblind}{\begingroup%
+\if1\blind
+{
+\maketitle
+\newpage
+}\fi
+
+\if0\blind
+{
+\begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large \@date}%
+  \end{center}
+  \bigskip
+} \fi
+\endgroup}
+\makeatother
+
+% Authors code
+\usepackage[affil-it, blocks]{authblk}
+\setlength{\affilsep}{0em}
+\newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
+\renewcommand\Affilfont{\itshape\normalsize}
+
+% Abstract code
+\makeatletter
+\renewenvironment{abstract}{%
+    \if@twocolumn
+      \section*{\abstractname}%
+    \else %
+      \begin{center}%
+        {\bfseries \large\abstractname\vspace{\z@}}%
+      \end{center}%
+      \quotation
+    \fi}
+    {\if@twocolumn\else\endquotation\fi}
+\makeatother
+
+%% Title page
+%\makeatletter  
+%\newcommand{\maketitleblind}{\begingroup%
+%\if1\blind
+%{
+%\clearpage\maketitle
+%\thispagestyle{empty}
+%\vfill
+%%\vskip2cm
+%%\noindent\textit{\large\textbf{Preliminary Working Draft}}\\
+%%\noindent\textbf{Please do not quote or cite without authors' permission}
+%\vfill
+%\newpage
+%\setcounter{page}{1}
+%}\fi
+%
+%\if0\blind
+%{
+%\begin{center}%
+%  \let \footnote \thanks
+%    {\LARGE \@title \par}%
+%    \vskip 1.5em%
+%    {\large \@date}%
+%  \end{center}
+%  \bigskip
+%} \fi
+%\endgroup}
+%\makeatother
+%
+%% Authors code
+%\usepackage[affil-it]{authblk}
+%\setlength{\affilsep}{0em}
+%\newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
+%\renewcommand\Affilfont{\itshape\normalsize}
+%  
+%% Abstract code
+%\makeatletter
+%\renewenvironment{abstract}{%
+%    \if@twocolumn
+%      \section*{\abstractname}%
+%    \else %
+%      \begin{center}%
+%        {\bfseries \large\abstractname\vspace{\z@}}%
+%      \end{center}%
+%      \quotation
+%    \fi}
+%    {\if@twocolumn\else\endquotation\fi}
+%\makeatother
+
+%% Settings
+\title{\bf Cross-temporal Probabilistic Forecast Reconciliation: online appendix}
+\author{Daniele Girolimetto}
+\affil{Department of Statistical Sciences, University of Padova}
+\email{daniele.girolimetto@phd.unipd.it}
+\author{George Athanasopoulos}
+\affil{Department of Econometrics and Business Statistics, Monash University}
+\email{george.athanasopoulos@monash.edu}
+\author{Tommaso Di Fonzo}
+\affil{Department of Statistical Sciences, University of Padova}
+\email{tommaso.difonzo@unipd.it}
+\author{Rob J Hyndman}
+\affil{Department of Econometrics and Business Statistics, Monash University}
+\email{rob.hyndman@monash.edu}
+
+\begin{document}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}{#1}\small\normalsize}
+\spacingset{1.1}
+  
+\maketitleblind
+
+\spacingset{1.3}
+%\tableofcontents
+%\listoftables
+\appendix
+\renewcommand{\thetable}{\Alph{section}.\arabic{table}}
+\renewcommand{\thefigure}{\Alph{section}.\arabic{figure}}
+
+\section{Alternative forms of the cross-temporal covariance matrix}\label{app::shr}
+In this appendix, some derivations of the solutions proposed in Section 4 to obtain an estimator of the cross-temporal covariance matrix are reported.
+Starting from the the definition of cross-temporal covariance matrix we obtain the first equivalence in (10). Therefore, we have that
+\begin{align*}
+	\lambda \widehat{\Omegavet}_{\textit{hf-bts}, D} &+ (1-\lambda) \widehat{\Omegavet}_{\textit{hf-bts}}\\
+	&\Downarrow\\
+	\widehat{\Omegavet}_{HB} & = \Svet_{ct}\left[\lambda \widehat{\Omegavet}_{\textit{hf-bts}, D} + (1-\lambda) \widehat{\Omegavet}_{\textit{hf-bts}}\right]\Svet_{ct}'                                                                        \\
+	                         & = \lambda \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, D}\Svet_{ct}'+ (1-\lambda) \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}}\Svet_{ct}'.
+\end{align*}
+The high-frequency time series representation (the second equivalence) can be derived in the following manner:
+\begin{align*}
+	\Omegavet & = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'                                                                                                                                                            \\
+	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                            \\
+	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
+	          & = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf}}\left(\Ivet_n \otimes \Svet_{te}\right)'
+\end{align*}
+where $\Omegavet_{\textit{hf}} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'$ and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Ivet_n \otimes \Svet_{te}\right)\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)$. We can apply the shrinkage estimator as
+\begin{align*}
+	\lambda \widehat{\Omegavet}_{hf, D} &+ (1-\lambda) \widehat{\Omegavet}_{\textit{hf}}\\
+	&\Downarrow\\
+	\widehat{\Omegavet}_{H} & = (\Ivet_{n} \otimes \Svet_{te})\left[\lambda \widehat{\Omegavet}_{hf, D} + (1-\lambda) \widehat{\Omegavet}_{\textit{hf}}\right] (\Ivet_{n} \otimes \Svet_{te})'                                                                                                            \\
+	                        & = \lambda (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf, D}(\Ivet_{n} \otimes \Svet_{te})' + (1-\lambda) (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{\textit{hf}}(\Ivet_{n} \otimes \Svet_{te})'.
+\end{align*}
+The bottom time series representation (the third equivalence) follows by
+\begin{align*}
+	\Omegavet & = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'                                                                                                                                                   \\
+	          & = \left(\Svet_{cs} \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Svet_{cs} \otimes \Svet_{te}\right)'                                                                                   \\
+	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Ivet_n \otimes \Svet_{te}\right)'\left(\Ivet_n \otimes \Svet_{te}\right)' \\
+	          & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\Omegavet_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)',
+\end{align*}
+where $\Omegavet_{bts} = \left(\Ivet_n \otimes \Svet_{te}\right)\Omegavet_{\textit{hf-bts}}\left(\Ivet_n \otimes \Svet_{te}\right)'$ and $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te} = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left(\Ivet_n \otimes \Svet_{te}\right)$. Finally we have that
+\begin{align*}
+	\lambda \widehat{\Omegavet}_{bts, D} &+ (1-\lambda) \widehat{\Omegavet}_{bts}\\
+	&\Downarrow\\
+	\widehat{\Omegavet}_{B} & = \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\left[\lambda \widehat{\Omegavet}_{bts, D} + (1-\lambda) \widehat{\Omegavet}_{bts}\right]\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'                       \\
+	                        & = \lambda \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts, D}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)' +             \\
+	                        & \qquad \qquad (1-\lambda) \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'.
+\end{align*}
+
+In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet \widehat{\Omegavet} \Mvet'$ where $\Mvet = \Svet_{ct}\Gvet$ is the projection matrix. When using the HB approach, the covariance matrix of the reconciliation and the base forecasts will be identical. Indeed, it can be shown (see \citealp{panagiotelis2021} for more details) that if $\Mvet$ is a projection matrix (6) then $\Mvet\Svet_{ct} = \Svet_{ct}\Gvet\Svet_{ct} = \Svet_{ct}$, and we obtain that
+\begin{align*}
+	\Mvet \widehat{\Omegavet}_{HB} \Mvet' & = \Mvet\Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'\Mvet'                      \\
+	& = \Svet_{ct}\Gvet\Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'\Gvet'\Svet_{ct}' \\
+	& = \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}' = \widehat{\Omegavet}_{HB}.
+\end{align*}
+\autoref{fig:num_param} shows the number of parameters for different values of $m$ and $n$, with $n_b$ fixed to approximately $60\%$ of $n$. The right panel reports the boxplot of the percentage reductions in the number of parameters compared to the global approach.
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width = \linewidth]{fig/parameters.pdf}
+	\caption{The four graphs on the left represent the number of different parameters in the covariance matrix for the various approaches presented for different values of $m$ and $n$ ($n_b$, the number of bottom time series, is about $60\%$ of the total). On the right, we have the boxplot of the percentage reduction in the number of parameters compared to the global approach.}
+	\label{fig:num_param}
+\end{figure}
+
+\newpage
+\section{Cross-temporal covariance matrix for the Monte Carlo simulation}\label{app:ar2}
+
+We assume two AR(2) processes with correlated errors such that
+$$
+	y_{i,t} = \phi_{i,1}y_{i,t-1} + \phi_{i,2}y_{i,t-2} + \varepsilon_{i,t}
+$$
+where $\epsvet_t \sim \mathcal{N}_{2}\left(\Zerovet_{(2\times 1)}, \Omegavet_{cs}\right)$ and $i \in \{B, C\}$. Let $y_{i,T+h}$ be the true observation for the $i^{th}$ series and $\widetilde{y}_{i,T+h}$ the corresponding forecasts such that
+$$
+	\begin{array}{rl}
+		y_{i,T+1} & = \phi_{i,1}y_{i,T} + \phi_{i,2}y_{i,T-1} + \varepsilon_{i,T+1} \\
+		y_{i,T+2} & = \phi_{i,1}y_{i,T+1} + \phi_{i,2}y_{i,T} + \varepsilon_{i,T+2}
+	\end{array}
+	\quad\text{and}\quad
+	\begin{array}{rl}
+		\widetilde{y}_{i,T+1} & = \phi_{i,1}y_{i,T} + \phi_{i,2}y_{i,T-1}             \\
+		\widetilde{y}_{i,T+2} & = \phi_{i,1}\widetilde{y}_{i,T+1} + \phi_{i,2}y_{i,T}
+	\end{array}\;,
+$$
+then
+\begin{align*}
+	y_{i,T+1} - \widetilde{y}_{i,T+1} & = \varepsilon_{i,T+1}                                   \\
+	y_{i,T+2} - \widetilde{y}_{i,T+2} & = \varepsilon_{i,T+2} + \phi_{i,1} \varepsilon_{i,T+1}.
+\end{align*}
+Finally, we can compute each element of the high frequency bottom time series covariance matrix
+\begin{align*}\allowdisplaybreaks[2]
+	Var\left(y_{i,T+1}-\widetilde{y}_{i,T+1}\right) & = \sigma_i^2, \quad \forall i \in \{B, C\}                                                                    \\
+	Var\left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right) & = \sigma_i^2\left(1+\phi_{i,1}^2\right), \quad \forall i \in \{B, C\}\\
+	Cov\left[\left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right), \left(y_{i,T+1}-\widetilde{y}_{i,T+1}\right)\right] & = 	Cov\left[\left(y_{i,T+1}-\widetilde{y}_{i,T+1}\right), \left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right)\right] \\
+		& = \phi_{i, 1}\sigma_{i}^2, \quad \forall i \in \{B, C\} \\
+	Cov\left[\left(y_{i,T+1}-\widetilde{y}_{i,T+1}\right), \left(y_{j,T+1}-\widetilde{y}_{j,T+1}\right)\right] & = 	Cov\left[\left(y_{j,T+1}-\widetilde{y}_{j,T+1}\right), \left(y_{i,T+1}-\widetilde{y}_{i,T+1}\right)\right] \\
+	& = \sigma_{i, j}, \quad \forall i,j \in \{B, C\}, \quad i\neq j\\
+	Cov\left[\left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right), \left(y_{j,T+1}-\widetilde{y}_{j,T+1}\right)\right] & = 	Cov\left[\left(y_{j,T+1}-\widetilde{y}_{j,T+1}\right), \left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right)\right] \\
+	& = \phi_{i,1}\sigma_{i, j}, \quad \forall i,j \in \{B, C\}, \quad i\neq j                                      \\
+	Cov\left[\left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right), \left(y_{j,T+2}-\widetilde{y}_{j,T+2}\right)\right] & = 	Cov\left[\left(y_{j,T+2}-\widetilde{y}_{j,T+2}\right), \left(y_{i,T+2}-\widetilde{y}_{i,T+2}\right)\right] \\
+	& = \sigma_{i, j}\left(1+\phi_{i,1}\phi_{j,1}\right), \quad \forall i,j \in \{B, C\}, \quad i\neq j.
+\end{align*}
+In conclusion,
+$$
+	\Omegavet_{\textit{hf-bts}} = \begin{bmatrix}
+		\sigma^2_B & & & \\
+		\phi_{B,1}\sigma_B^2  & \sigma_B^2\left(1+\phi_{B,1}^2\right) & & \\
+		\sigma_{BC} & \phi_{B,1}\sigma_{BC} & \sigma_C^2 & \\
+		\phi_{C,1}\sigma_{BC} & \sigma_{BC}\left(1+\phi_{B,1}\phi_{C,1} \right) & \phi_{C,1}\sigma_C^2 & \sigma_C^2\left(1+\phi_{C,1}^2\right) \\
+	\end{bmatrix}
+$$
+and
+$$
+	\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'.
+$$
+
+\newpage
+\section{Monte Carlo Simulation: one-step residuals and shrinkage covariance matrix}
+
+In Section 4.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition (see \autoref{fig:ar2covcor_app}). 
+In addition, Tables \ref{tab:ar2norm_app}, \ref{tab:ar2crps_app} and \ref{tab:ar2es_app} show the Frobenius norm, CRPS, and ES skill scores as explained in the paper to investigate the effectiveness of one-step residuals. 
+Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we have utilized a shrinkage matrix rather than the sample covariance matrix to assess the performance of our approach.
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width = \linewidth]{fig/AR/base_cov_app.pdf}
+	\caption{Comparison of estimated covariance and correlation matrices (first simulation) for base forecasts using a parametric Gaussian (with one-step residuals) approach. The true covariance and correlation matrices are shown in Figure 7.}
+	\label{fig:ar2covcor_app}
+\end{figure}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/norm_cov_app.tex}
+	\endgroup
+	\caption{Frobenius norm between the true and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. Entries in bold represent the lowest value for each column, while the blue entry represent the global minimum. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2norm_app}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_crps_app.tex}
+	\endgroup
+	\caption{Simulation experiment. AvgRelCRPS defined in Section 5.1. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2crps_app}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_es_app.tex}
+	\endgroup
+	\caption{Simulation experiment. ES ratio indices defined in Section 5.1. %A lower value, indicates amore accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2es_app}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/shr_crps_app.tex}
+	\endgroup
+	\caption{Simulation experiment. AvgRelCRPS defined in Section 5.1. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2crps_app_shr}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/shr_es_app.tex}
+	\endgroup
+	\caption{Simulation experiment. ES ratio indices defined in Section 5.1. %A lower value, indicates amore accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2es_app_shr}
+\end{table}
+
+\newpage
+\section{Forecast reconciliation of the Australian GDP dataset}
+
+\cite{athanasopoulos2020} proposed using state-of-the-art forecast reconciliation methods to improve the accuracy of macroeconomic forecasts and facilitate aligned decision-making. 
+In their empirical analysis, they applied cross-sectional forecast reconciliation to 95 Australian QNA time series that represent the Gross Domestic Product (GDP) calculated using both the income and expenditure approaches. These two approaches correspond to two distinct hierarchical structures, with GDP at the top and 15 lower-level aggregates in the income approach, and GDP as the top-level aggregate in a hierarchy of 79 time series in the expenditure approach (for more information, see \citealp{athanasopoulos2020}, pp. 702--705 and figures 21.4--21.7).
+\cite{bisaglia2020} showed how to obtain a ``one-number'' forecast where the GDP reconciled forecasts are coherent for both the expenditure and income sides.
+\cite{difonzo2022c, giro2022} extended the one number forecasts idea to obtain fully reconciled probabilistic forecasts, and \cite{difonzo2023} computed cross-temporally reconciled point forecasts. 
+
+\subsection{One-step residuals and shrinkage covariance matrix}
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/sam_crps_com.tex}
+	\endgroup
+	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:auscrps}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/sam_es_com.tex}
+	\endgroup
+	\caption{ES ratio indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:auses}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/shr_crps_com.tex}
+	\endgroup
+	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:auscrps}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{8}{10}\selectfont
+	\input{tab/AusGDP/shr_es_com.tex}
+	\endgroup
+	\caption{ES ratio indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:auses}
+\end{table}
+
+\newpage
+\section{Australian Tourism Demand dataset}
+
+\begin{table}[H]
+	\caption{Geographic divisions of Australia in States, Zones e Regions. Zones formed by a single region are highlighted in italics and not numbered.}
+	\spacingset{1}
+	\label{tab:australia}
+	\fontsize{9}{10}\selectfont
+	\centering
+	\begin{tabular}{r l l|r l l}
+		\toprule
+		\textbf{Series}                      & \textbf{Name} & \textbf{Label} & \textbf{Series}   & \textbf{Name}         & \textbf{Label} \\
+		\midrule
+		\multicolumn{1}{l}{\textit{Total}}   &     &      & \multicolumn{3}{l}{\textit{continues Regions}}  \\
+		1      & Australia     & Total          & 49      & Gippsland   & BCB  \\
+		\cline{1-3}
+		\multicolumn{1}{l}{\textit{States}}  &     &      & 50      & Phillip Island        & BCC  \\
+		2      & New South Wales (NSW)   & A    & 51      & Central Murray        & BDA  \\
+		3      & Victoria (VIC)          & B    & 52      & Goulburn    & BDB  \\
+		4      & Queensland (QLD)        & C    & 53      & High Country          & BDC  \\
+		5      & South Australia (SA)    & D    & 54      & Melbourne East        & BDD  \\
+		6      & Western Australia (WA)  & E    & 55      & Upper Yarra & BDE  \\
+		7      & Tasmania (TAS)          & F    & 56      & MurrayEast  & BDF  \\
+		8      & Northern Territory (NT) & G    & 57      & Mallee      & BEA  \\
+		\cline{1-3}
+		\multicolumn{1}{l}{\textit{Zones}}   &     &      & 58      & Wimmera     & BEB  \\
+		9      & Metro NSW     & AA   & 59      & Western Grampians     & BEC  \\
+		10     & Nth Coast NSW & AB   & 60      & Bendigo Loddon        & BED  \\
+		       & \textit{Sth Coast NSW}  & \textit{AC}    & 61      & Macedon     & BEE  \\
+		11     & Sth NSW       & AD   & 62      & Spa Country & BEF  \\
+		12     & Nth NSW       & AE   & 63      & Ballarat    & BEG  \\
+		       & \textit{ACT}  & \textit{AF}    & 64      & Central Highlands     & BEG  \\
+		13     & Metro VIC     & BA   & 65      & Gold Coast  & CAA  \\
+		       & \textit{West Coast VIC} & \textit{BB}    & 66      & Brisbane    & CAB  \\
+		14     & East Coast VIC          & BC   & 67      & Sunshine Coast        & CAC  \\
+		15     & Nth East VIC  & BD   & 68      & Central Queensland    & CBA  \\
+		16     & Nth West VIC  & BE   & 69      & Bundaberg   & CBB  \\
+		17     & Metro QLD     & CA   & 70      & Fraser Coast          & CBC  \\
+		18     & Central Coast QLD       & CB   & 71      & Mackay      & CBD  \\
+		19     & Nth Coast QLD & CC   & 72      & Whitsundays & CCA  \\
+		20     & Inland QLD    & CD   & 73      & Northern    & CCB  \\
+		21     & Metro SA      & DA   & 74      & Tropical North Queensland       & CCC  \\
+		22     & Sth Coast SA  & DB   & 75      & Darling Downs         & CDA  \\
+		23     & Inland SA     & DC   & 76      & Outback     & CDB  \\
+		24     & West Coast SA & DD   & 77      & Adelaide    & DAA  \\
+		25     & West CoastWA  & EA   & 78      & Barossa     & DAB  \\
+		       & \textit{Nth WA}         & \textit{EB}    & 79      & Adelaide Hills        & DAC  \\
+		       & \textit{SthWA}          & \textit{EC}    & 80      & Limestone Coast       & DBA  \\
+		       & \textit{Sth TAS}        & \textit{FA}    & 81      & Fleurieu Peninsula    & DBB  \\
+		26     & Nth East TAS  & FB   & 82      & Kangaroo Island       & DBC  \\
+		27     & Nth West TAS  & FC   & 83      & Murraylands & DCA  \\
+		28     & Nth Coast NT  & GA   & 84      & Riverland   & DCB  \\
+		29     & Central NT    & GB   & 85      & Clare Valley          & DCC  \\
+		\cline{1-3}
+		\multicolumn{1}{l}{\textit{Regions}} &     &      & 86      & Flinders Range and Outback      & DCD  \\
+		30     & Sydney        & AAA  & 87      & Eyre Peninsula        & DDA  \\
+		31     & Central Coast & AAB  & 88      & Yorke Peninsula       & DDB  \\
+		32     & Hunter        & ABA  & 89      & Australia’s Coral Coast         & EAA  \\
+		33     & North Coast NSW         & ABB  & 90      & Experience Perth      & EAB  \\
+		34     & South Coast   & ACA  & 91      & Australia’s SouthWest & EAC  \\
+		35     & Snowy Mountains         & ADA  & 92      & Australia’s North West          & EBA  \\
+		36     & Capital Country         & ADB  & 93      & Australia’s Golden Outback      & ECA  \\
+		37     & The Murray    & ADC  & 94      & Hobart and the South  & FAA  \\
+		38     & Riverina      & ADD  & 95      & East Coast  & FBA  \\
+		39     & Central NSW   & AEA  & 96      & Launceston, Tamar and the North & FBB  \\
+		40     & New England North West  & AEB  & 97      & North West  & FCA  \\
+		41     & Outback NSW   & AEC  & 98      & WildernessWest        & FCB  \\
+		42     & Blue Mountains          & AED  & 99      & Darwin      & GAA  \\
+		43     & Canberra      & AFA  & 100     & Kakadu Arnhem         & GAB  \\
+		44     & Melbourne     & BAA  & 101     & Katherine Daly        & GAC  \\
+		45     & Peninsula     & BAB  & 102     & Barkly      & GBA  \\
+		46     & Geelong       & BAC  & 103     & Lasseter    & GBB  \\
+		47     & Western       & BBA  & 104     & Alice Springs         & GBC  \\
+		48     & Lakes         & BCA  & 105     & MacDonnell & GBD\\
+		\bottomrule
+	\end{tabular}
+	\begin{flushleft}
+		\begin{footnotesize}
+			Source: \cite{wickramasuriya2019, difonzo2022a}
+		\end{footnotesize}
+	\end{flushleft}
+\end{table}
+
+\subsection{Dealing with negative reconciled forecasts}
+One issue in working with time series data is the presence of negative values, which can cause difficulties for certain types of models or analyses.
+For the base forecasts, using the bootstrap approach produces forecasts naturally non negative (ETS model with the log-transformation), while this is not true for the Gaussian approach. In this case, any negative forecast is set equal to zero. For the cross-temporal reconciliation, \citet{difonzo2022b, difonzo2023a} propose two solutions: either a state-of-the-art numerical optimization procedure (\texttt{osqp}, \citealp{stellato2020, stellato2019}), or a simple heuristic strategy called set-negative-to-zero (sntz). With sntz, any negative high frequency bottom time series reconciled forecasts are set to zero, and then a cross-temporal reconciliation bottom-up is used to obtain the complete set of fully coherent forecasts. \cite{difonzo2023a} found that both methods produce similar quality forecasts, but the optimization method required much more time and computational effort compared to the sntz heuristic. To reduce computational demands, we used the less time-intensive heuristic approach for reconciliation. 
+
+\subsection{Tables for all the temporal aggregation orders}
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/sam_crps_more.tex}
+	\endgroup
+	\caption{AvgRelCRPS defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:vncrps_sam}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/sam_es_more.tex}
+	\endgroup
+	\caption{ES ratio indices defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:vnes_sam}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/shr_crps_more.tex}
+	\endgroup
+	\caption{AvgRelCRPS defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:vncrps}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/shr_es_more.tex}
+	\endgroup
+	\caption{ES ratio indices defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:vnes}
+\end{table}
+
+\newpage
+\phantomsection\addcontentsline{toc}{section}{References}
+
+\bibliographystyle{agsm}
+\bibliography{mybibfile}
+\end{document}
