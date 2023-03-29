@@ -285,7 +285,7 @@
 
 \section{Monte Carlo Simulation: one-step residuals and shrinkage covariance matrix}
 
-In Section 4.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition. This can be seen clearly in \autoref{fig:ar2covcor_app}, where we have reported the covariance and correlation matrix corresponding to Figure 7 in the paper, but where we have used one-step residuals. 
+In Section 4.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition (see \autoref{fig:ar2covcor_app}). 
 In addition, Tables \ref{tab:ar2norm_app}, \ref{tab:ar2crps_app} and \ref{tab:ar2es_app} show the Frobenius norm, CRPS, and ES skill scores as explained in the paper to investigate the effectiveness of one-step residuals. 
 Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we have utilized a shrinkage matrix rather than the sample covariance matrix to assess the performance of our approach.
 
@@ -303,7 +303,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/norm_cov_app.tex}
 	\endgroup
-	\caption{Frobenius norm between the true (in Figure 7) and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. Entries in bold represent the lowest value for each column, while the blue entry represent the global minimum. The reconciliation approaches are described in Table 2.}
+	\caption{Frobenius norm between the true and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. Entries in bold represent the lowest value for each column, while the blue entry represent the global minimum. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2norm_app}
 \end{table}
 
@@ -314,7 +314,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/sam_crps_app.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in (17) and (18). A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS defined in Section 5.1. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2crps_app}
 \end{table}
 
@@ -325,7 +325,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/sam_es_app.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19). A lower value, indicates amore accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1. A lower value, indicates amore accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2es_app}
 \end{table}
 
@@ -336,7 +336,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/shr_crps_app.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in (17) and (18). A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS defined in Section 5.1. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2crps_app_shr}
 \end{table}
 
@@ -347,7 +347,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/shr_es_app.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19). A lower value, indicates amore accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1. A lower value, indicates amore accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2es_app_shr}
 \end{table}
 
@@ -360,7 +360,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/sam_crps_com.tex}
 	\endgroup
-	\caption{AvgRelCRPS indices defined in (17) and (18) for the Australian Quarterly National Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian Quarterly National Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auscrps}
 \end{table}
 
@@ -371,7 +371,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/sam_es_com.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19) for the AustralianQuarterlyNational Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1 for the AustralianQuarterlyNational Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auses}
 \end{table}
 
@@ -382,7 +382,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/shr_crps_com.tex}
 	\endgroup
-	\caption{AvgRelCRPS indices defined in (17) and (18) for the Australian Quarterly National Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian Quarterly National Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auscrps}
 \end{table}
 
@@ -393,7 +393,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/shr_es_com.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19) for the AustralianQuarterlyNational Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1 for the AustralianQuarterlyNational Accounts dataset. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auses}
 \end{table}
 
@@ -407,7 +407,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_crps_more.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in (17) and (18) for Australian TourismDemand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS defined in Section 5.1 for Australian Tourism Demand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vncrps_sam}
 \end{table}
 
@@ -418,7 +418,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_es_more.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19) for Australian TourismDemand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1 for Australian Tourism Demand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vnes_sam}
 \end{table}
 
@@ -429,7 +429,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/shr_crps_more.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in (17) and (18) for Australian TourismDemand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{AvgRelCRPS defined in Section 5.1 for Australian Tourism Demand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vncrps}
 \end{table}
 
@@ -440,7 +440,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/shr_es_more.tex}
 	\endgroup
-	\caption{ES ratio indices defined in (17) and (19) for Australian TourismDemand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\caption{ES ratio indices defined in Section 5.1 for Australian Tourism Demand. A lower value, indicates a more accurate forecast. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vnes}
 \end{table}
 \end{document}

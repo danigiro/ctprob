@@ -294,7 +294,7 @@ where $\Cvet_{cs}$ is the $(n_a \times n)$ zero constraints cross-sectional matr
 
 \input{./fig/hier.tex}
 
-An example is a hierarchical time series where series at upper levels can be expressed by appropriately summing part or all of the series at the bottom level. For example, \autoref{fig:hierS}(a) shows the two-level hierarchical structure for three linearly constrained time series such that $y_{T,t} = y_{X,t} + y_{Y,t}$, $\forall t = 1,...,T$. Now let $\yvet_t = [\uvet_t',~ \bvet_t']'$, where $\uvet_t = [y_{1,t}, \dots, y_{n_a,t}]'$ is the $n_a$-vector of upper levels time series and $\bvet_t = [y_{(n_a+1),t}, \dots, y_{n,t}]'$ is the $n_b$-vector of bottom level time series with $n = n_a+n_b$. The upper and lower level time series are connected by the cross-sectional aggregation matrix $\Avet_{cs}$ such that $\uvet_t = \Avet_{cs}\bvet_t$. Following \cite{giro2022}, we can always construct a zero-constraints cross-sectional matrix from the aggregation matrix, $\Cvet_{cs}=[\Ivet_{n_a} ~~ {-\Avet_{cs}}]$ . Finally, the cross-sectional structural matrix is given by $\Svet_{cs} = [\Avet' ~~ \Ivet_{n_b}]'$, providing the structural representation \citep{hyndman2011}
+An example is a hierarchical time series where series at upper levels can be expressed by appropriately summing part or all of the series at the bottom level. \autoref{fig:hierS}(a) shows the two-level hierarchical structure for three linearly constrained time series such that $y_{T,t} = y_{X,t} + y_{Y,t}$, $\forall t = 1,...,T$. Now let $\yvet_t = [\uvet_t',~ \bvet_t']'$, where $\uvet_t = [y_{1,t}, \dots, y_{n_a,t}]'$ is the $n_a$-vector of upper levels time series and $\bvet_t = [y_{(n_a+1),t}, \dots, y_{n,t}]'$ is the $n_b$-vector of bottom level time series with $n = n_a+n_b$. The upper and lower level time series are connected by the cross-sectional aggregation matrix $\Avet_{cs}$ such that $\uvet_t = \Avet_{cs}\bvet_t$. Following \cite{giro2022}, we can always construct a zero-constraints cross-sectional matrix from the aggregation matrix, $\Cvet_{cs}=[\Ivet_{n_a} ~~ {-\Avet_{cs}}]$ . Finally, the cross-sectional structural matrix is given by $\Svet_{cs} = [\Avet' ~~ \Ivet_{n_b}]'$, providing the structural representation \citep{hyndman2011}
 $$
 	\yvet_t = \Svet_{cs} \bvet_t.
 $$
@@ -309,13 +309,13 @@ $$
 
 In general there is no reason for $\uvet_t$ to be restricted to simple sums of $\bvet_t$; therefore $\Avet_{cs} \in \mathbb{R}^{n_a\times n_b}$ may contain any real values, and not only 0s and 1s.
 
-Considering now the temporal framework, we denote as $\mathcal{K} = \{ k_p , k_{p-1}, \dots, k_2, k_1 \}$ the set of $p$ factors of $m$, in descending order, where $k_1= 1$ and $k_p= m$ \citep{athanasopoulos2017}. Given a factor $k$ of $m$, and assuming that $T = N m$ (where $N$ is the length of the most temporally aggregated version of the series), we can construct a temporally aggregated version of the time series of a single variable $\{\yvet_{i,t}\}_{t = 1, \dots, T}$, through the non-overlapping sums of its $k$ successive values, which has a seasonal period equal to $M_k= m/k$:
+Considering now the temporal framework, we denote as $\mathcal{K} = \{ k_p , k_{p-1}, \dots, k_2, k_1 \}$ the set of $p$ factors of $m$, in descending order, where $k_1= 1$ and $k_p= m$ \citep{athanasopoulos2017}. Given a factor $k$ of $m$, and assuming that $T = N m$ (where $N$ is the length of the most temporally aggregated version of the series), we can construct a temporally aggregated version of the time series of a single variable $\{\yvet_{i,t}\}_{t = 1, \dots, T}$, through the non-overlapping sums of its $k$ successive values, which has a seasonal period equal to $M_k= \displaystyle\frac{m}{k}$:
 $$
-	x_{i,j}^{[k]} = \sum_{t=(j-1)k+1}^{jk} y_{i,t},\qquad j = 1,\dots, T/k, \qquad i = 1,\dots,n.
+	x_{i,j}^{[k]} = \sum_{t=(j-1)k+1}^{jk} y_{i,t},\qquad j = 1,\dots, N_k, \qquad i = 1,\dots,n,
 $$
-Note that $x_{i,j}^{[1]}=y_{i,t}$. Define $\tau$ as the observation index of the most aggregate level $k_p$. For a fixed temporal aggregation order $k \in \mathcal{K}$, we stack the observations in the column vector
+where $N_k = \displaystyle\frac{T}{k}$ and $x_{i,j}^{[1]}=y_{i,t}$. Define $\tau$ as the observation index of the most aggregate level $k_p$. For a fixed temporal aggregation order $k \in \mathcal{K}$, we stack the observations in the column vector
 $$
-	\xvet_{i,\tau}^{k} = \begin{bmatrix}x_{i,M_k(\tau-1)+1}^{[k]} & x_{i,M_k(\tau-1)+2}^{[k]} & \dots & x_{i,M_k\tau}^{[k]}\end{bmatrix}',
+	\xvet_{i,\tau}^{[k]} = \begin{bmatrix}x_{i,M_k(\tau-1)+1}^{[k]} & x_{i,M_k(\tau-1)+2}^{[k]} & \dots & x_{i,M_k\tau}^{[k]}\end{bmatrix}',
 $$
 and obtain the vector for all the temporal aggregation orders
 $$
@@ -339,7 +339,7 @@ $$
 		\Ivet_{\frac{m}{k_{2}}}   & \otimes & \Unovet_{k_2}'
 	\end{bmatrix}
 $$
-is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \displaystyle\sum_{k \in \mathcal{K}\setminus\{k_1\}} \frac{m}{k}$, and $\otimes$ is the Kronecker product. For each series $x_{i,\tau}$, $i = 1,\dots,n$, we have also the zero-constrained representation
+is the $(k^\ast \times m)$ temporal aggregation matrix with $k^\ast = \displaystyle\sum_{k \in \mathcal{K}\setminus\{k_1\}} M_k$, and $\otimes$ is the Kronecker product. For each series $x_{i,\tau}$, $i = 1,\dots,n$, we have also the zero-constrained representation
 \begin{equation}
 	\label{eq:te_con}
 	\Cvet_{te}\xvet_{i,\tau} = \Zerovet_{[k^\ast \times (m+k^\ast)]}, \qquad \tau = 1,\dots,N, \qquad i = 1,\dots, n
@@ -363,9 +363,9 @@ $$
 When we temporally aggregate each series, the cross-sectional constraints for the most temporally disaggregated series \eqref{eq:cs_con} hold for all the temporal aggregation orders
 \begin{equation}
 	\label{eq:cs_con2}
-	\Cvet_{cs}\xvet^{[k]}_t = \Zerovet_{(n_a \times 1)}, \quad \mathrm{for} \quad k \in \mathcal{K} \quad \mathrm{and} \quad t = 1, \;\dots, \;T,
+	\Cvet_{cs}\xvet^{[k]}_j = \Zerovet_{(n_a \times 1)}, \quad \mathrm{for} \quad k \in \mathcal{K} \quad \mathrm{and} \quad j = 1, \;\dots, \;N_k,
 \end{equation}
-where $\xvet_t^{[k]} = \left[\uvet_t^{[k]\prime},~ \bvet_t^{[k]\prime}\right]'$ with $\uvet^{[k]}_t = \left[ x^{[k]}_{1,t}, \dots, x^{[k]}_{n_a,t}\right]'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_t = \left[x^{[k]}_{(n_a+1),t},\dots,x^{[k]}_{n,t}\right]'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
+where $\xvet_j^{[k]} = \left[\uvet_j^{[k]\prime},~ \bvet_j^{[k]\prime}\right]'$ with $\uvet^{[k]}_j = \left[ x^{[k]}_{1,\;j}, \dots, x^{[k]}_{n_a,\;j}\right]'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_j = \left[x^{[k]}_{(n_a+1),\;j},\dots,x^{[k]}_{n,\;j}\right]'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
 
 To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, whose rows and columns represent, respectively, the cross-sectional and the temporal dimension:
 \begin{equation}
@@ -385,7 +385,7 @@ To include both cross-sectional and temporal constraints at the same time in a u
 	%\Bvet_{\tau}^{[k_p]} & \dots & \Bvet_{\tau}^{[k_1]} \\ \end{bmatrix}
 \end{equation}
 where for any fixed $k$,
-$\Uvet_{\tau}^{[k]}$ is the ($n_a\times T/k$) matrix grouping the upper time series, $\Bvet_{\tau}^{[k]}$ is the ($n_b\times T/k$) matrix grouping the bottom time series. Further,
+$\Uvet_{\tau}^{[k]}$ is the ($n_a\times N_k$) matrix grouping the upper time series, $\Bvet_{\tau}^{[k]}$ is the ($n_b\times N_k$) matrix grouping the bottom time series. Further,
 $$
 	\Cvet_{cs}\Xvet_\tau = \Zerovet_{\left[n_a \times (m+k^\ast)\right]} \qquad \text{and} \qquad \Cvet_{te}\Xvet_\tau' = \Zerovet_{(k^\ast \times n)} .
 $$
@@ -588,7 +588,7 @@ To obtain a reconciled forecast using the multivariate normal distribution, we s
 where $\Mvet$ is the projection matrix defined in \eqref{eq:Mvet}.
 Note that if we assume that $\Sigmavet = \Omegavet_{ct}$, then the covariance matrix in \eqref{eq:meanvar} simplifies to $\widetilde{\Omegavet} = \Mvet \Omegavet_{ct}$.
 %The covariance matrix $\Sigmavet$ is a key component of the reconciled forecast and it is important to carefully consider how it is calculated and deserves special attention. Accurately estimating the covariance matrix is important for several reasons. First, it allows us to quantify the uncertainty associated with our forecasts, which is crucial for decision-making. Second, the covariance matrix plays a key role in many statistical models and algorithms, so an incorrect estimate can lead to biased or unreliable results.
-In the cross-temporal case, sensibly estimating the covariance matrix $\Sigmavet$ can be difficult because we need to simultaneously consider both the temporal and cross-sectional structures. This requires many parameters to be estimated, which can be challenging in practice. Additionally, naively using one-step residuals to estimate the cross-temporal correlation structure can lead to an inappropriate estimate of the covariance matrix\footnote{In particular, some temporal covariances are fixed to zero (see the Figure A.1 in the online appendix for more details).}. These challenges will be explored in more depth in the following sections.
+In the cross-temporal case, sensibly estimating the covariance matrix $\Sigmavet$ can be difficult because we need to simultaneously consider both the temporal and cross-sectional structures. This requires many parameters to be estimated, which can be challenging in practice. Additionally, naively using one-step residuals to estimate the cross-temporal correlation structure can lead to an inappropriate estimate of the covariance matrix\footnote{In particular, some temporal covariances are fixed to zero (see the online appendix for more details).}. These challenges will be explored in more depth in the following sections.
 
 \input{fig/gauss_sim.tex}
 
@@ -598,7 +598,7 @@ Focusing on the computational aspect\footnote{We use two R packages to sample fr
 
 Analytical expressions for the base and reconciled forecast distributions are sometimes challenging to express, and sometimes unrealistic parametric assumptions are used. We propose a procedure called \textit{cross-temporal joint (block) bootstrap} (\textbf{ctjb}) to generate samples from the base forecast distributions that preserve cross-temporal relationships. This approach involves drawing samples of all series at the same time from the most temporally aggregated level, and using the most temporally aggregated level to determine the corresponding time indices for the other levels.
 
-Let $\widehat{\Evet}^{[k]}$ be the $(n \times T/k)$ matrix of the residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} (on the left) provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover four years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Further, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and residuals for the $i^{th}$ series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models, perhaps for different temporal levels or for groups of time series.
+Let $\widehat{\Evet}^{[k]}$ be the $(n \times N_k)$ matrix of the residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} (on the left) provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover four years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Further, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and residuals for the $i^{th}$ series. In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models, perhaps for different temporal levels or for groups of time series.
 
 %\input{fig/res_boot.tex}
 
@@ -708,40 +708,39 @@ In our simulations and forecasting experiments, we will be closely analyzing the
 
 Model residuals may be used to estimate the covariance matrix in cross-temporal forecast reconciliation. In time series analysis, it is common to use residuals corresponding to one-step ahead forecasts, but because of the different temporal dimensions, we need residuals corresponding to different forecast horizons. Thus, we define \textit{multi-step residuals} as
 $$
-	e_{i,h,j}^{[k]} = x_{i,j+h}^{[k]} - \widehat{x}_{i,j+h|t}^{[k]}\,,  \quad i = 1,\dots,n \; j = 1,\dots,N_k% \le t \le T-h
+	e_{i,h,j}^{[k]} = x_{i,j+h}^{[k]} - \widehat{x}_{i,j+h|j}^{[k]}\,,  \quad i = 1,\dots,n \; j = 1,\dots,N_k% \le t \le T-h
 $$
-where $N_k = Nm/k$ and $\widehat{x}_{i,j+h|t}^{[k]}$ is the $h$-step fitted value, calculated as the $h$-step-ahead forecast using data up to time $j$. In general, these residuals will be autocorrelated except when $h=1$.
+where $\widehat{x}_{i,j+h|t}^{[k]}$ is the $h$-step fitted value, calculated as the $h$-step-ahead forecast using data up to time $j$. In general, these residuals will be autocorrelated except when $h=1$.
 
 Following \cite{difonzo2023}, we use a matrix organization of the residuals similar to the one for the base forecasts in \autoref{ssec:oct}. Specifically, let $N$ be the total number of observations for the most temporally aggregate time series. Then, the $N_k$-vectors of multi-step residuals for the temporal aggregation $k$ and the series $i$,
 $$
 	\evet_{i,h}^{[k]} = \begin{bmatrix}
 		e_{i,h,1}^{[k]} & e_{i,h,2}^{[k]} & \dots & e_{i,h,N_k}^{[k]}
-	\end{bmatrix}' \quad h = 1,\dots, \frac{m}{k},
+	\end{bmatrix}' \quad h = 1,\dots, M_k,
 $$
 can be organized in matrix form as
-\begin{equation}\label{eq:Evetki}
+$$
 	\Evet_i^{[k]} = \begin{bmatrix}
-		e_{i,1,1}^{[k]}                     & e_{i,2,2}^{[k]}                     & \dots & e_{i,\frac{m}{k},\frac{m}{k}}^{[k]} \\
+		e_{i,1,1}^{[k]}                     & e_{i,2,2}^{[k]}                     & \dots & e_{i,M_k,M_k}^{[k]} \\
 		\vdots                            & \vdots                            &       & \vdots                  \\
-		e_{i,1,N_k - \frac{m}{k} + 1}^{[k]} & e_{i,2,N_k - \frac{m}{k} + 2}^{[k]} & \dots & e_{i,\frac{m}{k},N_k}^{[k]}         \\
+		e_{i,1,N_k - M_k + 1}^{[k]} & e_{i,2,N_k - M_k + 2}^{[k]} & \dots & e_{i,M_k,N_k}^{[k]}         \\
 	\end{bmatrix}.
-\end{equation}
+$$
 Let $\Evet_i = \begin{bmatrix}
 		\Evet_i^{[m]} & \Evet_i^{[k_p-1]} & \dots & \Evet_i^{[1]} \\
 	\end{bmatrix}$. Then the $[N \times n(m+k^\ast)]$ cross-temporal residual matrix is given by
-\begin{equation}
-	\label{eq:Emat}
+$$
 	\Evet = \begin{bmatrix}
 		\Evet_1 & \Evet_2 & \dots & \Evet_n \\
 	\end{bmatrix}.
-\end{equation}
+$$
 
 \subsection{Overlapping residuals}\label{ssec:over_res}
 
 Another issue that arises in the case of cross-temporal reconciliation is the low number of available residuals, especially for the higher orders of temporal aggregation. A possible solution is to use residuals calculated using overlapping series by allowing the year to have a varying starting time. To better explain how to calculate overlapping residuals, assume we have a single series
 $\yvet = [y_1 \; y_2 \; y_3 \; \dots\; y_{T-1}\; y_{T}]'$. We can construct $k$ non overlapping series such that
 $$
-	\xvet^{[k], s} = \left\{x^{[k],s}_{j}\right\}_{j = 1}^{\frac{T}{k}-s} \qquad \mathrm{where} \quad x^{[k],s}_{j} = \sum_{t = (j-1)k+s+1}^{jk-s} y_t,
+	\xvet^{[k], s} = \left\{x^{[k],s}_{j}\right\}_{j = 1}^{N_k-s} \qquad \mathrm{where} \quad x^{[k],s}_{j} = \sum_{t = (j-1)k+s+1}^{jk-s} y_t,
 $$
 with $s = 0, \dots, (k-1)$.
 For example, suppose we have a biannual series with $k = 2$ and $T = 6$, then we can construct two annual time series depending on which time is deemed the start of the year:
@@ -755,13 +754,17 @@ $$
 									 \Big[y_2 + y_3,~  y_4 + y_5 \Big]'.
 $$
 To calculate overlapping residuals, we propose the following steps:
-\begin{itemize}[leftmargin = 2.5cm, nosep]
-	\item[\textbf{step 1)}] Fit a model to $\xvet^{[k], 0}$; i.e., select an appropriate model and estimate the model parameters using the available data.
-	\item[\textbf{step 2)}] Calculate the residuals for $\xvet^{[k], 0}$.
-	\item[\textbf{step 3)}] Apply the same model in step 1 to $\xvet^{[k], s}$ for $s = 1, \dots, k-1$, without re-estimating the parameters.
-	\item[\textbf{step 4)}] Calculate the residuals for $\xvet^{[k], s}$ for $s = 1, \dots, k-1$ using the same method as step 2.
-	\item[\textbf{step 5)}] Organize the residuals from steps 2 and 4 according to the structure in \eqref{eq:Emat}.
-\end{itemize}
+%\begin{itemize}[leftmargin = 2.5cm, nosep]
+%	\item[\textbf{step 1)}] Fit a model to $\xvet^{[k], 0}$; i.e., select an appropriate model and estimate the model parameters using the available data.
+%	\item[\textbf{step 2)}] Calculate the residuals for $\xvet^{[k], 0}$.
+%	\item[\textbf{step 3)}] Apply the same model in step 1 to $\xvet^{[k], s}$ for $s = 1, \dots, k-1$, without re-estimating the parameters.
+%	\item[\textbf{step 4)}] Calculate the residuals for $\xvet^{[k], s}$ for $s = 1, \dots, k-1$ using the same method as step 2.
+%	\item[\textbf{step 5)}] Organize the residuals from steps 2 and 4 according to the structure in \eqref{eq:Emat}.
+%\end{itemize}
+\begin{enumerate}[nosep]
+	\item Fit a model to $\xvet^{[k], 0}$ (i.e., select an appropriate model and estimate the model parameters using the available data) and calculate the residuals.
+	\item Apply the same model in step 1 to $\xvet^{[k], s}$ for $s = 1, \dots, k-1$, without re-estimating the parameters, and calculate the residuals.
+\end{enumerate}
 The resulting residuals can be used to estimate the covariance matrix in cross-temporal forecast reconciliation. This increases the number of available residuals, particularly when working with higher frequency observations such as monthly or daily data.
 
 It is important to note that this approach assumes that the model used in step 1 is appropriate for all the different series $\xvet^{[k], s}$. Some seasonal models will not be appropriate as the seasonal pattern will be shifted for different values of $s$. However, this will not affect seasonal ARIMA models as the seasonality is defined in terms of lags which are unaffected by the value of $s$.
@@ -772,18 +775,12 @@ We study the effect of combining cross-sectional and temporal aggregations, usin
 
 Consider a $2$-level hierarchical structure with three time series (one upper series, $A$, and two bottom series, $B$ and $C$) such that the cross-sectional aggregation matrix is $\Avet_{cs} = \left[ 1 \quad 1 \right]$ ($A = B+C$). The temporal structure we are considering is equivalent to using semi-annual data with $\mathcal{K} = \{2,1\}$ and $m = 2$. The assumed Data-Generating Processes (DPG) for the semi-annual bottom level series are two AR(2) given by
 $$
-\begin{cases}
-	y_{B,t} = \phivet_{B}' \begin{bmatrix}
-		y_{B,t-1}\\
-		y_{B,t-2}
-	\end{bmatrix} + \varepsilon_{B, t}\\
-	y_{C,t} = \phivet_{C}' \begin{bmatrix}
-		y_{C,t-1}\\
-		y_{C,t-2}
-	\end{bmatrix} + \varepsilon_{C, t}\\
-\end{cases}
+\begin{aligned}
+	y_{B,t} &= \phi_{B, 1} y_{B,t-1} + \phi_{B, 2} y_{B,t-2} + \varepsilon_{B, t}\\
+	y_{C,t} &= \phi_{C, 1} y_{C,t-1} + \phi_{C, 2} y_{C,t-2} + \varepsilon_{C, t}
+\end{aligned}
 $$
-with parameters\footnote{The $\phivet_B$ and $\phivet_C$ parameters are estimated from the “Lynx" and “Hare" time series contained in the \texttt{pelt} dataset of the \texttt{tsibbledata} package for R \citep{ohara-wild2022}.} $\phivet_B = [1.34\; -0.74]'$ and $\phivet_C = [0.95\; -0.42]'$.
+with parameters\footnote{The $\phivet_B$ and $\phivet_C$ parameters are estimated from the “Lynx" and “Hare" time series contained in the \texttt{pelt} dataset of the \texttt{tsibbledata} package for R \citep{ohara-wild2022}.} $\phivet_B = [\phi_{B,1}\; \phi_{B,2}]' = [1.34\; -0.74]'$ and $\phivet_C  = [\phi_{C,1}\; \phi_{C,2}]' = [0.95\;~-~0.42]'$.
 The error $\epsvet_t = \left[\varepsilon_{B, t}\quad \varepsilon_{C, t}\right]'$ driving the process is drawn from a multivariate normal distribution with standard deviations simulated from a uniform distribution between 0.5 and 2 and a fixed correlation of -0.8. The cross-sectional error covariance matrix is thus given by
 $$
 	\Omegavet_{cs} = \begin{bmatrix}
@@ -1042,7 +1039,7 @@ The forecasting experiment involves using a recursive training sample with an ex
 %Additionally, forecasts are computed up to 6 steps ahead for time series aggregated over 2 months, up to 4 steps ahead for those aggregated over 3 months, up to 3 steps ahead for those aggregated over 4 months, up to 2 steps ahead for those aggregated over 6 months, and one step ahead for those aggregated over 12 months.
 ETS models selected by minimizing the AICc criterion with the R package \texttt{forecast} are fitted to the log-transformed data, with the resulting base forecasts being back-transformed to produce non-negative forecasts, as described in \cite{wickramasuriya2020}.
 
-The (1000) base forecast samples are obtain using the Gaussian approach with sample\footnote{The results with shrunk covariance matrices are available in the online appendix.} covariance matrices (\autoref{sec:shrtech}) using multi-step residuals\footnote{We do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).} and the bootstrap approach \autoref{ssec:boot}. For reconciliation, 11 different approaches have been adopted (see \autoref{tab:notation}): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, ct$(ols)$, oct$(struc)$, oct$(wlsv)$, oct$(bdshr)$, oct$_h(hbshr)$, oct$_h(bshr)$, oct$_h(hshr)$, and oct$_h(shr)$.
+The (1000) base forecast samples are obtained using the Gaussian approach with sample\footnote{The results with shrunk covariance matrices are available in the online appendix.} covariance matrices (\autoref{sec:shrtech}) using multi-step residuals\footnote{We do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).} and the bootstrap approach \autoref{ssec:boot}. For reconciliation, 11 different approaches have been adopted (see \autoref{tab:notation}): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, ct$(ols)$, oct$(struc)$, oct$(wlsv)$, oct$(bdshr)$, oct$_h(hbshr)$, oct$_h(bshr)$, oct$_h(hshr)$, and oct$_h(shr)$.
 
 One issue in working with time series data is the presence of negative values, which can cause difficulties for certain types of models or analyses.
 For the base forecasts, using the bootstrap approach produces forecasts naturally non negative (ETS model with the log-transformation), while this is not true for the Gaussian approach. In this case, any negative forecast is set equal to zero. For the cross-temporal reconciliation, \citet{difonzo2023} propose two solutions: either a state-of-the-art numerical optimization procedure (\texttt{osqp}, \citealp{stellato2019, stellato2020}), or a simple heuristic strategy called set-negative-to-zero (sntz). With sntz, any negative high frequency bottom time series reconciled forecasts are set to zero, and then a cross-temporal reconciliation bottom-up (see \autoref{ssec:ctbu}) is used to obtain the complete set of fully coherent forecasts. \cite{difonzo2023a} found that both methods produce similar quality forecasts, but the optimization method required much more time and computation effort compared to the sntz heuristic. To reduce computational demands, we chose to use the less time-intensive heuristic approach for reconciliation. Following Theorem \ref{thm:rs}, we are able to obtain the reconciled sample respecting non-negativity constraints starting from an incoherent sample simulated from a Gaussian distribution.
@@ -1124,11 +1121,30 @@ Finally, we perform empirical applications on two Australian data sets commonly 
 
 \section{Covariance approximations}\label{app:covapp}
 
-\autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. \cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residual autocorrelation.
+\autoref{tab:cov_app} presents some approximations for the cross-sectional and the temporal covariance matrices. %\cite{nystrup2020} and \cite{difonzo2023} provide further temporal reconciliation approaches that exploit possible information in the residual autocorrelation.
+\cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix.
+\begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
+	\item[oct$(ols)$ -] identity: $\Omegavet_{ct} = \Ivet_{n(k^*+m)}$.
+	\item[oct$(struc)$ -] structural: $\Omegavet_{ct} = \mathrm{diag}(\Svet_{ct} \mathbf{1}_{mn_b})$.
+	\item[oct$(wlsv)$ -] series variance scaling: $\Omegavet_{ct} = \widehat{\Omegavet}_{ct,wlsv}$, a straightforward extension of the series variance scaling matrix presented by \cite{athanasopoulos2017}.% in the temporal framework.
+	\item[oct$(bdshr)$ -] block-diagonal shrunk cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,shr}\Pvet'$, with $\widehat{\Wvet}^{BD}_{ct,shr} $
+%		$$
+%			\widehat{\Wvet}^{BD}_{ct,shr} = \begin{bmatrix}
+%				\widehat{\Wvet}^{[m]}_{shr} & \Zerovet                                                                         & \dots  & \Zerovet                                                   \\
+%				\Zerovet                    & \hspace{10pt}\Ivet_{\frac{m}{k_{p-1}}} \otimes \widehat{\Wvet}^{[k_{p-1}]}_{shr} & \dots  & \Zerovet                                                   \\
+%				\vdots                      & \vdots                                                                           & \ddots & \vdots                                                     \\
+%				\Zerovet                    & \Zerovet                                                                         & \dots  & \hspace{15pt}\Ivet_{m} \otimes \widehat{\Wvet}^{[1]}_{shr} \\
+%			\end{bmatrix},
+%		$$
+		a block diagonal matrix where each $k-$block ($k = m,k_{p-1},\dots, 1$) is $\Ivet_{M_k} \otimes \widehat{\Wvet}^{[k]}_{shr}$, $\widehat{\Wvet}^{[k]}_{shr}$ is the shrunk estimate of the cross-sectional covariance matrix proposed by \cite{wickramasuriya2019}, %for a given temporal aggregation level $k$ 
+		and $\Pvet$ is the commutation matrix such that $\Pvet \mathrm{vec}(\Yvet_{\tau}) = \mathrm{vec}(\Yvet_{\tau}')$.
+		%\item[oct$(bdsam)$ -] block-diagonal cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,sam}\Pvet'$
+	\item[oct$(shr)$ -] MinT-shr:   $\Omegavet_{ct} = \hat{\lambda}\widehat{\Omegavet}_{ct,D} + (1-\hat{\lambda})\widehat{\Omegavet}_{ct}$,
+	where $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$ with $\odot$ denoting the Hadamard product, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
+	\item[oct$(sam)$ -] MinT-sam:  $\Omegavet_{ct} = \widehat{\Omegavet}_{ct}$.
+\end{itemize}
 
- \begin{table}[!h]
- 	\caption{Approximations for the cross-sectional (\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) and temporal (\citealp{athanasopoulos2017}, \citealp{difonzo2023}) covariance matrix, respectively $\Wvet$ and $\Omegavet$.}
- 	\label{tab:cov_app}
+\begin{table}[!h]
  	\centering
  	\footnotesize
  	\begin{tabular}{>{\raggedleft\arraybackslash}m{0.15\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}}
@@ -1143,28 +1159,11 @@ Finally, we perform empirical applications on two Australian data sets commonly 
  		\bottomrule \addlinespace[0.1cm]
  		\multicolumn{3}{p{0.9\linewidth}}{\footnotesize \textbf{Note:} $\widehat{\Wvet}$ ($\widehat{\Omegavet}$) is the covariance matrix of the cross-sectional (temporal) one-step ahead in-sample forecast errors, $\widehat{\Omegavet}_{wlsv}$ is a diagonal matrix presented by \cite{athanasopoulos2017}, and $\widehat{\Omegavet}_D = \Ivet_{k^\ast + m} \odot \widehat{\Omegavet}$, where $\odot$ denotes the Hadamard product.}
  	\end{tabular}
+ 	\caption{Approximations for cross-sectional ($\Wvet$) %(\citealp{hyndman2011}, \citealp{hyndman2016}, \citealp{wickramasuriya2019}, \citealp{difonzo2023}) 
+ 	and temporal ($\Omegavet$) %(\citealp{athanasopoulos2017}, \citealp{difonzo2023}) 
+ 	covariance matrices.}
+ 	\label{tab:cov_app}
 \end{table}
-
-\cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix.
-\begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
-	\item[oct$(ols)$ -] identity: $\Omegavet_{ct} = \Ivet_{n(k^*+m)}$.
-	\item[oct$(struc)$ -] structural: $\Omegavet_{ct} = \mathrm{diag}(\Svet_{ct} \mathbf{1}_{mn_b})$.
-	\item[oct$(wlsv)$ -] series variance scaling: $\Omegavet_{ct} = \widehat{\Omegavet}_{ct,wlsv}$, a straightforward extension of the series variance scaling matrix presented by \cite{athanasopoulos2017} in the temporal framework.
-	\item[oct$(bdshr)$ -] block-diagonal shrunk cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,shr}\Pvet'$, with
-		$$
-			\widehat{\Wvet}^{BD}_{ct,shr} = \begin{bmatrix}
-				\widehat{\Wvet}^{[m]}_{shr} & \Zerovet                                                                         & \dots  & \Zerovet                                                   \\
-				\Zerovet                    & \hspace{10pt}\Ivet_{\frac{m}{k_{p-1}}} \otimes \widehat{\Wvet}^{[k_{p-1}]}_{shr} & \dots  & \Zerovet                                                   \\
-				\vdots                      & \vdots                                                                           & \ddots & \vdots                                                     \\
-				\Zerovet                    & \Zerovet                                                                         & \dots  & \hspace{15pt}\Ivet_{m} \otimes \widehat{\Wvet}^{[1]}_{shr} \\
-			\end{bmatrix},
-		$$
-		a block diagonal matrix where $\widehat{\Wvet}^{[k]}_{shr}$ is the shrunk estimates of the cross-sectional covariance matrix proposed by \cite{wickramasuriya2019} for a given temporal aggregation level $k$ and $\Pvet$ is the commutation matrix such that $\Pvet \mathrm{vec}(\Yvet_{\tau}) = \mathrm{vec}(\Yvet_{\tau}')$.
-		%\item[oct$(bdsam)$ -] block-diagonal cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,sam}\Pvet'$
-	\item[oct$(shr)$ -] MinT-shr:   $\Omegavet_{ct} = \hat{\lambda}\widehat{\Omegavet}_{ct,D} + (1-\hat{\lambda})\widehat{\Omegavet}_{ct}$,
-	where $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$ with $\odot$ denoting the Hadamard product, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
-	\item[oct$(sam)$ -] MinT-sam:  $\Omegavet_{ct} = \widehat{\Omegavet}_{ct}$.
-\end{itemize}
 
 \newpage
 
