@@ -1,4 +1,4 @@
-\begin{figure}[!b]
+\begin{figure}[!t]
 	\centering
 	\begingroup
 	\spacingset{0.9}
@@ -11,22 +11,20 @@ $N\left(\widetilde{\xvet}, \widetilde{\Omegavet} \right)$\\
 
 \node[draw, thick, circle, inner sep=1mm, text width=0.35cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, left= 1.5cm of dist, label={[align=center, font=\footnotesize]below:{B.F. covariance}}] (cov) {$\Sigmavet$};
 
-
 \node[draw, thick, inner sep=1mm, minimum width = 1cm, text width=4.5cm, minimum height = 2.1cm, text centered, left= 1.5cm of cov] (dist2) {{\footnotesize B.F. distribution} \\[0.2cm] $N\left(\widehat{\xvet}, \Sigmavet\right)$};
 
-\node[draw, thick, circle, inner sep=1mm, text width=0.5cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, below = 1.75cm of cov, label={[align=center, font=\footnotesize]left:{Covariance approx., \\for point R.F.}}] (covapprx) {$\Omegavet_{ct}$};
+\node[draw, thick, circle, inner sep=1mm, text width=0.5cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, below = 1.5cm of cov, label={[align=center, font=\footnotesize]left:{Covariance approx., \\for point R.F.}}] (covapprx) {$\Omegavet_{ct}$};
 
-\node[draw, thick, circle, inner sep=1mm, text width=0.35cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, above = 1cm of cov, label=below:{\footnotesize B.F. mean}] (mean) {$\widehat{\xvet}$};
+\node[draw, thick, circle, inner sep=1mm, text width=0.35cm, text centered, minimum width = 0.5cm, minimum height = 0.5cm, above = 0.3cm of cov, label=above:{\footnotesize B.F. mean}] (mean) {$\widehat{\xvet}$};
 
-\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 3.5cm of dist2] (sim_base) {{\footnotesize B.F. samples} \\[0.1cm] $\widehat{\xvet}_{1}, \;\dots, \;\widehat{\xvet}_{L}$};
+\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 2.5cm of dist2] (sim_base) {{\footnotesize B.F. samples} \\[0.1cm] $\widehat{\xvet}_{1}, \;\dots, \;\widehat{\xvet}_{L}$};
 
-\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 3.5cm of dist] (sim_reco) {{\footnotesize R.F. samples} \\[0.1cm] $\widetilde{\xvet}_{1}, \;\dots, \;\widetilde{\xvet}_{L}$};
+\node[inner sep=1mm, minimum width = 1cm, text width=2.5cm, text centered, below= 2.5cm of dist] (sim_reco) {{\footnotesize R.F. samples} \\[0.1cm] $\widetilde{\xvet}_{1}, \;\dots, \;\widetilde{\xvet}_{L}$};
 
 \draw[-{Triangle[scale=1]}, decorate, thick] (mean.east) -- (dist.north west);
 \draw[-{Triangle[scale=1]}, decorate, thick] (cov) -- (dist);
 \draw[-{Triangle[scale=1]}, decorate, thick] (mean.west) -- (dist2.north east);
 \draw[-{Triangle[scale=1]}, decorate, thick] (cov) -- (dist2);
-\draw[-{Triangle[scale=1]}, decorate, thick] (covapprx.north east) -- (dist.south west);
 
 
 \path[-{Triangle[scale=1]}, decorate, thick] (sim_base) edge node[ fill=white, anchor=center, pos=0.5,font = \footnotesize, text width = 2.2cm, text centered] (nodemid) {Thm \ref{thm:rs} \\[0.15cm] $\widetilde{\xvet}_{\ell} = \Mvet\,\widehat{\xvet}_{\ell}$ \\ $\ell = 1,\, \dots,\, L$} (sim_reco);
@@ -37,10 +35,11 @@ $N\left(\widetilde{\xvet}, \widetilde{\Omegavet} \right)$\\
 
 %\draw [-{Triangle[scale=1.5]}, decorate, decoration={snake,pre length=4pt,post length=15pt}, thick, shorten >= 5pt] (dist) -- (sim_reco) node[midway, right, xshift = 0.25cm, font = \footnotesize, text width = 3cm, text centered] {$\widetilde{B}^{[1]}\sim N\left(\widetilde{\textbf{b}}^{[1]}, \widetilde{\Omegavet}^{[1]}_{b} \right)$ \\ $\widetilde{\textbf{b}}^{[1]}_{h,1}, \, \dots, \, \widetilde{\textbf{b}}^{[1]}_{h,L}$};
 
-\draw [-{Triangle[scale=1.5]}, decorate, decoration={snake,pre length=4pt,post length=15pt}, thick, shorten >= 5pt] (dist) -- (sim_reco)  node[draw, midway, font = \footnotesize, text width = 3.25cm, text centered, fill = white, yshift = 0.2cm] {HF-BTS\\[0.2cm]$N\left(\widetilde{\textbf{b}}^{[1]}, \widetilde{\Omegavet}_{hf-bts} \right)$ \\ $\widetilde{\textbf{b}}^{[1]}_{\ell} \rightarrow \widetilde{\xvet}_{\ell}=\textbf{S}_{ct} \widetilde{\textbf{b}}^{[1]}_{\ell}$} ;
-
+\draw [-{Triangle[scale=1.5]}, decorate, decoration={snake,pre length=4pt,post length=15pt}, thick, shorten >= 5pt] (dist) -- (sim_reco)  node[draw=none, midway, font = \footnotesize, text width = 6.25cm, text centered, fill = white, yshift = 0.2cm] {HF-BTS\\[0.2cm]$N\left(\widetilde{\textbf{b}}^{[1]}, \widetilde{\Omegavet}_{hf-bts} \right)$, $\widetilde{\xvet}_{\ell}=\textbf{S}_{ct} \widetilde{\textbf{b}}^{[1]}_{\ell}$} ;
+\draw[-{Triangle[scale=1]}, decorate, thick] (covapprx.north east) -- (dist.south west);
 \end{tikzpicture}
 	\endgroup
-	\caption{Visual description of cross-temporal forecast reconciliation in the Gaussian framework, as described in Section \ref{ssec:prob_pf}. The acronyms R.F and B.F. stand for Reconciled Forecasts and Base Forecasts, respectively. HF-BTS stands for High Frequency Bottom Time Series.}
+	\caption{Visual description of cross-temporal forecast reconciliation in the Gaussian framework, as described in Section \ref{ssec:prob_pf}. The acronyms R.F and B.F. stand for Reconciled and Base Forecasts, respectively. HF-BTS stands for High Frequency Bottom Time Series.}
 	\label{fig:gaussrel}
+	\vspace*{-0.75\baselineskip}
 \end{figure}
