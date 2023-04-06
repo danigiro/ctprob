@@ -8,24 +8,20 @@ load("./VN525.RData")
 source("./R/pscore_fun.r")
 args <- commandArgs(TRUE)
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "ets"
-  # log or lev
+  # log lev
   trans <- "log"
-  # ctjb or csjb or tejb or indb
-  boot <- "ctmvn"
-  # base notneg
-  basen <- "free"
-  # res type
+  # ctjb ctsam hbsam hsam bsam ctshr hbshr hshr bshr
+  boot <- "ctsam"
+  # in h
   restype <- "in"
+  # free sntz
+  basen <- "free"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   boot <- args[3]
-  # base notneg
   if(length(args) < 4){
     restype <- "in"
     basen <- "free"
@@ -151,7 +147,7 @@ for(j in 1:length(listFiles)){
       cov <- cov + diag(0.01, NROW(cov))
       
       free <- octrec(basef = base, C = C, m = m, comb = "omega", Omega = cov, 
-                     keep = "recf", type = "M")
+                     keep = "recf", type = "S")
     }else if(comb == "bshr"){
       Ksort <- sort(K, decreasing = TRUE)
       base <- t(do.call(rbind, listBase[paste0("k", Ksort)]))
@@ -171,7 +167,7 @@ for(j in 1:length(listFiles)){
       cov <- cov + diag(0.01, NROW(cov))
       
       free <- octrec(basef = base, C = C, m = m, comb = "omega", Omega = cov, 
-                     keep = "recf", type = "M")
+                     keep = "recf", type = "S")
     }else if(comb == "hbshr"){
       Ksort <- sort(K, decreasing = TRUE)
       base <- t(do.call(rbind, listBase[paste0("k", Ksort)]))
@@ -190,7 +186,7 @@ for(j in 1:length(listFiles)){
       cov <- Sct%*%cov1%*%t(Sct)
       cov <- cov + diag(0.01, NROW(cov))
       free <- octrec(basef = base, C = C, m = m, comb = "omega", Omega = cov, 
-                     keep = "recf", type = "M")
+                     keep = "recf", type = "S")
     }else if(comb == "shr"){
       res <- t(do.call(rbind, listRes[paste0("k", sort(K, decreasing = TRUE))]))
       N <- NCOL(res) / sum(K)
@@ -199,7 +195,7 @@ for(j in 1:length(listFiles)){
       cov <- shrink_estim_fast(E)
       cov <- cov$cov
       free <- octrec(basef = base, C = C, m = m, comb = "omega", Omega = cov, 
-                     keep = "recf", type = "M")
+                     keep = "recf", type = "S")
     }else{
       free <- octrec(basef = base, C = C, m = m, comb = comb, res = res, 
                      keep = "recf", type = ifelse(comb %in% c("bdshr"), "S", "M"))
@@ -296,7 +292,6 @@ for(j in 1:length(listFiles)){
       mutate(mean = sapply(value, function(x) mean(x)),
              var = sapply(value, function(x) max(var(x), 0.1)),
              value = lapply(value, function(x) quantile(x, probs = probs_q))) |>
-      #value = lapply(value, function(x) quantile(x, probs = seq(0, 1, 0.005)))) |>
       unnest_longer(value, indices_to = "q") |>
       pivot_wider(names_from = q)
     
@@ -311,7 +306,7 @@ for(j in 1:length(listFiles)){
   
   if(j == 0){
     itername <- basename(listFiles[j])
-    save(listSntz, listFree, #listOsqp, info_osqp, 
+    save(listSntz, listFree, 
          file = file.path(".","ProbReco", model, trans, boot, reco, itername))
   }
   pb$tick()

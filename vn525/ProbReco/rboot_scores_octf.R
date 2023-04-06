@@ -8,24 +8,20 @@ load("./VN525.RData")
 source("./R/pscore_fun.r")
 args <- commandArgs(TRUE)
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "ets"
-  # log or lev
+  # log lev
   trans <- "log"
-  # ctjb or csjb or tejb or indb
-  boot <- "ctmvn"
-  # base notneg
-  basen <- "free"
-  # res type
+  # ctjb ctsam hbsam hsam bsam ctshr hbshr hshr bshr
+  boot <- "ctsam"
+  # in h
   restype <- "in"
+  # free sntz
+  basen <- "free"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   boot <- args[3]
-  # base notneg
   if(length(args) < 4){
     restype <- "in"
     basen <- "free"

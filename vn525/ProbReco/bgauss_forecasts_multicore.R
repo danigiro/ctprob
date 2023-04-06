@@ -8,18 +8,17 @@ handlers("progress")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "ets"
-  # log or lev
+  # log lev
   trans <- "log"
-  gauss <- "bsam"
-  restype <- "oh"
+  # ctsam hbsam hsam bsam ctshr hbshr hshr bshr
+  boot <- "ctsam"
+  # in h
+  restype <- "in"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   gauss <- args[3]
   if(length(args) < 4){
     restype <- "in"
@@ -105,7 +104,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
     lambda <- cov$lambda
     cov <- cov$cov
     
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     tmp <- tryCatch({
       Rfast::rmvnorm(B, mu = as.vector(t(base)), sigma = cov)
     },
@@ -159,7 +157,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <- MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -203,7 +200,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -249,7 +245,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -293,7 +288,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -338,7 +332,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -382,7 +375,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -427,7 +419,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
         })
       })
     })
-    #tmp <-MASS::mvrnorm(B, mu = as.vector(t(base)), Sigma = cov)
     
     DB <- FoReco:::Dmat(h = B, m = K, n = NROW(res))
     tmp <- matrix(t(DB) %*% as.vector(t(tmp)), nrow = NROW(res), byrow = TRUE)
@@ -448,8 +439,6 @@ gauss_fun <- function(j, model, trans, gauss, gaussn, loadRes){
 }
 
 xs <- 1:length(listFiles)
-#xs <- c(58, 59, 62, 63) #basam da fare!!
-#xs <- 58:length(listFiles)
 with_progress({
   p <- progressor(along = xs)
   y <- future_lapply(xs, gauss_fun, gauss = gauss, gaussn = gaussn, loadRes = loadRes,

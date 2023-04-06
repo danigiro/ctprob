@@ -9,6 +9,7 @@ load("./DATA.RData")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
+  # ctjb ctjbo
   boot <- "ctjb"
 }else{
   boot <- args[1]

@@ -10,19 +10,15 @@ load("./VN525.RData")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "ets"
-  # log or lev
+  # log lev
   trans <- "log"
-  # ctjb or csjb or indb or
-  # ctjb0 or csjb0 or indb0
+  # ctjb ctjbo
   boot <- "ctjb"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   boot <- args[3]
 }
 

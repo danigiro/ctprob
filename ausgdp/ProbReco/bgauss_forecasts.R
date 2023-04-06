@@ -9,18 +9,17 @@ load("./DATA.RData")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "arima"
-  # log or lev
+  # log lev
   trans <- "lev"
-  gauss <- "ctshr"
+  # ctsam hsam ctshr hshr
+  boot <- "ctsam"
+  # in o oh h
   restype <- "in"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   gauss <- args[3]
   if(length(args) < 4){
     restype <- "in"

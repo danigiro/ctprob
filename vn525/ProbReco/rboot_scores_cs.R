@@ -10,22 +10,18 @@ source("./R/sntz.r")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "ets"
-  # log or lev
+  # log lev
   trans <- "log"
-  # ctjb or csjb or tejb or indb
-  boot <- "ctjb"
-  # base notneg
+  # ctjb ctsam hbsam hsam bsam ctshr hbshr hshr bshr
+  boot <- "ctsam"
+  # free sntz
   basen <- "free"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   boot <- args[3]
-  # base notneg
   if(length(args) < 4){
     basen <- "free"
   }else{
@@ -151,7 +147,6 @@ for(j in 1:length(listFiles)){
     mutate(mean = sapply(value, function(x) mean(x)),
            var = sapply(value, function(x) max(var(x), 0.1)),
            value = lapply(value, function(x) quantile(x, probs = probs_q))) |>
-    #value = lapply(value, function(x) quantile(x, probs = seq(0, 1, 0.005)))) |>
     unnest_longer(value, indices_to = "q") |>
     pivot_wider(names_from = q)
   
@@ -164,7 +159,7 @@ for(j in 1:length(listFiles)){
   
   if(j == 1){
     itername <- basename(listFiles[j])
-    save(listSntz, listFree, #listOsqp, info_osqp, 
+    save(listSntz, listFree, 
          file = file.path(".","ProbReco", model, trans, boot, reco, itername))
   }
   pb$tick()

@@ -1,9 +1,9 @@
 library(tidyverse)
 library(progress)
 
-# arima or ets
+# arima ets
 model <- "ets"
-# log or lev
+# log lev
 trans <- "log"
 
 scores_file <- list.files(file.path(".","ProbScore", model, trans), full.names = TRUE)

@@ -6,9 +6,9 @@ library(FoReco)
 
 load("./DATA.RData")
 
-# arima or ets
+# arima ets
 model <- "arima"
-# log or lev
+# log lev
 trans <- "lev"
 
 dir.create(file.path(".","HfittedRes",model, trans), recursive = TRUE, showWarnings = FALSE)

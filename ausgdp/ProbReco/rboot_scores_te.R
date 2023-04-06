@@ -10,22 +10,18 @@ source("./R/pscore_fun.r")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
-  # arima or ets
+  # arima ets
   model <- "arima"
-  # log or lev
+  # log lev
   trans <- "lev"
-  # ctjb or csjb or tejb or indb
-  boot <- "ctjb"
-  # base notneg
+  # ctjb ctsam hsam ctshr hshr
+  boot <- "ctsam"
+  # free sntz
   basen <- "free"
 }else{
-  # arima or ets
   model <- args[1]
-  # log or lev
   trans <- args[2]
-  # ctjb or csjb or tejb or indb
   boot <- args[3]
-  # base notneg
   if(length(args) < 4){
     basen <- "free"
   }else{
@@ -158,7 +154,6 @@ for(j in 1:length(listFiles)){
     mutate(mean = sapply(value, function(x) mean(x)),
            var = sapply(value, function(x) var(x)),
            value = lapply(value, function(x) quantile(x, probs = probs_q))) |>
-    #value = lapply(value, function(x) quantile(x, probs = seq(0, 1, 0.005)))) |>
     unnest_longer(value, indices_to = "q") |>
     pivot_wider(names_from = q)
   
@@ -170,7 +165,7 @@ for(j in 1:length(listFiles)){
   
   if(j == 1){
     itername <- basename(listFiles[j])
-    save(listFree, #listOsqp, info_osqp, 
+    save(listFree, 
          file = file.path(".","ProbReco", model, trans, boot, reco, itername))
   }
   pb$tick()

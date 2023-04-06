@@ -7,6 +7,7 @@ source("./R/pscore_fun.r")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
+  # ctjb ctsam hbsam hsam bsam ctshr hbshr hshr bshr
   boot <- "ctjb"
 }else{
   boot <- args[1]
@@ -89,7 +90,6 @@ for(j in 1:length(listFiles)){
     mutate(mean = sapply(value, function(x) mean(x)),
            var = sapply(value, function(x) var(x)),
            value = lapply(value, function(x) quantile(x, probs = probs_q))) |>
-    #value = lapply(value, function(x) quantile(x, probs = seq(0, 1, 0.005)))) |>
     unnest_longer(value, indices_to = "q") |>
     pivot_wider(names_from = q)
   

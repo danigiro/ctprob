@@ -9,7 +9,9 @@ load("./DATA.RData")
 args <- commandArgs(TRUE)
 
 if(length(args)==0){
+  # ctjb ctsam hbsam hsam bsam ctshr hbshr hshr bshr
   gauss <- "ctsam"
+  # in o h oh
   restype <- "in"
 }else{
   gauss <- args[1]

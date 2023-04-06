@@ -1,7 +1,7 @@
 #!/bin/bash
 model="arima"
 trans="lev"
-meth_list="ctshr hbshr hshr bshr"
+meth_list="ctshr hshr"
 res_list="in o h oh"
 do_base_gauss=true
 do_base_boot=false

@@ -4,9 +4,9 @@ library(progress)
 
 load("./VN525.RData")
 
-# arima or ets
+# arima ets
 model <- "ets"
-# log or lev
+# log lev
 trans <- "log"
 
 dir.create(file.path(".","BaseForecasts",model, trans), recursive = TRUE, showWarnings = FALSE)
