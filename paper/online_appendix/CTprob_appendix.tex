@@ -1,4 +1,5 @@
 \documentclass[a4paper,11pt]{article}
+\pdfminorversion=4
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
@@ -112,6 +113,7 @@
 \newcommand{\Zerovet}{\bm{0}}
 \newcommand{\Omegavet}{\bm{\Omega}}
 \newcommand{\Sigmavet}{\bm{\Sigma}}
+\newcommand{\phivet}{\bm{\phi}}
 
 \definecolor{mybluehl}{HTML}{cbd3ff}
 
@@ -169,7 +171,6 @@
 \if1\blind
 {
 \maketitle
-\newpage
 }\fi
 
 \if0\blind
@@ -186,7 +187,7 @@
 \makeatother
 
 % Authors code
-\usepackage[affil-it, blocks]{authblk}
+\usepackage[affil-it, noblocks]{authblk}
 \setlength{\affilsep}{0em}
 \newcommand{\email}[1]{\affil{Email: {\upshape\href{mailto:#1}{#1}}}}
 \renewcommand\Affilfont{\itshape\normalsize}
@@ -255,35 +256,69 @@
 %\makeatother
 
 %% Settings
-\title{\bf Cross-temporal Probabilistic Forecast Reconciliation: online appendix}
-\author{Daniele Girolimetto}
-\affil{Department of Statistical Sciences, University of Padova}
-\email{daniele.girolimetto@phd.unipd.it}
-\author{George Athanasopoulos}
-\affil{Department of Econometrics and Business Statistics, Monash University}
-\email{george.athanasopoulos@monash.edu}
-\author{Tommaso Di Fonzo}
-\affil{Department of Statistical Sciences, University of Padova}
-\email{tommaso.difonzo@unipd.it}
-\author{Rob J Hyndman}
-\affil{Department of Econometrics and Business Statistics, Monash University}
-\email{rob.hyndman@monash.edu}
+\title{\bf Cross-temporal Probabilistic Forecast Reconciliation: Appendix}
+\author[1]{Daniele Girolimetto}
+\affil[1]{Department of Statistical Sciences, University of Padova}
+%\email{daniele.girolimetto@phd.unipd.it}
+\author[2]{George Athanasopoulos}
+\affil[2]{Department of Econometrics and Business Statistics, Monash University}
+%\email{george.athanasopoulos@monash.edu}
+\author[1]{Tommaso Di Fonzo}
+%\affil{Department of Statistical Sciences, University of Padova}
+%\email{tommaso.difonzo@unipd.it}
+\author[2]{Rob J Hyndman}
+%\affil{Department of Econometrics and Business Statistics, Monash University}
+%\email{rob.hyndman@monash.edu}
 
+\date{5 April 2023}
 \begin{document}
 
 \def\spacingset#1{\renewcommand{\baselinestretch}{#1}\small\normalsize}
 \spacingset{1.1}
   
 \maketitleblind
-
+\bigskip\bigskip
 \spacingset{1.3}
-%\tableofcontents
+\tableofcontents
+\newpage
 %\listoftables
 \appendix
 \renewcommand{\thetable}{\Alph{section}.\arabic{table}}
 \renewcommand{\thefigure}{\Alph{section}.\arabic{figure}}
 
-\section{Alternative forms of the cross-temporal covariance matrix}\label{app::shr}
+\section{Cross-sectional, temporal and cross-temporal covariance approximations}\label{app:covapp}
+
+\autoref{tab:cov_app} presents some approximations for the cross-sectional \citep{hyndman2011, hyndman2016, wickramasuriya2019} and the temporal \citep{athanasopoulos2017, nystrup2020} covariance matrices. \cite{difonzo2023} consider the following approximations for the cross-temporal covariance matrix.
+\begin{itemize}[nosep, leftmargin=!, labelwidth=\widthof{ oct$(bdsam)$ -}, align=right]
+	\item[oct$(ols)$ -] identity: $\Omegavet_{ct} = \Ivet_{n(k^*+m)}$.
+	\item[oct$(struc)$ -] structural: $\Omegavet_{ct} = \mathrm{diag}(\Svet_{ct} \mathbf{1}_{mn_b})$.
+	\item[oct$(wlsv)$ -] series variance scaling: $\Omegavet_{ct} = \widehat{\Omegavet}_{ct,wlsv}$, a straightforward extension of the series variance scaling matrix presented by \cite{athanasopoulos2017}.
+	\item[oct$(bdshr)$ -] block-diagonal shrunk cross-covariance scaling: $\Omegavet_{ct} = \Pvet\widehat{\Wvet}^{BD}_{ct,shr}\Pvet'$, with $\widehat{\Wvet}^{BD}_{ct,shr}$ a block diagonal matrix where each $k-$block ($k = m,k_{p-1},\dots, 1$) is $\Ivet_{M_k} \otimes \widehat{\Wvet}^{[k]}_{shr}$, $\widehat{\Wvet}^{[k]}_{shr}$ is the shrunk estimate of the cross-sectional covariance matrix proposed by \cite{wickramasuriya2019}, and $\Pvet$ is the commutation matrix such that $\Pvet \mathrm{vec}(\Yvet_{\tau}) = \mathrm{vec}(\Yvet_{\tau}')$.
+	\item[oct$(shr)$ -] MinT-shr:   $\Omegavet_{ct} = \hat{\lambda}\widehat{\Omegavet}_{ct,D} + (1-\hat{\lambda})\widehat{\Omegavet}_{ct}$,
+	where $\hat{\lambda}$ is an estimated shrinkage coefficient (\citealp{ledoit2004a}), $\widehat{\Omegavet}_{ct,D} = \Ivet_{n(k^\ast + m)} \odot \widehat{\Omegavet}_{ct}$ with $\odot$ denoting the Hadamard product, and $\widehat{\Omegavet}_{ct}$ is the covariance matrix of the cross-temporal one-step ahead in-sample forecast errors.
+	\item[oct$(sam)$ -] MinT-sam:  $\Omegavet_{ct} = \widehat{\Omegavet}_{ct}$.
+\end{itemize}
+
+ \begin{table}[!h]
+ 	\centering
+ 	\footnotesize
+ 	\begin{tabular}{>{\raggedleft\arraybackslash}m{0.15\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}|>{\centering\arraybackslash}m{0.35\linewidth}}
+ 		\toprule
+ 		                & \textbf{Cross-sectional framework}                                                     & \textbf{Temporal framework}                                                                        \\
+ 		\midrule
+ 		identity        & cs$(ols)$: $\Wvet = \Ivet_n$                                                           & te$(ols)$: $\Omegavet = \Ivet_{k^\ast + m}$                                                        \\[0.1cm]
+ 		structural      & cs$(struc)$: $\Wvet = \mathrm{diag}(\Svet_{cs} \mathbf{1}_{nb})$                       & te$(struc)$: $\Omegavet = \mathrm{diag}(\Svet_{te} \mathbf{1}_{m})$                                \\[0.1cm]
+ 		series variance & cs$(wls)$: $\Wvet = \widehat{\Wvet}_D = \Ivet_n \odot \widehat{\Wvet}$                 & te$(wlsv)$: $\Omegavet = \widehat{\Omegavet}_{wlsv}$                                               \\[0.1cm]
+ 		MinT-shr        & cs$(shr)$: $\Wvet = \hat{\lambda}\widehat{\Wvet}_D + (1-\hat{\lambda})\widehat{\Wvet}$ & te$(shr)$: $\Omegavet = \hat{\lambda}\widehat{\Omegavet}_D + (1-\hat{\lambda})\widehat{\Omegavet}$ \\[0.1cm]
+ 		MinT-sam        & cs$(sam)$: $\Wvet = \widehat{\Wvet}$                                                   & te$(sam)$: $\Omegavet = \widehat{\Omegavet}$                                                       \\
+ 		\bottomrule \addlinespace[0.1cm]
+ 		\multicolumn{3}{p{0.9\linewidth}}{\footnotesize \textbf{Note:} $\widehat{\Wvet}$ ($\widehat{\Omegavet}$) is the covariance matrix of the cross-sectional (temporal) one-step ahead in-sample forecast errors, $\widehat{\Omegavet}_{wlsv}$ is a diagonal matrix presented by \cite{athanasopoulos2017}, and $\widehat{\Omegavet}_D = \Ivet_{k^\ast + m} \odot \widehat{\Omegavet}$, where $\odot$ denotes the Hadamard product.}
+ 	\end{tabular}
+ 	\caption{Approximations for cross-sectional ($\Wvet$) and temporal ($\Omegavet$) covariance matrices.}
+ 	\label{tab:cov_app}
+\end{table}
+
+\section{Alternative forms of the cross-temporal covariance matrix}\label{app:shr}
 In this appendix, some derivations of the solutions proposed in Section 4 to obtain an estimator of the cross-temporal covariance matrix are reported.
 Starting from the the definition of cross-temporal covariance matrix we obtain the first equivalence in (10). Therefore, we have that
 \begin{align*}
@@ -328,7 +363,10 @@ In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet
 	& = \Svet_{ct}\Gvet\Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}'\Gvet'\Svet_{ct}' \\
 	& = \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, HB}\Svet_{ct}' = \widehat{\Omegavet}_{HB}.
 \end{align*}
+
 \autoref{fig:num_param} shows the number of parameters for different values of $m$ and $n$, with $n_b$ fixed to approximately $60\%$ of $n$. The right panel reports the boxplot of the percentage reductions in the number of parameters compared to the global approach.
+\autoref{fig:shr_grid} gives some visual insights on the covariance matrices obtainable with $\lambda=0$ and $\lambda=1$, respectively, for a simple cross-temporal hierarchical structure with 3 time series and $\mathcal{K}=\{2,1\}$ (e.g, cross-temporal semi-annual, see the Monte Carlo simulation in \autoref{sec:mcsim}).
+
 \begin{figure}[!t]
 	\centering
 	\includegraphics[width = \linewidth]{fig/parameters.pdf}
@@ -336,8 +374,117 @@ In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet
 	\label{fig:num_param}
 \end{figure}
 
-\newpage
-\section{Cross-temporal covariance matrix for the Monte Carlo simulation}\label{app:ar2}
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width = \linewidth]{fig/shr_cov/shr_color.pdf}
+	\caption{Representation of four types of covariance matrices that can be obtained from the cross-temporal hierarchical structure ($3$ time series and $m = 2$) for two different values of $\lambda\in\{0,1\}$, the shrinkage parameter. The cells that are not modified by shrinkage are colored black, those actively involved in the shrinkage phase are colored light blue, and those derived from and not estimated by the base forecasts errors are colored blue. Additionally, for $\lambda = 1$, the cells corresponding to a zero value are colored white.}
+	\label{fig:shr_grid}
+\end{figure}
+
+\section{Monte Carlo simulation}\label{sec:mcsim}
+
+We study the effect of combining cross-sectional and temporal aggregations, using a simple hierarchy that allows us to effectively visualize the quantities involved, such as the covariance matrix. Additionally, the small size and nature of the data generating process make it possible to exactly calculate the true cross-temporal covariance structure, thus providing insights into the nature of the time series data involved in the forecast reconciliation process.
+
+Consider a $2$-level hierarchical structure with three time series (one upper series, $A$, and two bottom series, $B$ and $C$) such that the cross-sectional aggregation matrix is $\Avet_{cs} = \left[ 1 \quad 1 \right]$ ($A = B+C$). The temporal structure we are considering is equivalent to using semi-annual data with $\mathcal{K} = \{2,1\}$ and $m = 2$. The assumed Data-Generating Processes (DPG) for the semi-annual bottom level series are two AR(2) given by
+$$
+\begin{aligned}
+	y_{B,t} &= \phi_{B, 1} y_{B,t-1} + \phi_{B, 2} y_{B,t-2} + \varepsilon_{B, t}\\
+	y_{C,t} &= \phi_{C, 1} y_{C,t-1} + \phi_{C, 2} y_{C,t-2} + \varepsilon_{C, t}
+\end{aligned}
+$$
+with parameters\footnote{The $\phivet_B$ and $\phivet_C$ parameters are estimated from the “Lynx" and “Hare" time series contained in the \texttt{pelt} dataset of the \texttt{tsibbledata} package for R \citep{ohara-wild2022}.} $\phivet_B = [\phi_{B,1}\; \phi_{B,2}]' = [1.34\; -0.74]'$ and $\phivet_C  = [\phi_{C,1}\; \phi_{C,2}]' = [0.95\;~-~0.42]'$. The error $\epsvet_t = \left[\varepsilon_{B, t}\quad \varepsilon_{C, t}\right]'$ driving the process is drawn from a multivariate normal distribution with standard deviations simulated from a uniform distribution between 0.5 and 2 and a fixed correlation of -0.8. The cross-sectional error covariance matrix is thus given by
+$$
+	\Omegavet_{cs} = \begin{bmatrix}
+		0.9 & 0   \\
+		0   & 1.8
+	\end{bmatrix} \begin{bmatrix}
+		1    & \rho \\
+		\rho & 1
+	\end{bmatrix} \begin{bmatrix}
+		0.9 & 0   \\
+		0   & 1.8
+	\end{bmatrix} = \begin{bmatrix}
+		\sigma_B^2  & \sigma_{BC} \\
+		\sigma_{BC} & \sigma_C^2
+	\end{bmatrix}.
+$$
+To obtain the remaining series, the bottom series are then cross-temporally aggregated.
+
+For the forecast experiment, the base forecasts are computing using AR models where the order is automatically determined by the algorithm proposed by \cite{hyndman2008a} and implemented in the R package \texttt{forecast} \citep{Rforecast}, thus allowing for possible mis-specification in the models. The training window length is 500 years, consisting of 1000 high frequency observations. The experiment is replicated 500 times, with a forecast horizon of 1 year.
+
+Since the AR(2) models used as DPG for the bottom series $B$ and $C$ at the most disaggregated temporal level are known, we may compute the true covariance matrix for one-step ahead forecasts at the annual level $\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'$, where
+$$
+	\Omegavet_{\textit{hf-bts}} = \begin{bmatrix}
+		\sigma^2_B            &                                                 &                      &                                        \\
+		\phi_{B,1}\sigma_B^2  & \sigma_B^2\left(1+\phi_{B,1}^2\right)           &                      &                                        \\
+		\sigma_{BC}           & \phi_{B,1}\sigma_{BC}                           & \sigma_C^2           &                                        \\
+		\phi_{C,1}\sigma_{BC} & \sigma_{BC}\left(1+\phi_{B,1}\phi_{C,1} \right) & \phi_{C,1}\sigma_C^2 & \sigma_C^2\left(1+\phi_{C,1}^2\right)\
+	\end{bmatrix}.
+$$
+The detailed calculations can be found in \autoref{app:ar2}.
+\autoref{fig:covcorMC} shows both the covariance matrix and the correlation matrix for fixed parameters.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width = \linewidth]{fig/AR/covcor.pdf}
+	\caption{Simulation experiment. True cross-temporal covariance (left) and correlation (right) error matrix of the reconciled forecasts with $\sigma_B = 0.9$, $\sigma_C = 1.8$, $\phivet_B = [1.34\; -0.74]'$, $\phivet_C = [0.95\; -0.42]'$ and $\rho = -0.8$.}
+	\label{fig:covcorMC}
+\end{figure}
+
+To construct cross-temporal samples of the base forecasts, we use the Gaussian and bootstrap approaches discussed in Sections 3.1 and 3.2, respectively. For the parametric approach we use multi-step residuals with the different covariance matrix structures analyzed in 4.1, while for the non-parametric approach, we use regular one-step residuals. We do not use overlapping residuals in our analysis as we have the advantage of generating a large number of observation. Ten different reconciliation approaches have been adopted (see Table 2): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, oct$(wlsv)$, oct$(bdshr)$, oct$_h(shr)$, oct$_h(bshr)$, oct$_h(hshr)$ and oct$_h(hbshr)$.
+
+
+
+\subsection{Covariance matrix comparison and forecast accuracy scores}\label{ssec:acc_scores}
+
+To compare the true covariance matrix $\Omegavet_{ct}$ with the estimated covariance matrix $\widehat{\Omegavet}$, we use the Frobenius norm to quantify the difference between two matrices: 
+$$\lVert \Dvet \rVert_F = \displaystyle\sqrt{\sum_{i = 1}^{n(k^\ast + m)}\sum_{j = 1}^{n(k^\ast + m)}|d_{i,j}|^2}$$ where $\Dvet = \widehat{\Omegavet} - \Omegavet_{ct}$. The true covariance matrix, shown in \autoref{fig:covcorMC}, was compared to the estimated covariance matrices obtained using various reconciliation approaches and techniques for generating sample paths of the base forecasts. Thus, we should be able to determine which reconciliation approach and simulation technique produce an accurate estimate of the covariance matrix. Other types of matrix norms were also considered with similar results.
+
+From \autoref{tab:ar2norm}, it appears that the reconciled covariance matrices are always closer to the true matrix than the base forecast matrix when using both the Gaussian and the bootstrap  approach. Overall, there are no major differences in the findings when using either one-step or multi-step residuals in cross-temporal forecast reconciliation. In fact, using approaches like oct$(bdshr)$, we obtain results that are consistent with approaches such as oct$_h(shr)$, where no temporal and/or cross-sectional correlation assumptions are imposed. It is worth noting that the $HB$ covariance matrix when used to calculate the base forecasts samples, is not changed by the reconciliation step (see \autoref{app:shr}). In conclusion, our results suggest that using multi-step residuals or bootstrap techniques may help find a “good" estimate of the covariance matrix, which can be further improved by the reconciliation.
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/norm_cov.tex}
+	\endgroup
+	\caption{Simulation experiment. Frobenius norm between the true and the estimated covariance matrix for different reconciliation approaches and different techniques for simulating the base forecasts. Entries in bold represent the lowest value for each column, while the blue entry represent the global minimum. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2norm}
+\end{table}
+
+A limitation of this simulation setting is that we are using a high number of residuals, which may result in undervaluing the benefit from using the parameterization form of the covariance matrix such as $HB$, $H$, or $B$ (see Section 4). Additionally, shrinkage techniques often yield very similar results when we use the corresponding matrix with $\lambda = 0$ (full covariance matrix). 
+
+In Tables \ref{tab:ar2crps} and \ref{tab:ar2es} are reported the $\operatorname{\overline{RelCRPS}}$ and ES ratio indices introduced in Sections 5 where low values indicate better quality of the forecasts. The good performance of the ct$(bu)$ approach can be explained by a good quality of the base forecasts at the bottom level for $k=1$, and therefore it is difficult for the other approaches to correctly adjust them using the somewhat less good forecasts of the higher temporal and cross-sectional levels. This also explains the good performance of ct$(shr_{cs}, bu_{te})$, which by definition only takes into account the information provided by the most temporally disaggregated base forecasts.
+Looking at the optimal cross-temporal reconciliation approaches, it does not seem to be any advantage in using multi-step residuals to calculate the covariance matrix in the reconciliation step.
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_crps.tex}
+	\endgroup
+	\caption{Simulation experiment. $\overline{RelCRPS}$ defined in Section 5. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2crps}
+\end{table}
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/Sim/sam_es.tex}
+	\endgroup
+	\caption{Simulation experiment. ES ratio indices defined in Section 5. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
+	\label{tab:ar2es}
+\end{table}
+
+In conclusion, we found that simulating base forecasts from multi-step residuals allows us to estimate a covariance matrix close to the true one. Additionally, we observed that reconciliation could be used to further improve the accuracy of these estimates: accurate base forecasts for $k=1$ assist the good performance for bottom-up and optimal cross-temporal reconciliation approaches, such as oct$(wlsv)$ and oct$(bdshr)$, which perform well in terms of both CRPS and ES.
+
+
+%\newpage
+\subsection{Cross-temporal covariance matrix}\label{app:ar2}
 
 We assume two AR(2) processes with correlated errors such that
 $$
@@ -387,8 +534,8 @@ $$
 	\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'.
 $$
 
-\newpage
-\section{Monte Carlo Simulation: one-step residuals and shrinkage covariance matrix}
+%\newpage
+\subsection{One-step residuals and shrinkage covariance matrix}
 
 In Section 4.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition (see \autoref{fig:ar2covcor_app}). 
 In addition, Tables \ref{tab:ar2norm_app}, \ref{tab:ar2crps_app} and \ref{tab:ar2es_app} show the Frobenius norm, CRPS, and ES skill scores as explained in the paper to investigate the effectiveness of one-step residuals. 
@@ -419,7 +566,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/sam_crps_app.tex}
 	\endgroup
-	\caption{Simulation experiment. AvgRelCRPS defined in Section 5.1. %A lower value, indicates a more accurate forecast. 
+	\caption{Simulation experiment. $\overline{RelCRPS}$ defined in Section 5. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2crps_app}
 \end{table}
@@ -431,7 +578,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/sam_es_app.tex}
 	\endgroup
-	\caption{Simulation experiment. ES ratio indices defined in Section 5.1. %A lower value, indicates amore accurate forecast. 
+	\caption{Simulation experiment. ES ratio indices defined in Section 5. %A lower value, indicates amore accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2es_app}
 \end{table}
@@ -443,7 +590,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/shr_crps_app.tex}
 	\endgroup
-	\caption{Simulation experiment. AvgRelCRPS defined in Section 5.1. %A lower value, indicates a more accurate forecast. 
+	\caption{Simulation experiment. $\overline{RelCRPS}$ defined in Section 5. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2crps_app_shr}
 \end{table}
@@ -455,7 +602,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 	\fontsize{9}{11}\selectfont
 	\input{tab/Sim/shr_es_app.tex}
 	\endgroup
-	\caption{Simulation experiment. ES ratio indices defined in Section 5.1. %A lower value, indicates amore accurate forecast. 
+	\caption{Simulation experiment. ES ratio indices defined in Section 5. %A lower value, indicates amore accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:ar2es_app_shr}
 \end{table}
@@ -463,6 +610,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 \newpage
 \section{Forecast reconciliation of the Australian GDP dataset}
 
+\subsection{The dataset}
 \cite{athanasopoulos2020} proposed using state-of-the-art forecast reconciliation methods to improve the accuracy of macroeconomic forecasts and facilitate aligned decision-making. 
 In their empirical analysis, they applied cross-sectional forecast reconciliation to 95 Australian QNA time series that represent the Gross Domestic Product (GDP) calculated using both the income and expenditure approaches. These two approaches correspond to two distinct hierarchical structures, with GDP at the top and 15 lower-level aggregates in the income approach, and GDP as the top-level aggregate in a hierarchy of 79 time series in the expenditure approach (for more information, see \citealp{athanasopoulos2020}, pp. 702--705 and figures 21.4--21.7).
 \cite{bisaglia2020} showed how to obtain a ``one-number'' forecast where the GDP reconciled forecasts are coherent for both the expenditure and income sides.
@@ -476,7 +624,7 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/sam_crps_com.tex}
 	\endgroup
-	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{$\overline{RelCRPS}$ indices defined in Section 5 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auscrps}
 \end{table}
@@ -488,7 +636,7 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/sam_es_com.tex}
 	\endgroup
-	\caption{ES ratio indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{ES ratio indices defined in Section 5 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auses}
 \end{table}
@@ -500,7 +648,7 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/shr_crps_com.tex}
 	\endgroup
-	\caption{AvgRelCRPS indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{$\overline{RelCRPS}$ indices defined in Section 5 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auscrps}
 \end{table}
@@ -512,7 +660,7 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 	\fontsize{8}{10}\selectfont
 	\input{tab/AusGDP/shr_es_com.tex}
 	\endgroup
-	\caption{ES ratio indices defined in Section 5.1 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{ES ratio indices defined in Section 5 for the Australian QNA dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:auses}
 \end{table}
@@ -612,7 +760,7 @@ For the base forecasts, using the bootstrap approach produces forecasts naturall
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_crps_more.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{$\overline{RelCRPS}$ defined in Section 5 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vncrps_sam}
 \end{table}
@@ -624,7 +772,7 @@ For the base forecasts, using the bootstrap approach produces forecasts naturall
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_es_more.tex}
 	\endgroup
-	\caption{ES ratio indices defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{ES ratio indices defined in Section 5 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vnes_sam}
 \end{table}
@@ -636,7 +784,7 @@ For the base forecasts, using the bootstrap approach produces forecasts naturall
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/shr_crps_more.tex}
 	\endgroup
-	\caption{AvgRelCRPS defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{$\overline{RelCRPS}$ defined in Section 5 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vncrps}
 \end{table}
@@ -648,7 +796,7 @@ For the base forecasts, using the bootstrap approach produces forecasts naturall
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/shr_es_more.tex}
 	\endgroup
-	\caption{ES ratio indices defined in Section 5.1 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{ES ratio indices defined in Section 5 for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vnes}
 \end{table}
