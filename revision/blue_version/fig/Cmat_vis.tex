@@ -1,0 +1,37 @@
+\begin{figure}[!t]
+  \centering
+\begin{tikzpicture}
+\tikzset{square matrix/.style={
+    matrix of nodes,
+    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+    nodes={draw,
+      minimum height=#1,
+      anchor=center,
+      text width=#1,
+      align=center,
+      inner sep=0pt,
+      font=\tiny
+    },
+  },
+  square matrix/.default=0.5cm
+}
+
+
+\matrix[square matrix, label={[font=\normalsize,text=black]left:{$\Cvet_{ct} = $}}](St)
+{
+%|[draw=none]|$x^{[4]}_{T,\tau}$ & |[draw=none]|$x^{[2]}_{T,2\tau-1}$ & |[draw=none]|$x^{[2]}_{T,2\tau}$ & |[draw=none]|$x^{[1]}_{T,4\tau-3}$ & |[draw=none]|$x^{[1]}_{T,4\tau-2}$ & |[draw=none]|$x^{[1]}_{T,4\tau-1}$ & |[draw=none]|$x^{[1]}_{T,4\tau}$ & |[draw=none]|$x^{[4]}_{X,\tau}$ & |[draw=none]|$x^{[2]}_{X,2\tau-1}$ & |[draw=none]|$x^{[2]}_{X,2\tau}$ & |[draw=none]|$x^{[1]}_{X,4\tau-3}$ & |[draw=none]|$x^{[1]}_{X,4\tau-2}$ & |[draw=none]|$x^{[1]}_{X,4\tau-1}$ & |[draw=none]|$x^{[1]}_{X,4\tau}$ & |[draw=none]|$x^{[4]}_{Y,\tau}$ & |[draw=none]|$x^{[2]}_{Y,2\tau-1}$ & |[draw=none]|$x^{[2]}_{Y,2\tau}$ & |[draw=none]|$x^{[1]}_{Y,4\tau-3}$ & |[draw=none]|$x^{[1]}_{Y,4\tau-2}$ & |[draw=none]|$x^{[1]}_{Y,4\tau-1}$ & |[draw=none]|$x^{[1]}_{Y,4\tau}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| \\|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=red]| & |[fill=red]| & |[fill=red]| & |[fill=red]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=red]| & |[fill=red]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=red]| & |[fill=red]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| & |[fill=red]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=black]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=black]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| & |[fill=red]| & |[fill=red]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=black]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| &  |[fill=white]| &  |[fill=white]| \\|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=white]| &  |[fill=black]| &  |[fill=white]| &  |[fill=white]| & |[fill=red]| & |[fill=red]| \\
+};
+
+\node[rectangle,above delimiter=\{, yshift = -0.25cm, label={[font=\footnotesize,text=black, yshift = 0.25cm]above:{$\xvet_{\tau}-$ordered column}}] at (St.north) {\tikz{\path (St-1-1.west) rectangle (St-1-21.east);}};
+
+%\node[fit=(St-22-1)(St-22-8), font=\scriptsize, yshift = -0.25cm, text width=6cm]{$\bvet_{\tau}^{[1]}$};
+
+%\node[fit=(St-1-9)(St-21-9), draw = blue, xshift = 0.6cm, minimum width = 1.3cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{\tau}$}}]{};
+
+%\node[fit=(St-1-1.north west)(St-2-8.south east), label={[font=\normalsize,text=black]above:{$\Svet_{ct}$}}]{};
+
+\end{tikzpicture}
+\caption{Visual representation of the zero constraints cross-temporal matrix $\Cvet_{ct}$ defined in (\ref{eq:Cct}) for a system of 3 linearly constrained quarterly time series (see \autoref{fig:hierS}). Colours legend: 0s in white, 1s in black, -1s in red.}
+  \label{fig:Cmatvis}
+\end{figure}

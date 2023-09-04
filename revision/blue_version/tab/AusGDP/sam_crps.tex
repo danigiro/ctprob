@@ -1,0 +1,29 @@
+
+\begin{tabular}[t]{l|>{}cccc>{}c|ccccc}
+\toprule
+\multicolumn{1}{c}{\textbf{}} & \multicolumn{10}{c}{\textbf{Generation of the base forecasts sample paths}} \\
+\cmidrule(l{0pt}r{0pt}){2-11}
+\multicolumn{1}{c}{\makecell[c]{\bfseries Reconciliation\\\bfseries approach}} & \multicolumn{1}{c}{ctjb} & \multicolumn{4}{c}{\makecell[c]{Gaussian approach\textsuperscript{*}}} & \multicolumn{1}{c}{ctjb} & \multicolumn{4}{c}{\makecell[c]{Gaussian approach\textsuperscript{*}}} \\
+\multicolumn{1}{c}{} &  & G$_{h}$ & H$_{h}$ & G$_{oh}$ & \multicolumn{1}{c}{H$_{oh}$} &  & G$_{h}$ & H$_{h}$ & G$_{oh}$ & \multicolumn{1}{c}{H$_{oh}$}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{1}{c}{} & \multicolumn{5}{c}{\textbf{$\forall k \in \{4,2,1\}$}} & \multicolumn{5}{c}{\textbf{$k = 1$}}\\
+base & \textcolor{black}{1.000} & \textcolor{black}{0.979} & \textcolor{black}{0.995} & \textcolor{black}{0.968} & \textcolor{black}{0.976} & \textcolor{black}{1.000} & \textcolor{black}{0.988} & \textcolor{black}{0.988} & \textcolor{black}{0.971} & \textcolor{black}{0.971}\\
+ct$(shr_{cs}, bu_{te})$ & \textcolor{black}{0.937} & \textcolor{black}{0.956} & \textcolor{black}{0.956} & \textcolor{black}{0.976} & \textcolor{black}{0.976} & \textcolor{black}{0.992} & \textcolor{red}{1.008} & \textcolor{red}{1.008} & \textcolor{red}{1.029} & \textcolor{red}{1.029}\\
+ct$(wls_{cs}, bu_{te})$ & \textcolor{black}{0.930} & \textcolor{black}{0.917} & \textcolor{black}{0.917} & \textcolor{black}{0.898} & \textcolor{black}{0.898} & \textcolor{black}{0.986} & \textcolor{black}{0.974} & \textcolor{black}{0.975} & \textcolor{black}{0.956} & \textcolor{black}{0.956}\\
+oct$_o(wlsv)$ & \textcolor{black}{\textbf{0.926}} & \textcolor{black}{\textbf{0.911}} & \textcolor{black}{\textbf{0.912}} & \textcolor{black}{\textbf{0.896}} & \textcolor{blue}{\textbf{0.895}} & \textcolor{black}{\textbf{0.984}} & \textcolor{black}{\textbf{0.971}} & \textcolor{black}{\textbf{0.970}} & \textcolor{black}{\textbf{0.954}} & \textcolor{blue}{\textbf{0.954}}\\
+oct$_o(bdshr)$ & \textcolor{black}{0.978} & \textcolor{black}{0.964} & \textcolor{black}{0.946} & \textcolor{black}{0.952} & \textcolor{black}{0.930} & \textcolor{red}{1.034} & \textcolor{red}{1.016} & \textcolor{red}{1.003} & \textcolor{red}{1.005} & \textcolor{black}{0.989}\\
+oct$_{oh}(shr)$ & \textcolor{red}{1.102} & \textcolor{red}{1.059} & \textcolor{red}{1.001} & \textcolor{red}{1.094} & \textcolor{black}{0.988} & \textcolor{red}{1.172} & \textcolor{red}{1.109} & \textcolor{red}{1.066} & \textcolor{red}{1.160} & \textcolor{red}{1.059}\\
+oct$_{oh}(hshr)$ & \textcolor{red}{1.006} & \textcolor{black}{0.983} & \textcolor{red}{1.009} & \textcolor{black}{0.974} & \textcolor{red}{1.001} & \textcolor{red}{1.068} & \textcolor{red}{1.046} & \textcolor{red}{1.059} & \textcolor{red}{1.034} & \textcolor{red}{1.061}\\
+\addlinespace[0.3em]
+\multicolumn{1}{c}{} & \multicolumn{5}{c}{\textbf{$k = 2$}} & \multicolumn{5}{c}{\textbf{$k = 4$}}\\
+base & \textcolor{black}{1.000} & \textcolor{black}{0.984} & \textcolor{black}{0.993} & \textcolor{black}{0.968} & \textcolor{black}{0.976} & \textcolor{black}{1.000} & \textcolor{black}{0.966} & \textcolor{red}{1.004} & \textcolor{black}{0.964} & \textcolor{black}{0.981}\\
+ct$(shr_{cs}, bu_{te})$ & \textcolor{black}{0.949} & \textcolor{black}{0.966} & \textcolor{black}{0.966} & \textcolor{black}{0.987} & \textcolor{black}{0.987} & \textcolor{black}{0.874} & \textcolor{black}{0.896} & \textcolor{black}{0.896} & \textcolor{black}{0.914} & \textcolor{black}{0.914}\\
+ct$(wls_{cs}, bu_{te})$ & \textcolor{black}{0.942} & \textcolor{black}{0.928} & \textcolor{black}{0.928} & \textcolor{black}{0.909} & \textcolor{black}{0.909} & \textcolor{black}{0.866} & \textcolor{black}{0.853} & \textcolor{black}{0.853} & \textcolor{black}{0.834} & \textcolor{black}{0.834}\\
+oct$_o(wlsv)$ & \textcolor{black}{\textbf{0.938}} & \textcolor{black}{\textbf{0.921}} & \textcolor{black}{\textbf{0.923}} & \textcolor{black}{\textbf{0.907}} & \textcolor{blue}{\textbf{0.906}} & \textcolor{black}{\textbf{0.860}} & \textcolor{black}{\textbf{0.847}} & \textcolor{black}{\textbf{0.848}} & \textcolor{black}{\textbf{0.832}} & \textcolor{blue}{\textbf{0.830}}\\
+oct$_o(bdshr)$ & \textcolor{black}{0.991} & \textcolor{black}{0.974} & \textcolor{black}{0.957} & \textcolor{black}{0.964} & \textcolor{black}{0.942} & \textcolor{black}{0.914} & \textcolor{black}{0.905} & \textcolor{black}{0.883} & \textcolor{black}{0.892} & \textcolor{black}{0.865}\\
+oct$_{oh}(shr)$ & \textcolor{red}{1.120} & \textcolor{red}{1.069} & \textcolor{red}{1.013} & \textcolor{red}{1.113} & \textcolor{red}{1.002} & \textcolor{red}{1.020} & \textcolor{red}{1.002} & \textcolor{black}{0.928} & \textcolor{red}{1.015} & \textcolor{black}{0.909}\\
+oct$_{oh}(hshr)$ & \textcolor{red}{1.021} & \textcolor{black}{0.996} & \textcolor{red}{1.021} & \textcolor{black}{0.987} & \textcolor{red}{1.016} & \textcolor{black}{0.934} & \textcolor{black}{0.912} & \textcolor{black}{0.951} & \textcolor{black}{0.904} & \textcolor{black}{0.931}\\
+\bottomrule
+\multicolumn{11}{l}{\rule{0pt}{1em}\rule{0pt}{1.75em}\makecell[l]{$^\ast$The Gaussian method employs a sample covariance matrix:\\G$_{h}$ and H$_{h}$ use multi-step residuals and G$_{oh}$ and H$_{oh}$ use overlapping and multi-step residuals.}}\\
+\end{tabular}
