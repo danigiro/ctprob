@@ -7,7 +7,7 @@
 \usepackage{natbib}
 \biboptions{authoryear}
 
-\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{url} % not crucial - just used below for the URL
 \journal{International Journal of Forecasting}
 
 %\pdfminorversion=4
@@ -209,8 +209,8 @@
   \author[aus]{George Athanasopoulos}
   \author[ita]{Tommaso Di Fonzo}
   \author[aus]{Rob J Hyndman}
-  
-  
+
+
   \address[ita]{Department of Statistical Sciences, University of Padua, Padova 35121, Italy}
   \address[aus]{Department of Econometrics \& Business Statistics, Monash University, Clayton VIC 3800, Australia}
 } \fi
@@ -224,20 +224,20 @@
 \begin{abstract}
 	\noindent Forecast reconciliation is a post-forecasting process that involves transforming a set of incoherent forecasts into coherent forecasts which satisfy a given set of linear constraints for a multivariate time series. In this paper we extend the current state-of-the-art cross-sectional probabilistic forecast reconciliation approach to encompass a cross-temporal framework, where temporal constraints are also applied. Our proposed methodology employs both parametric Gaussian and non-parametric bootstrap approaches to draw samples from an incoherent cross-temporal distribution.
 	To improve the estimation of the forecast error covariance matrix, we propose using multi-step residuals, especially in the time dimension where the usual one-step residuals fail.
-	To address high-dimensionality issues, we present four alternatives for the covariance matrix, where we exploit the two-fold nature (cross-sectional and temporal) of the cross-temporal structure, and introduce the idea of overlapping residuals. 
-	We assess the effectiveness of the proposed cross-temporal reconciliation approaches through a simulation study that investigates their theoretical and empirical properties and two forecasting experiments, using the Australian GDP and the Australian Tourism Demand datasets. For both applications, the optimal cross-temporal reconciliation approaches significantly outperform the incoherent base forecasts in terms of the Continuous Ranked Probability Score and the Energy Score. 
+	To address high-dimensionality issues, we present four alternatives for the covariance matrix, where we exploit the two-fold nature (cross-sectional and temporal) of the cross-temporal structure, and introduce the idea of overlapping residuals.
+	We assess the effectiveness of the proposed cross-temporal reconciliation approaches through a simulation study that investigates their theoretical and empirical properties and two forecasting experiments, using the Australian GDP and the Australian Tourism Demand datasets. For both applications, the optimal cross-temporal reconciliation approaches significantly outperform the incoherent base forecasts in terms of the Continuous Ranked Probability Score and the Energy Score.
 	 Overall, the results highlight the potential of the proposed methods to improve the accuracy of probabilistic forecasts and to address the challenge of integrating disparate scenarios while coherently taking into account short-term operational, medium-term tactical, and long-term strategic planning.
 \end{abstract}
 \begin{keyword}
 	Forecast reconciliation, Linearly constrained multiple time series, Cross-temporal, Probabilistic forecasting, GDP, Tourism flows
 \end{keyword}
 \end{frontmatter}
-		
+
 \newpage
 \def\spacingset#1{\renewcommand{\baselinestretch}%
 {#1}\small\normalsize} \spacingset{1}
 
-\spacingset{1.5} 
+\spacingset{1.5}
 \section{Introduction}
 
 Forecast reconciliation is a post-forecasting process intended to improve the quality of forecasts for a system of linearly constrained multiple time series \citep{hyndman2011, panagiotelis2021}. There are many fields where forecast reconciliation is useful, such as when forecasting demand in supply chains with product categories \citep{punia2020, kourentzes2021}, electricity demand and power generation \citep{spiliotis2020, bentaieb2021}, GDP and its components \citep{athanasopoulos2020}, tourist flows across geographic regions and travel purpose \citep{kourentzes2019}, and more. Moreover, effective decision-making depends on the support of accurate and coherent forecasts, making the use of forecast reconciliation methods increasingly popular in recent years. One of the main reason for this is the complexity of modern organizations, where different departments or groups generate forecasts at different levels of aggregation, using varying approaches and datasets. This can lead to significant differences in the operating decisions, as each division may have a different view of what is optimal for their area of responsibility. Forecast reconciliation enables the integration of these disparate forecasts by sharing information and breaking down the barriers between silos. By combining the forecasts from all levels, it can lead to greater accuracy and reduce errors that might have otherwise occurred due to different assumptions or biases.
@@ -245,18 +245,18 @@ Another benefit of forecast reconciliation is that it enables organizations to m
 
 Temporal reconciliation is another important aspect of forecast reconciliation that can help organizations to better align their forecasting efforts. This approach consists in reconciling forecasts that are generated at different time horizons, such monthly, quarterly or annual. This is particularly relevant for organizations that need to plan and make decisions over varying horizons that may have different levels of importance. For example, a retail company may need to reconcile monthly forecasts of sales with quarterly forecasts of revenue to ensure that they are aligned and consistent. This can help the company to make more accurate decisions about inventory, staffing, and pricing, as well as to identify trends and patterns over time \citep{kourentzes2022}.
 
-Classical reconciliation approaches (bottom-up, top-down, middle-out, see \citealp{dunn1976}, \citealp{gross1990}, \citealp{athanasopoulos2009}, respectively) addressed the issue of incoherent forecasts in a cross-sectional hierarchy by forecasting only one level and using these to generate forecasts for the remaining series. All of these approaches ignore useful information available at other levels \citep{pennings2017}. Recently, hierarchical forecasting \citep{fliedner2001} has significantly evolved to include modern least squares-based reconciliation techniques in the cross-sectional framework \citep{hyndman2011, wickramasuriya2019, panagiotelis2021}, later extended to temporal hierarchies \citep{athanasopoulos2017, nystrup2020}. 
+Classical reconciliation approaches (bottom-up, top-down, middle-out, see \citealp{dunn1976}, \citealp{gross1990}, \citealp{athanasopoulos2009}, respectively) addressed the issue of incoherent forecasts in a cross-sectional hierarchy by forecasting only one level and using these to generate forecasts for the remaining series. All of these approaches ignore useful information available at other levels \citep{pennings2017}. Recently, hierarchical forecasting \citep{fliedner2001} has significantly evolved to include modern least squares-based reconciliation techniques in the cross-sectional framework \citep{hyndman2011, wickramasuriya2019, panagiotelis2021}, later extended to temporal hierarchies \citep{athanasopoulos2017, nystrup2020}.
 Obtaining coherent forecasts across both the cross-sectional and temporal dimensions (known as \textit{cross-temporal coherence}) has been limited to sequential approaches that address each dimension separately \citep{kourentzes2019, yagli2019, punia2020, spiliotis2020}. Recently, \citet{difonzo2023} suggested a unified reconciliation step that takes into account both the cross-sectional and temporal dimensions, instead of dealing with them separately, utilizing the entire cross-temporal hierarchy.
 
 
-However, these cross-temporal works focus on point forecasting, and do not consider distributional or probabilistic forecasts \citep{gneiting2014}. In the cross-sectional and temporal frameworks, there have been some developments towards probabilistic forecasting including  \cite{bentaieb2017}, \cite{panamtash2018}, \cite{jeon2019}, \cite{yang2020}, \cite{yagli2020}, 
-\cite{bentaieb2021}, \cite{corani2021}, \cite{corani2022}, \cite{zambon2022} and \cite{wickramasuriya2021b}. \cite{panagiotelis2023} made a significant contribution by formalizing cross-sectional probabilistic reconciliation using the geometric framework for point forecast reconciliation of \cite{panagiotelis2021}. They show how a reconciled forecast can be constructed from an arbitrary base forecast when its density is available and when only a sample can be drawn. They also show that in the case of elliptical distributions, the correct predictive distribution can be recovered via linear reconciliation, regardless of the base forecast location and scale parameters, and derive conditions for this to hold in the special case of reconciliation via projection. 
+However, these cross-temporal works focus on point forecasting, and do not consider distributional or probabilistic forecasts \citep{gneiting2014}. In the cross-sectional and temporal frameworks, there have been some developments towards probabilistic forecasting including  \cite{bentaieb2017}, \cite{panamtash2018}, \cite{jeon2019}, \cite{yang2020}, \cite{yagli2020},
+\cite{bentaieb2021}, \cite{corani2021}, \cite{corani2022}, \cite{zambon2022} and \cite{wickramasuriya2021b}. \cite{panagiotelis2023} made a significant contribution by formalizing cross-sectional probabilistic reconciliation using the geometric framework for point forecast reconciliation of \cite{panagiotelis2021}. They show how a reconciled forecast can be constructed from an arbitrary base forecast when its density is available and when only a sample can be drawn. They also show that in the case of elliptical distributions, the correct predictive distribution can be recovered via linear reconciliation, regardless of the base forecast location and scale parameters, and derive conditions for this to hold in the special case of reconciliation via projection.
 
-In this paper, we extend cross-sectional probabilistic reconciliation to the cross-temporal case, working on issues related to the two-fold nature of this framework. First, we revise and develop the notation proposed by \cite{difonzo2023} to generalize the work of \cite{panagiotelis2023}. This allows us to move from cross-temporal point reconciliation to a probabilistic setting through the generalization of definitions and theorems well-established in the cross-sectional framework. Second, we propose effective and practical solutions to draw a sample from the base forecast distribution according to either a parametric approach that assumes Gaussianity or a non-parametric approach that bootstraps the base model residuals. 
-Third, we propose some solutions to specific problems that arise when combining the cross-sectional and temporal dimensions. We propose using multi-step residuals to estimate the relationships between different forecast horizons when we deal with temporal levels, since one-step residuals are not suitable for this purpose. To solve high-dimensionality issues we introduce the idea of overlapping residuals and consider alternative forms for constructing the covariance matrix. Fourth, we propose new shrinkage procedures for reconciliation that aim to identify a feasible cross-temporal structure. The methodological contributions described in this paper 
+In this paper, we extend cross-sectional probabilistic reconciliation to the cross-temporal case, working on issues related to the two-fold nature of this framework. First, we revise and develop the notation proposed by \cite{difonzo2023} to generalize the work of \cite{panagiotelis2023}. This allows us to move from cross-temporal point reconciliation to a probabilistic setting through the generalization of definitions and theorems well-established in the cross-sectional framework. Second, we propose effective and practical solutions to draw a sample from the base forecast distribution according to either a parametric approach that assumes Gaussianity or a non-parametric approach that bootstraps the base model residuals.
+Third, we propose some solutions to specific problems that arise when combining the cross-sectional and temporal dimensions. We propose using multi-step residuals to estimate the relationships between different forecast horizons when we deal with temporal levels, since one-step residuals are not suitable for this purpose. To solve high-dimensionality issues we introduce the idea of overlapping residuals and consider alternative forms for constructing the covariance matrix. Fourth, we propose new shrinkage procedures for reconciliation that aim to identify a feasible cross-temporal structure. The methodological contributions described in this paper
 are implemented in the \texttt{FoReco} package \citep{foreco2023} for R \citep{rcoreteam2022}. Furthermore, the online appendix contains complementary materials on methodological and practical issues, and supplementary tables and graphs related to the empirical applications.
 
-The remainder of the paper is structured as follows. In \autoref{sec:not}, we provide a unified notation for the cross-sectional, temporal and cross-temporal point reconciliation. We generalize the cross-sectional definitions and theorems developed by \cite{panagiotelis2023} in \autoref{sec:prob}, and propose both a parametric Gaussian and a non-parametric bootstrap approach to draw a sample from the base forecast distribution. In \autoref{sec:shrtech}, we analyze the structure of the cross-temporal covariance matrix, proposing four alternative forms, and propose shrinkage approaches for reconciliation. In addition, we explore cross-temporal residuals (overlapping and multi-step) looking at their advantages and limitations. %A simulation study is performed in \autoref{sec:mcsim}, to better understand the properties of the methodology. 
+The remainder of the paper is structured as follows. In \autoref{sec:not}, we provide a unified notation for the cross-sectional, temporal and cross-temporal point reconciliation. We generalize the cross-sectional definitions and theorems developed by \cite{panagiotelis2023} in \autoref{sec:prob}, and propose both a parametric Gaussian and a non-parametric bootstrap approach to draw a sample from the base forecast distribution. In \autoref{sec:shrtech}, we analyze the structure of the cross-temporal covariance matrix, proposing four alternative forms, and propose shrinkage approaches for reconciliation. In addition, we explore cross-temporal residuals (overlapping and multi-step) looking at their advantages and limitations. %A simulation study is performed in \autoref{sec:mcsim}, to better understand the properties of the methodology.
 Two empirical applications using the Australian GDP and the Australian Tourism Demand datasets are considered in Sections \ref{sec:ausgdp} and \ref{sec:vn525}, respectively\footnote{A complete set of results is available at the GitHub repository \githuburl}. Finally, \autoref{sec:conclusion} presents conclusions and a future research agenda on this and other related topics.
 
 
@@ -318,7 +318,7 @@ $$
 $$
 When we temporally aggregate each series, the cross-sectional constraints for the most temporally disaggregated series \eqref{eq:cs_con} hold for all the temporal aggregation orders such that $\Cvet_{cs}\xvet^{[k]}_j = \Zerovet_{(n_a \times 1)}$, for $k \in \mathcal{K}$ and $j = 1, \dots, N_k$, where $\xvet_j^{[k]} = \left[\uvet_j^{[k]\prime}\quad \bvet_j^{[k]\prime}\right]'$ with $\uvet^{[k]}_j = \left[ x^{[k]}_{1,\;j}\quad \dots\quad x^{[k]}_{n_a,\;j}\right]'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_j = \left[x^{[k]}_{(n_a+1),\;j}\quad\dots\quad x^{[k]}_{n,\;j}\right]'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
 
-To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, whose rows and columns represent, respectively, the cross-sectional and the temporal dimension: 
+To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, whose rows and columns represent, respectively, the cross-sectional and the temporal dimension:
 $$
 	\Xvet_\tau = \begin{bmatrix}
 		\xvet_{1,\tau}' \\[-0.1cm]
@@ -336,7 +336,7 @@ $$
 x^{[4]}_{T,\tau} & x^{[2]}_{T,2\tau-1} & x^{[2]}_{T,2\tau} & y_{T,4\tau-3} & y_{T,4\tau-2} & y_{T,4\tau-1} & y_{T,4\tau}\\
 \midrule
 x^{[4]}_{X,\tau} & x^{[2]}_{X,2\tau-1} & x^{[2]}_{X,2\tau} & y_{X,4\tau-3} & y_{X,4\tau-2} & y_{X,4\tau-1} & y_{X,4\tau}\\
-x^{[4]}_{Y,\tau} & x^{[2]}_{Y,2\tau-1} & x^{[2]}_{Y,2\tau} & y_{Y,4\tau-3} & y_{Y,4\tau-2} & y_{Y,4\tau-1} & y_{Y,4\tau}\\	
+x^{[4]}_{Y,\tau} & x^{[2]}_{Y,2\tau-1} & x^{[2]}_{Y,2\tau} & y_{Y,4\tau-3} & y_{Y,4\tau-2} & y_{Y,4\tau-1} & y_{Y,4\tau}\\
 \end{array}\right].
 $$
 Further, $\Cvet_{cs}\Xvet_\tau = \Zerovet_{\left[n_a \times (m+k^\ast)\right]}$ and $\Cvet_{te}\Xvet_\tau' = \Zerovet_{(k^\ast \times n)} $. We can consider the cross-temporal framework as a generalization of the cross-sectional and temporal frameworks, that simultaneously takes into account both types of constraints. The cross-sectional reconciliation approach proposed by \cite{hyndman2011} can be obtained by assuming $m = 1$, while the temporal one \citep{athanasopoulos2017} is obtained when $n = 1$ (with $n_a = 0$ and $n_b = 1$).
@@ -359,7 +359,7 @@ A structural representation can be considered as well: $\xvet_\tau = \Svet_{ct}\
 	\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}
 	\vspace{-0.1cm}
 \end{equation}
-is the $\left[n(k^\ast+m)\times n_b m\right]$ cross-temporal summation matrix, $s: \mathbb{R}^{n_b m} \rightarrow \mathbb{R}^{n(m+k^\ast)}$ is the operator describing the pre-multiplication by $\Svet_{ct}$, and $\bvet^{[1]}_\tau = \mathrm{vec}(\Bvet^{[1]\prime}_{\tau})$. In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for a system of 3 linearly constrained quarterly time series (see \autoref{fig:hierS}). 
+is the $\left[n(k^\ast+m)\times n_b m\right]$ cross-temporal summation matrix, $s: \mathbb{R}^{n_b m} \rightarrow \mathbb{R}^{n(m+k^\ast)}$ is the operator describing the pre-multiplication by $\Svet_{ct}$, and $\bvet^{[1]}_\tau = \mathrm{vec}(\Bvet^{[1]\prime}_{\tau})$. In \autoref{fig:Stilde}, we have represented $\Svet_{ct}$ for a system of 3 linearly constrained quarterly time series (see \autoref{fig:hierS}).
 In agreement with \cite{panagiotelis2021}, $\xvet_{\tau}$ lies in an $(n_b m)$-dimensional subspace $\mathfrak{s}_{ct}$ of $\mathbb{R}^{n(k^\ast+m)}$, which we refer to as the \textit{cross-temporal coherent subspace}, spanned by the columns of $\Svet_{ct}$.
 
 \input{./fig/Stilde_mat.tex}
@@ -381,10 +381,10 @@ $$
 \widehat{x}^{[4]}_{T,1} & \widehat{x}^{[2]}_{T,1} & \widehat{x}^{[2]}_{T,2} & \widehat{y}_{T,1} & \widehat{y}_{T,2} & \widehat{y}_{T,3} & \widehat{y}_{T,4}\\
 \midrule
 \widehat{x}^{[4]}_{X,1} & \widehat{x}^{[2]}_{X,1} & \widehat{x}^{[2]}_{X,2} & \widehat{y}_{X,1} & \widehat{y}_{X,2} & \widehat{y}_{X,3} & \widehat{y}_{X,4}\\
-\widehat{x}^{[4]}_{Y,1} & \widehat{x}^{[2]}_{Y,1} & \widehat{x}^{[2]}_{Y,2} & \widehat{y}_{Y,1} & \widehat{y}_{Y,2} & \widehat{y}_{Y,3} & \widehat{y}_{Y,4}\\	
+\widehat{x}^{[4]}_{Y,1} & \widehat{x}^{[2]}_{Y,1} & \widehat{x}^{[2]}_{Y,2} & \widehat{y}_{Y,1} & \widehat{y}_{Y,2} & \widehat{y}_{Y,3} & \widehat{y}_{Y,4}\\
 \end{array}\right].
 $$
-The matrix $\widehat{\Xvet}_{h}$, %organized as ${\Xvet}_{\tau}$, 
+The matrix $\widehat{\Xvet}_{h}$, %organized as ${\Xvet}_{\tau}$,
 contains incoherent forecasts, such as $\Cvet_{ct} \widehat{\xvet}_{h} \neq \Zerovet_{[(n_am+nk^\ast)\times1]}$
 with $h = 1, \dots, H$ and $\widehat{\xvet}_{h} = \mathrm{vec}(\widehat{\Xvet}_{h}')$. In this framework, the definition for forecast reconciliation in the cross-sectional framework given by \cite{panagiotelis2021} can be generalized as follows.
 
@@ -506,7 +506,7 @@ Let $(\mathbb{R}^{n(m+k^\ast)}, \mathcal{F}_{\mathbb{R}^{n(m+k^\ast)}}, \hat{\nu
 	\end{equation}
 	where $\psi^{-1}(\mathcal{A})=\{x \in \mathbb{R}^{n(m+k^\ast)}: \psi(x) \in \mathcal{A}\}$ denotes the pre-image of $\mathcal{A}$.
 \end{definition}
-The map $\psi$ may be obtained as the composition $s \circ g$, as for the cross-temporal point reconciliation \eqref{eq:SGy}. 
+The map $\psi$ may be obtained as the composition $s \circ g$, as for the cross-temporal point reconciliation \eqref{eq:SGy}.
 
 \begin{theorem}[Cross-temporal reconciled samples] \label{thm:rs}
 	Suppose that $(\widehat{\xvet}_1, \dots, \widehat{\xvet}_L)$ is a sample drawn from a (cross-temporal) incoherent probability measure $\widehat{\nu}$. Then $(\widetilde{\xvet}_1, \dots, \widetilde{\xvet}_L)$, where $\widetilde{\xvet}_\ell=\psi(\widehat{\xvet}_\ell)$ and $\ell= 1, \dots, L$, is a sample drawn from the (cross-temporal) reconciled probability measure $\widetilde{\nu}$ defined in \eqref{eq:pfr}.
@@ -539,7 +539,7 @@ Analytical expressions for the base and reconciled forecast distributions are so
 Let $\widehat{\Evet}^{[k]}$ be the ($n \times N_k$) matrix of the residuals for $k \in \mathcal{K}$. \autoref{fig:res_boot} (on the left) provides a visualization of these matrices and how they are related to each other for the example in \autoref{fig:hierS}. It is assumed that the residuals cover four years ($N=4$): the green color corresponds to the first year, the blue to the second year, and so on. Further, let $\mathcal{M}_i$ be the model used to calculate the base forecasts and residuals for the $i^{th}$ series. %In this work, we assume $\mathcal{M}_i$ to be a univariate model, however nothing prevents the use of multivariate models, perhaps for different temporal levels or for groups of time series.
 Assuming $H = 1$, $\tau$ is a random draw with replacement from $1,\dots, N$ and the $\ell^{th}$ bootstrap incoherent sample is
 $\widehat{\xvet}_{i,\ell}^{[k]} = f_i(\mathcal{M}_i, \widehat{\evet}_{i}^{[k]})$,
-where $f_i(\cdot)$ depends on the fitted %univariate 
+where $f_i(\cdot)$ depends on the fitted %univariate
 model $\mathcal{M}_i$. That is, $\widehat{\xvet}_{i,l}^{[k]}$ is a sample path simulated for the $i^{th}$ series with error approximated by the corresponding block bootstrapped sample residual $\widehat{\evet}_{i}^{[k]}$, the $i^{th}$ row of
 $$
 	\widehat{\Evet}^{[k]}_{\tau} = \begin{bmatrix}
@@ -552,7 +552,7 @@ $$
 
 \input{fig/bootstrap_fig.tex}
 
-One of the main advantages of the cross-temporal joint bootstrap is that it allows us to accurately account for the dependence between the different levels of temporal aggregation and not only the cross-sectional dependencies. By sampling residuals from the most temporally aggregated level and using it to determine the indices for the other levels, we can ensure that the bootstrap sample reflects the underlying data distribution. Additionally, the cross-temporal joint bootstrap is easy to implement %in R \citep{rcoreteam2022} using the package \texttt{forecast} \citep{Rforecast} 
+One of the main advantages of the cross-temporal joint bootstrap is that it allows us to accurately account for the dependence between the different levels of temporal aggregation and not only the cross-sectional dependencies. By sampling residuals from the most temporally aggregated level and using it to determine the indices for the other levels, we can ensure that the bootstrap sample reflects the underlying data distribution. Additionally, the cross-temporal joint bootstrap is easy to implement %in R \citep{rcoreteam2022} using the package \texttt{forecast} \citep{Rforecast}
 for many forecasting models, making it a practical and efficient tool. Furthermore, this approach is easily scalable in order to utilize multiple computing power simultaneously for each individual series. This can be especially useful when dealing with large datasets or when trying to speed up the analysis process.
 
 \section{Cross-temporal covariance matrix estimation}\label{sec:shrtech}
@@ -569,7 +569,7 @@ where $\Omegavet_{\textit{hf-bts}}$ is the $(n_b m\times n_b m)$ covariance matr
 
 Therefore, we can apply the idea of “Stein-type shrinkage" \citep{efron1977} to $\Omegavet_{\textit{hf-bts}}$, $\Omegavet_{\textit{hf}}$ and $\Omegavet_{\textit{bts}}$ by using the corresponding empirical base forecasts residuals estimation. We obtain the following expressions (see the online appendix B for details):
 \begin{itemize}[nosep]
-	\item \textit{High frequency Bottom time series shrinkage matrix} (HB): \\ 
+	\item \textit{High frequency Bottom time series shrinkage matrix} (HB): \\
 	$\widehat{\Omegavet}_{HB} = \lambda \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}, D}\Svet_{ct}'+ (1-\lambda) \Svet_{ct}\widehat{\Omegavet}_{\textit{hf-bts}}\Svet_{ct}'$;
 	\item \textit{High frequency shrinkage matrix} (H): \\ $\widehat{\Omegavet}_{H}  = \lambda (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{hf, D}(\Ivet_{n} \otimes \Svet_{te})' + (1-\lambda) (\Ivet_{n} \otimes \Svet_{te})\widehat{\Omegavet}_{\textit{hf}}(\Ivet_{n} \otimes \Svet_{te})'$;
 	\item \textit{Bottom time series shrinkage matrix} (B): \\$\widehat{\Omegavet}_{B} = \lambda \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts, D}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)' +  (1-\lambda) \left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)\widehat{\Omegavet}_{bts}\left(\Svet_{cs} \otimes \Ivet_{m+k^\ast}\right)'$,
@@ -597,21 +597,21 @@ These matrices are not full rank, meaning their inverses, needed to compute the 
 		\bottomrule
 	\end{tabular}
 	\endgroup
-	\caption{Number of different parameters that need to be estimated for %the Monte Carlo simulation (AR(2), see \autoref{sec:mcsim}), 
-	the Australian GDP (see \autoref{sec:ausgdp}) and the Australian Tourism Demand (see \autoref{sec:vn525}) forecasting experiments. %: %the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$; 
-	%the first one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the second one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper). 
+	\caption{Number of different parameters that need to be estimated for %the Monte Carlo simulation (AR(2), see \autoref{sec:mcsim}),
+	the Australian GDP (see \autoref{sec:ausgdp}) and the Australian Tourism Demand (see \autoref{sec:vn525}) forecasting experiments. %: %the first one has $3$ time series (one upper and two bottom) with temporal aggregation $\mathcal{K} = \{2, 1\}$;
+	%the first one has $95$ quarterly ($m = 4$ and $k^\ast = 3$) time series ($62$ free and $33$ constraints, see \citealp{giro2022}); the second one has a total of 525 monthly ($m = 12$ and $k^\ast = 16$) time series ($304$ bottom and $221$ upper).
 	The percentage reductions in the number of parameters compared to the global approach are reported in parentheses.}
 	\label{tab:num_param}
 	\vspace*{-0.5\baselineskip}
 \end{table}
 
-Another important aspect is the number of parameters to be estimated through the residuals of the base forecasts. In \autoref{tab:num_param} we report the number of different parameters %for the Monte Carlo simulation (AR2) and 
-for the two forecasting experiment: Australian GDP (see \autoref{sec:ausgdp}) and Australian Tourism Demand (see \autoref{sec:vn525}). In addition, we also calculate the percentage reductions in the number of parameters compared to the global approach. %, that is: $\% \text{ reduction} = 100(1-r_i/r_G)$ with $i \in \{\textit{HB}, H, B\}$. 
+Another important aspect is the number of parameters to be estimated through the residuals of the base forecasts. In \autoref{tab:num_param} we report the number of different parameters %for the Monte Carlo simulation (AR2) and
+for the two forecasting experiment: Australian GDP (see \autoref{sec:ausgdp}) and Australian Tourism Demand (see \autoref{sec:vn525}). In addition, we also calculate the percentage reductions in the number of parameters compared to the global approach. %, that is: $\% \text{ reduction} = 100(1-r_i/r_G)$ with $i \in \{\textit{HB}, H, B\}$.
 As we can see, \textit{G} involves a considerably large number of parameters compared to other estimators. \textit{HB} leads to the largest decrease of around 85\%, whereas approaches \textit{H} and \textit{B}  lie somewhere between \textit{G} and \textit{HB}. In general, as $m$ and $n$ increase, using \textit{H} requires the estimation of less parameters than \textit{B}.
 
 {\color{blue}
-It is worth noting that when using the $HB$ covariance matrix, we make the assumption that the errors are coherent. This assumption holds true as long as the forecasts also approximately fulfil the constraints (\ref{eq:Cct}), which is typically expected for any reasonable set of forecasts \citep{hyndman2011}. %This improve the construction of base forecast distribution in the Gaussian framework that closely resembles the true distribution of the time series. 
-In addition, with this covariance matrix, the computational complexity of reconciliation phase is reduced. Specifically, \autoref{thm:HBols} extends %and generalise 
+It is worth noting that when using the $HB$ covariance matrix, we make the assumption that the base error covariance matrix is coherent. This assumption is valid provided the base forecasts also approximately fulfil the constraints (\ref{eq:Cct}), which is expected for any reasonable set of forecasts. %This improve the construction of base forecast distribution in the Gaussian framework that closely resembles the true distribution of the time series.
+In addition, with this covariance matrix, the computational complexity of reconciliation phase is reduced. Specifically, \autoref{thm:HBols} extends %and generalise
 Theorem 1 in \cite{hyndman2011}, showing that reconciling using a coherent covariance matrix simplifies to the $ols$ approach.
 \begin{theorem}\label{thm:HBols}
 	Let $\widehat{\Omega}_{hf-bts}$ be a $[(n_bm)\times (n_bm)]$ p.d. matrix. Then, using $\Omegavet_{ct} = \Svet_{ct}\widehat{\Omega}_{hfbts}\Svet_{ct}'$ in the reconciliation formulae (\ref{eq:Mvet}) and (\ref{eq:SGy}) is equivalent to using $\Omegavet_{ct} = \Ivet_{n(m+k^\ast)}$ ($ols$ approach).
@@ -687,7 +687,7 @@ We use univariate ARIMA models\footnote{We use the \texttt{auto.arima} function 
 		oct$_{oh}(\;\cdot\;)$ & Optimal cross-temporal reconciliation with overlapping and multi-step residuals (see Section \ref{ssec:multi_res} and \ref{ssec:over_res}) for the approaches presented in \autoref{sec:shrtech}: $shr$ stands for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}.\\
 		\bottomrule
 	\end{tabular}%}
-	\caption{Cross-temporal reconciliation approaches for %the Monte Carlo simulation (see \autoref{sec:mcsim}), 
+	\caption{Cross-temporal reconciliation approaches for %the Monte Carlo simulation (see \autoref{sec:mcsim}),
 	the Australian GDP (see \autoref{sec:ausgdp}) and the Australian Tourism Demand (see \autoref{sec:vn525}) forecasting experiments. All the reconciliation procedures are available in \texttt{FoReco} \citep{foreco2023}.}
 	\label{tab:notation}
 	\vspace*{-0.5\baselineskip}
@@ -699,17 +699,17 @@ The accuracy of the probabilistic forecasts is evaluated using the Continuous Ra
 %\begin{equation}\label{eq:crps}
 %	\operatorname{CRPS}(\widehat{P}_i, z_i)=\frac{1}{L} \sum_{l=1}^{L}\left|x_{i,l}-z_i\right|-\frac{1}{2 L^{2}} \sum_{l=1}^{L} \sum_{j=1}^{L}\left|x_{i,l}-x_{i,j}\right|, \quad i = 1,\dots,n,
 %\end{equation}
-%where $\widehat{P}_i(\omega)=\displaystyle\frac{1}{L} \sum_{l=1}^{L} \mathbf{1}\left(x_{i,l} \leq \omega\right)$, $\xvet_{1}, \xvet_{2}, \dots, \xvet_{L}\in \mathbb{R}^{n}$ is a collection of $L$ random draws from the predictive distribution and $\zvet \in \mathbb{R}^{n}$ is the observation vector. CRPS 
+%where $\widehat{P}_i(\omega)=\displaystyle\frac{1}{L} \sum_{l=1}^{L} \mathbf{1}\left(x_{i,l} \leq \omega\right)$, $\xvet_{1}, \xvet_{2}, \dots, \xvet_{L}\in \mathbb{R}^{n}$ is a collection of $L$ random draws from the predictive distribution and $\zvet \in \mathbb{R}^{n}$ is the observation vector. CRPS
 which is an index that considers the single series and provides us a marginal evaluation of the approaches. In addition, we employ the Energy Score (ES, \citealp{gneiting2014}), that is the CRPS extension to the multivariate case, to evaluate the forecasting accuracy for the whole system \citep{panagiotelis2023, wickramasuriya2021b}.
 %\begin{equation}\label{eq:es}
 %	\operatorname{ES}(\widehat{P}, \zvet)=\frac{1}{L} \sum_{l=1}^{L}\left\|\xvet_{l}-\zvet\right\|_{2}-\frac{1}{2(L-1)} \sum_{i=1}^{L-1}\left\|\xvet_{l}-\xvet_{l+1}\right\|_{2}
 %\end{equation}
-%where $	\lVert \cdot \rVert_2$ is the L$_2$ norm. 
+%where $	\lVert \cdot \rVert_2$ is the L$_2$ norm.
 In particular, we consider the geometric mean of the relative CRPS \citep{fleming1986}, and the relative ES:
 \begin{equation}\label{eq:skill}
 	\operatorname{\overline{RelCRPS}}_{j,s}^{[k]} = \left(\prod_{i = 1}^n \frac{CRPS^{[k]}_{i, j, s}}{CRPS^{[k]}_{i, 0, 0}}\right)^{\frac{1}{n}} \qquad \mathrm{and} \qquad \operatorname{RelES}_{j,s}^{[k]} = \frac{ES^{[k]}_{j, s}}{ES^{[k]}_{0, 0}},
 \end{equation}
-where $j$ denotes the reconciliation approach and $s$ indicates the approach used to simulate the base forecasts. As a reference approach ($s=0$ and $j=0$), we consider the base forecasts produce by the Bootstrap approach. If we consider all the temporal aggregation orders (i.e. $\forall k \in \mathcal{K}$), the overall accuracy indices are given by, respectively, 
+where $j$ denotes the reconciliation approach and $s$ indicates the approach used to simulate the base forecasts. As a reference approach ($s=0$ and $j=0$), we consider the base forecasts produce by the Bootstrap approach. If we consider all the temporal aggregation orders (i.e. $\forall k \in \mathcal{K}$), the overall accuracy indices are given by, respectively,
 \begin{equation}\label{eq:skill_all}
 	\operatorname{\overline{RelCRPS}}_{j,s} = \left(\prod_{\substack{i = 1, \dots, n \\ k \in \mathcal{K}}}\frac{CRPS^{[k]}_{i, j, s}}{CRPS^{[k]}_{i, 0, 0}}\right)^{\frac{1}{n(k^\ast+m)}}\mbox{and } \operatorname{\overline{RelES}}_{j,s}= \left(\prod_{k \in \mathcal{K}}\frac{ES^{[k]}_{j, s}}{ES^{[k]}_{0, 0}}\right)^{\frac{1}{(k^\ast+m)}}.
 \end{equation}
@@ -758,7 +758,7 @@ Forecasting accuracy indices based on CRPS and ES are presented in Tables \ref{t
 We utilize the non-parametric Friedman test and the post hoc “Multiple Comparison with the Best" (MCB) Nemenyi test \citep{koning2005, kourentzes2019, makridakis2022, tsutils} to determine if the forecasting performances of the different techniques are significantly different from one another.
 \autoref{fig:mcb} presents the MCB using the CRPS. The probabilistic forecasts from ct$(wls_{cs},bu_{te})$ and oct$_o(wlsv)$ are significantly better than the base forecasts at any level of aggregation. Unlike the application on the Australian Tourism Demand (see \autoref{sec:vn525}), in this case one of the partly bottom-up approaches is not significantly worse than the most performing optimal approach.
 
-Overall, we find that using overlapping residuals almost always leads to a greater improvement in terms of both ES and CRPS. %, and this is also generally true for reconciliation. 
+Overall, we find that using overlapping residuals almost always leads to a greater improvement in terms of both ES and CRPS. %, and this is also generally true for reconciliation.
 Forecasts at the most aggregated level (year) seem to benefit the most from reconciliation, and using one-step overlapping residuals appears to be sufficient to improve forecasts if the generation of the base forecasts sample paths takes into account the multi-step structure.
 
 
@@ -792,12 +792,12 @@ The dataset includes the 304 bottom series, which are aggregated into 221 upper 
 	\vspace*{-0.5\baselineskip}
 \end{table}
 
-We perform a rolling forecast experiment with an expanding window. The process begins by using the first 10 years, from January 1998 to December 2008, to generate forecasts for the entire following year (2009). Then, the training set is increased by one month. This process is repeated until the last training set is used (January 1998 to December 2015) with a total of 85 different test sets. For the temporal aggregation dimension we aggregate the monthly data up to annual data. We obtain $12$-step, $6$-step, $4$-step, $3$-step, $2$-step and $1$-step ahead base forecasts respectively from the monthly data and the aggregation over 2, 3, 4, 6, and 12 months. ETS models selected by minimizing the AICc criterion \citep{Rforecast} %with the R package \texttt{forecast} 
+We perform a rolling forecast experiment with an expanding window. The process begins by using the first 10 years, from January 1998 to December 2008, to generate forecasts for the entire following year (2009). Then, the training set is increased by one month. This process is repeated until the last training set is used (January 1998 to December 2015) with a total of 85 different test sets. For the temporal aggregation dimension we aggregate the monthly data up to annual data. We obtain $12$-step, $6$-step, $4$-step, $3$-step, $2$-step and $1$-step ahead base forecasts respectively from the monthly data and the aggregation over 2, 3, 4, 6, and 12 months. ETS models selected by minimizing the AICc criterion \citep{Rforecast} %with the R package \texttt{forecast}
 are fitted to the log-transformed data, with the resulting base forecasts being back-transformed to produce non-negative forecasts \citep{wickramasuriya2020}.
 
 The (1000) base forecast samples are obtained using the Gaussian approach with sample\footnote{The results with shrunk covariance matrices are available in the online appendix E.2.} covariance matrices (\autoref{sec:shrtech}) using multi-step residuals\footnote{We do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).} and the bootstrap approach (\autoref{ssec:boot}). For reconciliation, {\color{red}\sout{11}}{\color{blue}10} different approaches have been adopted (see \autoref{tab:notation}): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, ct$(ols)$, oct$(struc)$, oct$(wlsv)$, oct$(bdshr)$, {\color{red}\sout{oct$_h(hbshr)$,}} oct$_h(bshr)$, oct$_h(hshr)$, and oct$_h(shr)$.
 
-Negative forecasts may be produced during the reconciliation phase \citep{wickramasuriya2020, difonzo2022a, difonzo2023a} thus generating unreasonable values (e.g., a negative forecast for tourism demand makes no sense). To overcome this limitation, we applied the simple heuristic proposed by \cite{difonzo2022b, difonzo2023a}. Following Theorem \ref{thm:rs}, we are thus able to obtain reconciled samples respecting non-negativity constraints starting from an incoherent sample simulated from a Gaussian distribution. Finally, to evaluate the performance, we employ the Continuous Ranked Probability Score (CRPS), the Energy Score (ES), and the “Multiple Comparison with the Best" (MCB) Nemenyi test, introduced in Sections \ref{sec:ausgdp} and \ref{ssec:ausresults}. 
+Negative forecasts may be produced during the reconciliation phase \citep{wickramasuriya2020, difonzo2022a, difonzo2023a} thus generating unreasonable values (e.g., a negative forecast for tourism demand makes no sense). To overcome this limitation, we applied the simple heuristic proposed by \cite{difonzo2022b, difonzo2023a}. Following Theorem \ref{thm:rs}, we are thus able to obtain reconciled samples respecting non-negativity constraints starting from an incoherent sample simulated from a Gaussian distribution. Finally, to evaluate the performance, we employ the Continuous Ranked Probability Score (CRPS), the Energy Score (ES), and the “Multiple Comparison with the Best" (MCB) Nemenyi test, introduced in Sections \ref{sec:ausgdp} and \ref{ssec:ausresults}.
 
 \subsection{Results}
 
@@ -808,7 +808,7 @@ Negative forecasts may be produced during the reconciliation phase \citep{wickra
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_crps_part.tex}
 	\endgroup
-	\caption{$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
 	\label{tab:vncrps}
 	\vspace*{-0.5\baselineskip}
@@ -827,7 +827,7 @@ The CRPS and ES indices are shown, respectively, in Tables \ref{tab:vncrps} and 
 	\fontsize{9}{10}\selectfont
 	\input{tab/VN525/sam_es_part.tex}
 	\endgroup
-	\caption{ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast. 
+	\caption{ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
 	\label{tab:vnes}
 	\vspace*{-0.5\baselineskip}
@@ -862,7 +862,7 @@ In this paper, we extend the probabilistic reconciliation setting developed by \
 
 Moreover, we analyze the use of residuals, showing that one-step residuals fail to capture the temporal structure, and propose multi-step residuals that can fully capture the cross-temporal relationships. Due to the high-dimensionality of the cross-temporal setting when dealing with covariance matrices, we propose four alternative forms to reduce the number of parameters to be estimated, showing that the overlapping residuals may reduce the high-dimensionality burden by increasing the number of available residuals. These ideas are worth requiring further investigation in future works.
 
-Finally, we perform empirical applications on two datasets commonly used in forecast reconciliation research: Australian GDP from Income and Expenditure sides and Australian Tourism Demand. We find that in both cases optimal cross-temporal reconciliation approaches significantly improve on base forecasts. We also compare these with partly bottom-up techniques that use uni-dimensional reconciliation (either cross-sectional or temporal) and confirm that simultaneously exploiting both dimensions in reconciliation produces better results, especially at higher levels of temporal aggregation. 
+Finally, we perform empirical applications on two datasets commonly used in forecast reconciliation research: Australian GDP from Income and Expenditure sides and Australian Tourism Demand. We find that in both cases optimal cross-temporal reconciliation approaches significantly improve on base forecasts. We also compare these with partly bottom-up techniques that use uni-dimensional reconciliation (either cross-sectional or temporal) and confirm that simultaneously exploiting both dimensions in reconciliation produces better results, especially at higher levels of temporal aggregation.
 This is more evident in the Australian Tourism Demand application, where the involved temporal hierarchies are richer, allowing the regression-based forecast reconciliation approaches to capture and exploit more features of the data through the available temporal aggregation levels \citep{kourentzes2014, kourentzes2016, kourentzes2017} compared to partly bottom-up.
 
 
