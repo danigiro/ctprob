@@ -321,6 +321,9 @@
 
 \clearpage
 \section{Alternative forms of the cross-temporal covariance matrix}\label{app:shr}
+\setcounter{table}{0} 
+\setcounter{figure}{0} 
+
 In this appendix, some derivations of the solutions proposed in Section 4 to obtain an estimator of the cross-temporal covariance matrix are reported.
 Starting from the the definition of cross-temporal covariance matrix we obtain the first equivalence in (10). Therefore, we have that
 \begin{align*}
@@ -384,7 +387,6 @@ In general, the covariance matrix of the reconciled forecasts is equal to $\Mvet
 	\label{fig:shr_grid}
 \end{figure}
 
-{\color{blue}
 \subsection{Proof Theorem 4.1}
 %\subsection*{Using the $HB$ covariance matrix in the reconciliation phase is equivalent to perform an $ols$ reconciliation}
 %\begin{theorem}
@@ -406,7 +408,7 @@ Since $(\Avet\Bvet)^+ = \Bvet^+\Avet^+$ \citep{greville1966}, then\begin{equati
 \begin{aligned}
 	\Svet_{ct}' (\Svet_{ct}\widehat{\Omega}_{hf-bts}\Svet_{ct}')^{+} &= \Svet_{ct}'(\widehat{\Omega}_{hf-bts}^{1/2}\Svet_{ct}')^{+}(\Svet_{ct}\widehat{\Omega}_{hf-bts}^{1/2})^{+} \\& = \widehat{\Omega}_{hf-bts}^{-1}\Svet_{ct}^+ = \widehat{\Omega}_{hf-bts}^{-1}(\Svet_{ct}'\Svet_{ct})^{-1}\Svet_{ct}'.
 \end{aligned}\end{equation}Therefore,\begin{align*}	\widetilde{\bvet}_{hb}^{[1]} &= [\Svet_{ct}'(\Svet_{ct}\widehat{\Omega}_{hf-bts}\Svet_{ct}')^{+}\Svet_{ct}]^{-1}\Svet_{ct}' (\Svet_{ct}\widehat{\Omega}_{hf-bts}\Svet_{ct}')^{+}\widehat{\xvet}_{h} \\ & \overset{(\ref{eq:part1})}{=} \widehat{\Omega}_{hf-bts}\Svet_{ct}' (\Svet_{ct}\widehat{\Omega}_{hf-bts}\Svet_{ct}')^{+}\widehat{\xvet}_{h}\\	& \overset{(\ref{eq:part2})}{=} \widehat{\Omega}_{hf-bts}\widehat{\Omega}_{hf-bts}^{-1}(\Svet_{ct}'\Svet_{ct})^{-1}\Svet_{ct}' \widehat{\xvet}_{h} \\	& = (\Svet_{ct}'\Svet_{ct})^{-1}\Svet_{ct}' \widehat{\xvet}_{h} = \widetilde{\bvet}_{ols}^{[1]} \end{align*}	\end{proof}
-}
+
 \newpage
 \section{Monte Carlo simulation}\label{sec:mcsim}
 
@@ -458,11 +460,13 @@ The detailed calculations can be found in \autoref{app:ar2}.
 	\label{fig:covcorMC}
 \end{figure}
 
-To construct cross-temporal samples of the base forecasts, we use the Gaussian and bootstrap approaches discussed in Sections 3.1 and 3.2, respectively. For the parametric approach we use multi-step residuals with the different covariance matrix structures analyzed in 4.1, while for the non-parametric approach, we use regular one-step residuals. We do not use overlapping residuals in our analysis as we have the advantage of generating a large number of observation. Ten different reconciliation approaches have been adopted (see Table 2): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, oct$(wlsv)$, oct$(bdshr)$, oct$_h(shr)$, oct$_h(bshr)$, oct$_h(hshr)$ and oct$_h(hbshr)$.
+To construct cross-temporal samples of the base forecasts, we use the Gaussian and bootstrap approaches discussed in Sections 3.1 and 3.2, respectively. For the parametric approach we use multi-step residuals with the different covariance matrix structures analyzed in 4.1, while for the non-parametric approach, we use regular one-step residuals. We do not use overlapping residuals in our analysis as we have the advantage of generating a large number of observation. Ten different reconciliation approaches have been adopted (see Table 2): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, oct$(wlsv)$, oct$(bdshr)$, oct$_h(shr)$, oct$_h(bshr)$, and oct$_h(hshr)$.
 
 
 
 \subsection{Covariance matrix comparison and forecast accuracy scores}\label{ssec:acc_scores}
+\setcounter{table}{0} 
+\setcounter{figure}{0} 
 
 To compare the true covariance matrix $\Omegavet_{ct}$ with the estimated covariance matrix $\widehat{\Omegavet}$, we use the Frobenius norm to quantify the difference between two matrices: 
 $$\lVert \Dvet \rVert_F = \displaystyle\sqrt{\sum_{i = 1}^{n(k^\ast + m)}\sum_{j = 1}^{n(k^\ast + m)}|d_{i,j}|^2}$$ where $\Dvet = \widehat{\Omegavet} - \Omegavet_{ct}$. The true covariance matrix, shown in \autoref{fig:covcorMC}, was compared to the estimated covariance matrices obtained using various reconciliation approaches and techniques for generating sample paths of the base forecasts. Thus, we should be able to determine which reconciliation approach and simulation technique produce an accurate estimate of the covariance matrix. Other types of matrix norms were also considered with similar results.
@@ -510,7 +514,7 @@ Looking at the optimal cross-temporal reconciliation approaches, it does not see
 In conclusion, we found that simulating base forecasts from multi-step residuals allows us to estimate a covariance matrix close to the true one. Additionally, we observed that reconciliation could be used to further improve the accuracy of these estimates: accurate base forecasts for $k=1$ assist the good performance for bottom-up and optimal cross-temporal reconciliation approaches, such as oct$(wlsv)$ and oct$(bdshr)$, which perform well in terms of both CRPS and ES.
 
 
-%\newpage
+\newpage
 \subsection{Cross-temporal covariance matrix}\label{app:ar2}
 
 We assume two AR(2) processes with correlated errors such that
@@ -561,7 +565,7 @@ $$
 	\Omegavet_{ct} = \Svet_{ct}\Omegavet_{\textit{hf-bts}}\Svet_{ct}'.
 $$
 
-%\newpage
+\newpage
 \subsection{One-step residuals and shrinkage covariance matrix}
 
 In Section 4.1, we discussed the use of one-step residuals in estimating the covariance matrix. In particular we point out that one-step residuals lead to a biased estimate of the covariance matrix where some correlation are zeros by definition (see \autoref{fig:ar2covcor_app}). 
@@ -636,6 +640,7 @@ Moreover, in Tables \ref{tab:ar2crps_app_shr} and \ref{tab:ar2es_app_shr}, we ha
 
 \newpage
 \section{Forecast reconciliation of the Australian GDP dataset}
+\setcounter{table}{0} 
 
 \subsection{The dataset}
 \cite{athanasopoulos2020} proposed using state-of-the-art forecast reconciliation methods to improve the accuracy of macroeconomic forecasts and facilitate aligned decision-making. 
@@ -694,6 +699,7 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 
 \newpage
 \section{Australian Tourism Demand dataset}
+\setcounter{table}{0} 
 
 \begin{table}[H]
 	\caption{Geographic divisions of Australia in States, Zones e Regions. Zones formed by a single region are highlighted in italics and not numbered.}
@@ -779,7 +785,8 @@ In their empirical analysis, they applied cross-sectional forecast reconciliatio
 One issue in working with time series data is the presence of negative values, which can cause difficulties for certain types of models or analyses.
 For the base forecasts, using the bootstrap approach produces forecasts naturally non negative (ETS model with the log-transformation), while this is not true for the Gaussian approach. In this case, any negative forecast is set equal to zero. For the cross-temporal reconciliation, \citet{difonzo2022b, difonzo2023a} propose two solutions: either a state-of-the-art numerical optimization procedure (\texttt{osqp}, \citealp{stellato2020, stellato2019}), or a simple heuristic strategy called set-negative-to-zero (sntz). With sntz, any negative high frequency bottom time series reconciled forecasts are set to zero, and then a cross-temporal reconciliation bottom-up is used to obtain the complete set of fully coherent forecasts. \cite{difonzo2023a} found that both methods produce similar quality forecasts, but the optimization method required much more time and computational effort compared to the sntz heuristic. To reduce computational demands, we used the less time-intensive heuristic approach for reconciliation. 
 
-\subsection{Tables for all the temporal aggregation orders}
+\subsection{Tables for all the temporal aggregation orders} 
+
 \begin{table}[H]
 	\centering
 	\begingroup
@@ -827,6 +834,69 @@ For the base forecasts, using the bootstrap approach produces forecasts naturall
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in Table 2.}
 	\label{tab:vnes}
 \end{table}
+
+\newpage
+\section{Computation time report}
+\setcounter{table}{0}  
+
+In this section, we provide a computational time analysis for the two forecasting experiments in the paper. Tables \ref{tab:runGDP} and \ref{tab:runATD} show the runtime (in seconds) required for simulating 1000 samples (first row, base) and the additional time needed for reconciliation with various approaches in the first iteration of the experiment. The first table is refers to the Australian QNA dataset, while the second to the Australian Tourism Demand dataset. The system's hardware and software specifications are 
+\begin{itemize}[nosep]
+	\item CPU: \texttt{Intel(R) Core(TM) i7-10700 CPU \@ 2.90GHz 2.90 GHz}
+	\item RAM size: \texttt{64 GB}
+	\item R version: \texttt{R-4.2.1\_2022-06-23\_ucrt}
+	\item R packages: \texttt{forecast} \citep{Rforecast}, \texttt{MASS} 	\citep{mass2002}, \texttt{Rfast} \citep{rfast2022}, and \texttt{FoReco} \citep{foreco2023}
+\end{itemize}
+\vskip1cm
+\begin{table}[H]
+\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{l|>{}crcrcrcrcr}
+\toprule
+\multicolumn{1}{c}{\makecell[c]{\bfseries Reconciliation\\\bfseries approach}} & \multicolumn{2}{c}{ctjb} & \multicolumn{2}{c}{G$_{h}$} & \multicolumn{2}{c}{H$_{h}$} & \multicolumn{2}{c}{G$_{oh}$} & \multicolumn{2}{c}{H$_{oh}$} \\
+\midrule
+base &  & 29.01 &  & 2.21 &  & 2.17 &  & 2.14 &  & 2.18\\[0.15cm]
+ct$(shr_{cs}, bu_{te})$ & + & 0.19 & + & 0.13 & + & 0.12 & + & 0.30 & + & 0.30\\
+ct$(wls_{cs}, bu_{te})$ & + & 0.21 & + & 0.31 & + & 0.31 & + & 0.33 & + & 0.35\\
+oct$_o(wlsv)$ & + & 0.25 & + & 0.24 & + & 0.22 & + & 0.22 & + & 0.22\\
+oct$_o(bdshr)$ & + & 0.48 & + & 0.44 & + & 0.45 & + & 0.45 & + & 0.45\\
+oct$_{oh}(shr)$ & + & 0.69 & + & 0.68 & + & 0.67 & + & 0.68 & + & 0.69\\
+oct$_{oh}(hshr)$ & + & 0.64 & + & 0.65 & + & 0.64 & + & 0.65 & + & 0.64\\
+\bottomrule
+\end{tabular}
+	\endgroup
+\caption{Computational time (in seconds) for the first iteration of the Australian QNA forecasting experiment. The first row (base) reports the time to simulate 1000 samples, and the remaining rows the additional time to reconcile them with different approaches.}
+\label{tab:runGDP}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{l|>{}crcrcrcrcr}
+\toprule
+\multicolumn{1}{c}{\makecell[c]{\bfseries Reconciliation\\\bfseries approach}} & \multicolumn{2}{c}{ctjb} & \multicolumn{2}{c}{G} & \multicolumn{2}{c}{B} & \multicolumn{2}{c}{H} & \multicolumn{2}{c}{HB} \\
+\midrule
+base &  & 61.21 &  & 660.43 &  & 643.54 &  & 641.40 &  & 692.63\\[0.15cm]
+ct$(bu)$ & + & 2.14 & + & 2.25 & + & 2.05 & + & 2.12 & + & 2.54\\
+ct$(shr_{cs}, bu_{te})$ & + & 3.79 & + & 4.02 & + & 3.79 & + & 3.54 & + & 4.18\\
+ct$(wlsv_{te}, bu_{cs})$ & + & 13.29 & + & 14.14 & + & 13.02 & + & 13.12 & + & 14.42\\
+oct$(ols)$ & + & 8.67 & + & 7.34 & + & 7.40 & + & 7.64 & + & 6.85\\
+oct$(struc)$ & + & 7.73 & + & 7.10 & + & 7.19 & + & 7.11 & + & 6.56\\
+oct$(wlsv)$ & + & 8.24 & + & 6.97 & + & 6.99 & + & 7.04 & + & 6.46\\
+oct$(bdshr)$ & + & 60.27 & + & 52.65 & + & 52.13 & + & 51.92 & + & 49.51\\
+oct$_h(bshr)$ & + & 503.52 & + & 426.20 & + & 419.99 & + & 418.94 & + & 422.94\\
+oct$_h(hshr)$ & + & 485.66 & + & 482.13 & + & 418.64 & + & 418.82 & + & 463.18\\
+oct$_h(shr)$ & + & 359.78 & + & 444.40 & + & 373.84 & + & 372.72 & + & 448.20\\
+\bottomrule
+\end{tabular}
+	\endgroup
+	\caption{Computational time (in seconds) for the first iteration of the Australian Tourism Demand forecasting experiment. The first row (base) reports the time to simulate 1000 samples, and the remaining rows the additional time to reconcile them with different approaches.}
+\label{tab:runATD}
+\end{table}
+
 
 \newpage
 \phantomsection\addcontentsline{toc}{section}{References}
