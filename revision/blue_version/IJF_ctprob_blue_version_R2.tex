@@ -192,6 +192,11 @@
   \renewcommand{\theHfigure}{#1}%
 }
 
+\newcommand{\tabletag}[1]{%
+  \addtocounter{table}{-1}%
+  \renewcommand{\thetable}{#1}%
+}
+
 \begin{document}
 %\bibliographystyle{natbib}
 
@@ -529,8 +534,11 @@ Note that if we assume that $\Omegavet = \Omegavet_{ct}$ (see the projection mat
 
 \input{fig/gauss_sim.tex}
 
-Focusing on the computational aspect\footnote{We use two R packages to sample from a the base forecast Gaussian distribution: \texttt{MASS} \citep{mass2002} and \texttt{Rfast} \citep{rfast2022} in Sections \ref{sec:ausgdp} and \ref{sec:vn525}, respectively.}, we can take several steps to reduce the time required to obtain simulations from the reconciled forecast distribution. For example when dealing with a genuine hierarchical structure, it is not necessary to simulate from a normal distribution with a defined covariance matrix for the entire structure. Instead, we can utilize the properties of elliptical distributions to simulate from the high frequency bottom time series and then obtain the complete simulation through the $\Svet_{ct}$ matrix. Furthermore, we do not need to calculate the reconciled mean and variance and generate a new sample if we already have a sample from the normal distribution of the base forecasts; we can simply apply the point forecast reconciliation \eqref{eq:Mvet} as outlined in Theorem \ref{thm:rs}. {\color{red}\sout{The}} {\color{blue}An overview of the} relationships between base and reconciled forecast distributions and their respective simulations through Theorem \ref{thm:rs} {\color{red}\sout{are}} {\color{blue}is} depicted in \autoref{fig:gaussrel}. The two rectangles represent the base and reconciled forecast distributions, respectively. Enclosed within circles are the distribution parameters involved in the point forecast reconciliation process, transforming $\widehat{\xvet}$ into $\widetilde{\xvet}$ and $\Omegavet$ into $\widetilde{\Omegavet}$. The wave-like arrows represent the simulation processes, generating both base and reconciled forecast samples. Finally, the bold double arrow “$\Rightarrow$" illustrates the generation of the reconciled forecast distributions as described in Theorem \ref{thm:rs}.
-
+Focusing on the computational aspect\footnote{We use two R packages to sample from a the base forecast Gaussian distribution: \texttt{MASS} \citep{mass2002} and \texttt{Rfast} \citep{rfast2022} in Sections \ref{sec:ausgdp} and \ref{sec:vn525}, respectively.}, we can take several steps to reduce the time required to obtain simulations from the reconciled forecast distribution. For example when dealing with a genuine hierarchical structure, it is not necessary to simulate from a normal distribution with a defined covariance matrix for the entire structure. Instead, we can utilize the properties of elliptical distributions to simulate from the high frequency bottom time series and then obtain the complete simulation through the $\Svet_{ct}$ matrix. Furthermore, we do not need to calculate the reconciled mean and variance and generate a new sample if we already have a sample from the normal distribution of the base forecasts; we can simply apply the point forecast reconciliation \eqref{eq:Mvet} as outlined in Theorem \ref{thm:rs}. 
+{\color{red}\sout{The relationships between base and reconciled forecast distributions and their respective simulations through Theorem 3.1 are depicted in Figure 5.}}
+{\color{blue}\autoref{fig:gaussrel} shows two different but equivalent ways of obtaining reconciled forecast samples: the former from the base distribution through the Theorem \ref{thm:rs}, and the latter from the reconciled distribution through the high frequency bottom time series forecasts $\widetilde{\bvet}^{[1]}$ only.}
+%{\color{red}\sout{The}} {\color{blue}An overview of the} relationships between base and reconciled forecast distributions and their respective simulations through Theorem \ref{thm:rs} {\color{red}\sout{are}} {\color{blue}is} depicted in \autoref{fig:gaussrel}. 
+The two rectangles represent the base and reconciled forecast distributions, respectively. Enclosed within circles are the distribution parameters involved in the point forecast reconciliation process, transforming $\widehat{\xvet}$ into $\widetilde{\xvet}$ and $\Omegavet$ into $\widetilde{\Omegavet}$. The wave-like arrows represent the simulation processes, generating both base and reconciled forecast samples. Finally, the bold double arrow “$\Rightarrow$" illustrates the generation of the reconciled forecast distributions as described in Theorem \ref{thm:rs}.
 
 
 \subsection{Non-parametric framework: bootstrap reconciliation}\label{ssec:boot}
@@ -675,19 +683,15 @@ We use univariate ARIMA models\footnote{We use the \texttt{auto.arima} function 
 		\toprule
 		\textbf{Label} & \textbf{Description} \\
 		\midrule
-		ct$(bu)$ & Simple cross-temporal bottom-up (\autoref{ssec:ctbu}). \\
+		ct$(shr_{cs}, bu_{te})$ & Partly bottom-up (\autoref{ssec:ctbu}) starting from cross-sectional reconciled forecasts using the $shr$ approach.\\
 		\addlinespace[0.15cm]
-		ct$(\;\cdot\;, bu_{te})$ & Partly bottom-up (\autoref{ssec:ctbu}) starting from cross-sectional reconciled forecasts using the $shr$ and $wls$ approaches.\\
+		oct$(\;\cdot\;)$ & Optimal cross-temporal reconciliation for the $struc$, $wlsv$ and $bdshr$ approaches. One-step residuals were used with $wlsv$ and $bdshr$. \\
 		\addlinespace[0.15cm]
-		ct$(wlsv_{te}, bu_{cs})$ & Partly bottom-up (\autoref{ssec:ctbu}) starting from temporally reconciled forecasts using the $wlsv$ approach.\\
-		\addlinespace[0.15cm]
-		oct$(\;\cdot\;)$ & Optimal cross-temporal reconciliation for the $ols$, $struc$, $wlsv$ and $bdshr$ approaches. One-step residuals were used with $wlsv$ and $bdshr$. \\
-		\addlinespace[0.15cm]
-		oct$_h(\;\cdot\;)$ & Optimal cross-temporal reconciliation with multi-step residuals (see \autoref{ssec:multi_res}) for the approaches presented in \autoref{sec:shrtech}: $shr$ stands for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}, $bshr$ for \textit{bottom time series shrinkage}{\color{red}\sout{, $hbshr$ for \textit{High frequency bottom time series shrinkage}}}.\\
+		oct$_h(\;\cdot\;)$ & Optimal cross-temporal reconciliation with multi-step residuals (see \autoref{ssec:multi_res}) for the approaches presented in \autoref{sec:shrtech}: $hshr$ for \textit{High frequency shrinkage}, and $bshr$ for \textit{bottom time series shrinkage}.\\
 		\addlinespace[0.15cm]
 		oct$_o(\;\cdot\;)$ & Optimal cross-temporal reconciliation with overlapping residuals (see \autoref{ssec:over_res}) for the $wlsv$ and $bdshr$ approaches. \\
 		\addlinespace[0.15cm]
-		oct$_{oh}(\;\cdot\;)$ & Optimal cross-temporal reconciliation with overlapping and multi-step residuals (see Section \ref{ssec:multi_res} and \ref{ssec:over_res}) for the approaches presented in \autoref{sec:shrtech}: $shr$ stands for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}.\\
+		oct$_{oh}(hshr)$ & Optimal cross-temporal reconciliation with overlapping and multi-step residuals (see Section \ref{ssec:multi_res} and \ref{ssec:over_res}) for the $hshr$ (\textit{High frequency shrinkage}) approach presented in \autoref{sec:shrtech}.\\
 		\bottomrule
 	\end{tabular}%}
 	\caption{Cross-temporal reconciliation approaches for %the Monte Carlo simulation (see \autoref{sec:mcsim}),
@@ -696,7 +700,7 @@ We use univariate ARIMA models\footnote{We use the \texttt{auto.arima} function 
 	\vspace*{-0.5\baselineskip}
 \end{table}
 
-The base forecast samples in the Gaussian case are obtained using the sample covariance matrices with the \textit{Global} (G) and \textit{High frequency} (H) parameterization (\autoref{sec:shrtech}), since it is not possible to identify a unique representation for the other cases\footnote{When simultaneously considering Income and Expenditure sides hierarchies, the result is a general linearly constrained time series, where bottom and upper time series are not uniquely defined, making unfeasible the cross-sectional bottom-up reconciliation approach \citep{giro2022}.}. We compare the results obtained using multi-step residuals with and without overlapping, in order to measure the benefit of obtaining overlapping residuals. In the non-parametric case, we use the cross-temporal joint bootstrap (ctjb) presented in \autoref{ssec:boot}. Finally, to reconcile the resulting (1000) base forecasts samples, we have applied the following techniques\footnote{In the online appendix D.2, we show the results with shrunk covariance matrices. We also report the results obtained using one-step residuals in the reconciliation.} (see \autoref{tab:notation}): ct$(shr_{cs}, bu_{te})$, ct$(wls_{cs}, bu_{te})$, oct$_o(wlsv)$, oct$_o(bdshr)$, oct$_{oh}(shr)$ and oct$_{oh}(hshr)$.
+The base forecast samples in the Gaussian case are obtained using the sample covariance matrices with the \textit{Global} (G) and \textit{High frequency} (H) parameterization (\autoref{sec:shrtech}), since it is not possible to identify a unique representation for the other cases\footnote{When simultaneously considering Income and Expenditure sides hierarchies, the result is a general linearly constrained time series, where bottom and upper time series are not uniquely defined, making unfeasible the cross-sectional bottom-up reconciliation approach \citep{giro2022}.}. We compare the results obtained using multi-step residuals with and without overlapping, in order to measure the benefit of obtaining overlapping residuals. In the non-parametric case, we use the cross-temporal joint bootstrap (ctjb) presented in \autoref{ssec:boot}. Finally, to reconcile the resulting (1000) base forecasts samples, we have applied the following techniques\footnote{\color{blue}The results with shrunk covariance matrices are available in the online appendix D.2, where we also report the results obtained using other reconciliation approaches.} (see \autoref{tab:notation}): ct$(shr_{cs}, bu_{te})$, ct$(wls_{cs}, bu_{te})$, oct$_o(wlsv)$, oct$_o(bdshr)$, {\color{red}\sout{oct$_{oh}(shr)$}} and oct$_{oh}(hshr)$.
 
 The accuracy of the probabilistic forecasts is evaluated using the Continuous Ranked Probability Score (CRPS, {\color{blue}\citealp{matheson1976ms}}; \citealp{gneiting2014}), %given by
 %\begin{equation}\label{eq:crps}
@@ -722,39 +726,25 @@ where $j$ denotes the reconciliation approach and $s$ indicates the approach use
 %\end{equation}
 
 \subsection{Results}\label{ssec:ausresults}
-
 \begin{table}[!t]
 	\centering
 	\begingroup
 	\spacingset{1}
 	\fontsize{9}{11}\selectfont
-	\input{tab/AusGDP/sam_crps.tex}
+	\input{tab/AusGDP/sam_red.tex}
 	\endgroup
-	\caption{$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian QNA dataset. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
-	\label{tab:auscrps}
+	\caption{\color{blue}$\overline{RelCRPS}$ and ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian QNA dataset. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
+	\label{tab:ausscore}
 	\vspace*{-0.5\baselineskip}
 \end{table}
 
-\begin{table}[!t]
+Forecasting accuracy indices based on CRPS and ES are presented in {\color{blue}\autoref{tab:ausscore}} {\color{red}\sout{Tables 3 and 4, respectively}}. As a benchmark approach, we use the base forecasts calculated using the bootstrap method. For base forecasts, we find that using a parametric approach with the normal distribution performs better than the non-parametric bootstrap approach. This is likely due to the limited number of residuals available for bootstrapping, which does not allow for sufficient exploration of the data. Directly specifying diagonal covariance matrices seems to be more effective than shrinking to a target covariance matrix. Among all the procedures, ct$(wls_{cs},bu_{te})$ and oct$_o(wlsv)$ show the greatest relative gains. In contrast, {\color{red}\sout{oct$_{oh}(shr)$ and}} $oct_{oh}(hshr)$ do{\color{blue}es} not show much improvement. Furthermore, the greatest improvements are observed for higher temporal aggregation levels.
+
+\begin{figure}[t]
 	\centering
-	\begingroup
-	\spacingset{1}
-	\fontsize{9}{11}\selectfont
-	\input{tab/AusGDP/sam_es.tex}
-	\endgroup
-	\caption{ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian QNA dataset. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
-	\label{tab:auses}
-	\vspace*{-0.5\baselineskip}
-\end{table}
-
-Forecasting accuracy indices based on CRPS and ES are presented in Tables \ref{tab:auscrps} and \ref{tab:auses}, respectively. As a benchmark approach, we use the base forecasts calculated using the bootstrap method. For base forecasts, we find that using a parametric approach with the normal distribution performs better than the non-parametric bootstrap approach. This is likely due to the limited number of residuals available for bootstrapping, which does not allow for sufficient exploration of the data. Directly specifying diagonal covariance matrices seems to be more effective than shrinking to a target covariance matrix. Among all the procedures, ct$(wls_{cs},bu_{te})$ and oct$_o(wlsv)$ show the greatest relative gains. In contrast, oct$_{oh}(shr)$ and $oct_{oh}(hshr)$ do not show much improvement. Furthermore, the greatest improvements are observed for higher temporal aggregation levels.
-
-
-\begin{figure}[p]
-	\centering
-	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/hsamoh.pdf}
-	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/ctjb.pdf}
-	\caption{MCB Nemenyi test for the Australian QNA dataset using CRPS at different temporal aggregation levels for the Gaussian (using overlapping and multi-step residuals, H) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
+	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/hsamoh_red.pdf}
+	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/ctjb_red.pdf}
+	\caption{\color{blue}MCB Nemenyi test for the Australian QNA dataset using CRPS at different temporal aggregation levels for the Gaussian (using overlapping and multi-step residuals, H) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
 	\label{fig:mcb}
 \end{figure}
 
@@ -772,7 +762,7 @@ The Australian Tourism Demand dataset \citep{wickramasuriya2019} measures the nu
 To avoid redundancies \citep{difonzo2022a}, 24 nodes are not considered, resulting in an unbalanced hierarchy of 525 unique nodes instead of the theoretical 555 with duplicated nodes.
 The dataset includes the 304 bottom series, which are aggregated into 221 upper time series. \autoref{tab:nseries} omits duplicated entries and updates the information in Table 7 from \cite{wickramasuriya2019}. This data can be temporally aggregated into 2, 3, 4, 6, or 12 months ($\mathcal{K} = \{12,4,3,2,1\}$).
 
-\begin{table}[!b]
+\begin{table}[!t]
 	\spacingset{1.1}
 	\setlength{\tabcolsep}{10pt}
 	\centering
@@ -798,64 +788,44 @@ The dataset includes the 304 bottom series, which are aggregated into 221 upper 
 We perform a rolling forecast experiment with an expanding window. The process begins by using the first 10 years, from January 1998 to December 2008, to generate forecasts for the entire following year (2009). Then, the training set is increased by one month. This process is repeated until the last training set is used (January 1998 to December 2015) with a total of 85 different test sets. For the temporal aggregation dimension we aggregate the monthly data up to annual data. We obtain $12$-step, $6$-step, $4$-step, $3$-step, $2$-step and $1$-step ahead base forecasts respectively from the monthly data and the aggregation over 2, 3, 4, 6, and 12 months. ETS models selected by minimizing the AICc criterion \citep{Rforecast} %with the R package \texttt{forecast}
 are fitted to the log-transformed data, with the resulting base forecasts being back-transformed to produce non-negative forecasts \citep{wickramasuriya2020}.
 
-The (1000) base forecast samples are obtained using the Gaussian approach with sample\footnote{The results with shrunk covariance matrices are available in the online appendix E.2.} covariance matrices (\autoref{sec:shrtech}) using multi-step residuals\footnote{We do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).} and the bootstrap approach (\autoref{ssec:boot}). For reconciliation, {\color{red}\sout{11}}{\color{blue}10} different approaches have been adopted (see \autoref{tab:notation}): ct$(bu)$, ct$(shr_{cs}, bu_{te})$, ct$(wlsv_{te}, bu_{cs})$, ct$(ols)$, oct$(struc)$, oct$(wlsv)$, oct$(bdshr)$, {\color{red}\sout{oct$_h(hbshr)$,}} oct$_h(bshr)$, oct$_h(hshr)$, and oct$_h(shr)$.
+The (1000) base forecast samples are obtained using the Gaussian approach with sample\footnote{The results with shrunk covariance matrices are available in the online appendix E.2, {\color{blue}where we also report the results obtained using other reconciliation approaches.}} covariance matrices (\autoref{sec:shrtech}) using multi-step residuals\footnote{We do not include overlapping, as we are unable to correctly determine the residuals for the overlapping series using ETS models (see \autoref{ssec:over_res}).} and the bootstrap approach (\autoref{ssec:boot}). For reconciliation, {\color{red}\sout{11}} {\color{blue}6} different approaches have been adopted (see \autoref{tab:notation}): {\color{red}\sout{ct$(bu)$,}} ct$(shr_{cs}, bu_{te})$, {\color{red}\sout{ct$(wlsv_{te}, bu_{cs})$, oct$(ols)$,}} oct$(struc)$, oct$(wlsv)$, oct$(bdshr)$, {\color{red}\sout{oct$_h(hbshr)$,}} oct$_h(bshr)$, {\color{blue}and} oct$_h(hshr)${\color{red}\sout{, and oct$_h(shr)$}}.
 
 Negative forecasts may be produced during the reconciliation phase \citep{wickramasuriya2020, difonzo2022a, difonzo2023a} thus generating unreasonable values (e.g., a negative forecast for tourism demand makes no sense). To overcome this limitation, we applied the simple heuristic proposed by \cite{difonzo2022b, difonzo2023a}. Following Theorem \ref{thm:rs}, we are thus able to obtain reconciled samples respecting non-negativity constraints starting from an incoherent sample simulated from a Gaussian distribution. Finally, to evaluate the performance, we employ the Continuous Ranked Probability Score (CRPS), the Energy Score (ES), and the “Multiple Comparison with the Best" (MCB) Nemenyi test, introduced in Sections \ref{sec:ausgdp} and \ref{ssec:ausresults}.
 
 \subsection{Results}
 
+
 \begin{table}[!tb]
 	\centering
 	\begingroup
 	\spacingset{1}
 	\fontsize{9}{10}\selectfont
-	\input{tab/VN525/sam_crps_part.tex}
+	\input{tab/VN525/sam_red.tex}
 	\endgroup
-	\caption{$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
+	\caption{\color{blue}$\overline{RelCRPS}$ and ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
 	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
-	\label{tab:vncrps}
+	\label{tab:vnscore}
 	\vspace*{-0.5\baselineskip}
 \end{table}
 
-The CRPS and ES indices are shown, respectively, in Tables \ref{tab:vncrps} and \ref{tab:vnes} for monthly, quarterly and annual forecasts. These tables are divided by different temporal levels and each column uses a different approach to calculate the base forecasts, referred to as “base". The bootstrap method is used as a benchmark to calculate the accuracy indices.
+The CRPS and ES indices are shown, respectively, in {\color{red}\sout{Tables 6 and 7}} {\color{blue}\autoref{tab:vnscore}} for monthly, quarterly and annual forecasts. These tables are divided by different temporal levels and each column uses a different approach to calculate the base forecasts, referred to as “base". The bootstrap method is used as a benchmark to calculate the accuracy indices.
 
 %\footnote{The complete results for all temporal aggregation levels are reported in Appendix E.2.}
 
-
-
-\begin{table}[!tb]
-	\centering
-	\begingroup
-	\spacingset{1}
-	\fontsize{9}{10}\selectfont
-	\input{tab/VN525/sam_es_part.tex}
-	\endgroup
-	\caption{ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
-	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
-	\label{tab:vnes}
-	\vspace*{-0.5\baselineskip}
-\end{table}
-
 Base forecasts using a Gaussian approach are better in terms of both CRPS and ES compared to the bootstrap approach (the benchmark). Assumptions of truncated Gaussianity (Gaussian with negative values set to zero) may seem strict, but given the limited number of residuals, it can lead to improved forecasts in terms of CRPS and ES. Bootstrap forecasts suffer from the limited number of available residuals, leading in general to lower forecast accuracy. The Gaussian approach overcomes this limitation and provides better results. Regarding the different covariance matrix estimates for Gaussian base forecasts, there are no big differences. For this reason, using only the high frequency bottom time series can be useful to estimate fewer parameters and reduce the initial high dimensionality.
 
-\begin{figure}[p]
-	\centering
-	\includegraphics[width = 0.45\linewidth]{fig/VN525/ctjb_part.pdf}
-	\includegraphics[width = 0.45\linewidth]{fig/VN525/hbsamh_part.pdf}
-	\figuretag{9-old}
-	\caption{\color{red}\sout{MCB Nemenyi test for the Australian Tourism Demand dataset using CRPS at different temporal aggregation levels for the Gaussian (multi-step residuals, HB) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}}
-	\label{fig:vnmcb-old}
-\end{figure}
 
-\begin{figure}[p]
+\begin{figure}[!t]
 	\centering
-	\includegraphics[width = 0.45\linewidth]{fig/VN525/ctjb_part_rev.pdf}
-	\includegraphics[width = 0.45\linewidth]{fig/VN525/hbsamh_part_rev.pdf}
-	\caption{MCB Nemenyi test for the Australian Tourism Demand dataset using CRPS at different temporal aggregation levels for the Gaussian (multi-step residuals, HB) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
+	\includegraphics[width = 0.45\linewidth]{fig/VN525/hbsamh_red.pdf}
+	\includegraphics[width = 0.45\linewidth]{fig/VN525/ctjb_red.pdf}
+	\caption{\color{blue}MCB Nemenyi test for the Australian Tourism Demand dataset using CRPS at different temporal aggregation levels for the Gaussian (multi-step residuals, HB) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
 	\label{fig:vnmcb}
 \end{figure}
 
-In the Gaussian case, bottom-up ct$(bu)$ and partly bottom-up techniques like ct$(shr_{cs}, bu_{te})$ and ct$(wlsv_{te}, bu_{cs})$ lead to better results than the benchmark (bootstrap base forecasts). However, it is not always guaranteed that the improvement is higher than the starting base forecasts (by comparing the value of each column). This is particularly true for higher levels of temporal aggregation. Overall, oct$(bdshr)$ in terms of CRPS is almost always the best. The shrinkage approach oct$_h(hshr)$ performs well in the bootstrap case: it is competitive with oct$(bdshr)$ at lower temporal frequency ($k \in \{2,1\}$) and it is able to improve for $k\ge 3$. In terms of ES, oct$(bdshr)$ is still competitive, although it does not always show the best relative performance{\color{blue}, like oct$_h(bshr)$}. {\color{red}\sout{In this case, approaches that attempt to explicitly take into account temporal and cross-sectional relationships, such as oct$_h(hbshr)$ and oct$_h(bshr)$, perform better.}} It is also worth noting that techniques that do not make use of residuals like oct$(ols)$ and oct$(struc)$ prove to be competitive by consistently improving on the base forecasts in terms of both CRPS and ES.
+In the Gaussian case, {\color{red}\sout{bottom-up ct$(bu)$ and}} partly bottom-up techniques like ct$(shr_{cs}, bu_{te})$ {\color{red}\sout{and ct$(wlsv_{te}, bu_{cs})$}} lead to better results than the benchmark (bootstrap base forecasts). However, it is not always guaranteed that the improvement is higher than the starting base forecasts (by comparing the value of each column). This is particularly true for higher levels of temporal aggregation. Overall, oct$(bdshr)$ in terms of CRPS is almost always the best. The shrinkage approach oct$_h(hshr)$ performs well in the bootstrap case: it is competitive with oct$(bdshr)$ at lower temporal frequency ($k \in \{2,1\}$) and it is able to improve for $k\ge 3$. In terms of ES, oct$(bdshr)$ is still competitive, although it does not always show the best relative performance{\color{blue}, like oct$_h(bshr)$}. {\color{red}\sout{In this case, approaches that attempt to explicitly take into account temporal and cross-sectional relationships, such as oct$_h(hbshr)$ and oct$_h(bshr)$, perform better.}} %It is also worth noting that techniques that do not make use of residuals like oct$(ols)$ and oct$(struc)$ prove to be competitive by consistently improving on the base forecasts in terms of both CRPS and ES.
+It is also worth noting that {\color{blue}oct$(struc)$,} {\color{red}\sout{techniques that}} {\color{blue}which} does not make use of residuals, {\color{red}\sout{like oct$(ols)$ and oct$(struc)$}} proves to be competitive by consistently improving on the base forecasts in terms of both CRPS and ES.
+
 
 \autoref{fig:vnmcb} shows the MCB using the CRPS for the Gaussian approach using multi-step residuals (HB) and the non-parametric bootstrap approach. In general, the partly bottom-up procedure improves with respect to base forecasts at monthly level, but optimal cross-temporal procedures are always better. In the bootstrap framework, we can identify a group of three procedures, oct$(bdshr)$, oct$(hshr)$ and oct$(struc)$ that are almost always in the group of the best approaches (denoted by the blue dot). In the Gaussian framework, oct$(wlsv)$, oct$(struc)$, and oct$(bdshr)$ are always significantly better than base forecasts and equivalent in terms of results for temporal aggregation orders greater than 2. For monthly series, oct$(bdshr)$ is always significantly better than all other approaches.
 
@@ -866,7 +836,7 @@ In this paper, we extend the probabilistic reconciliation setting developed by \
 Moreover, we analyze the use of residuals, showing that one-step residuals fail to capture the temporal structure, and propose multi-step residuals that can fully capture the cross-temporal relationships. Due to the high-dimensionality of the cross-temporal setting when dealing with covariance matrices, we propose four alternative forms to reduce the number of parameters to be estimated, showing that the overlapping residuals may reduce the high-dimensionality burden by increasing the number of available residuals. These ideas are worth requiring further investigation in future works.
 
 Finally, we perform empirical applications on two datasets commonly used in forecast reconciliation research: Australian GDP from Income and Expenditure sides and Australian Tourism Demand. We find that in both cases optimal cross-temporal reconciliation approaches significantly improve on base forecasts. We also compare these with partly bottom-up techniques that use uni-dimensional reconciliation (either cross-sectional or temporal) and confirm that simultaneously exploiting both dimensions in reconciliation produces better results, especially at higher levels of temporal aggregation.
-This is more evident in the Australian Tourism Demand application, where the involved temporal hierarchies are richer, allowing the regression-based forecast reconciliation approaches to capture and exploit more features of the data through the available temporal aggregation levels \citep{kourentzes2014, kourentzes2016, kourentzes2017} compared to partly bottom-up. {\color{blue}In these two datasets, oct$(wlsv)$ and oct$(bdshr)$ appear as the two most performing approaches, both in terms of improving forecast accuracy and computational efficiency (see the online appendix), thus corroborating the results of \cite{difonzo2023} for point forecast reconciliation.}
+This is more evident in the Australian Tourism Demand application, where the involved temporal hierarchies are richer, allowing the regression-based forecast reconciliation approaches to capture and exploit more features of the data through the available temporal aggregation levels \citep{kourentzes2014, kourentzes2016, kourentzes2017} compared to partly bottom-up. {\color{blue}In these two datasets, oct$(wlsv)$ and oct$(bdshr)$ appear as the two best performing approaches, both in terms of improving forecast accuracy and computational efficiency (see the online appendix), thus corroborating the results of \cite{difonzo2023} for point forecast reconciliation.}
 
 %It is worth noting that oct$(wlsv)$ for it's reduced computational burder should be consider as sensible probabilistic reconciliation approach (similar results for point forecasting was found in \citealp{difonzo2023})}
 
@@ -901,4 +871,110 @@ In conclusion, {\color{red}\sout{our findings confirm that reconciliation approa
 } \fi
 
 \endgroup
+
+\newpage
+
+\begin{table}[!t]
+	\centering
+	%{\small
+	\begin{tabular}{M{0.17\linewidth}|L{0.77\linewidth}}
+		\toprule
+		\textbf{Label} & \textbf{Description} \\
+		\midrule
+		ct$(bu)$ & Simple cross-temporal bottom-up (\autoref{ssec:ctbu}). \\
+		\addlinespace[0.15cm]
+		ct$(\;\cdot\;, bu_{te})$ & Partly bottom-up (\autoref{ssec:ctbu}) starting from cross-sectional reconciled forecasts using the $shr$ and $wls$ approaches.\\
+		\addlinespace[0.15cm]
+		ct$(wlsv_{te}, bu_{cs})$ & Partly bottom-up (\autoref{ssec:ctbu}) starting from temporally reconciled forecasts using the $wlsv$ approach.\\
+		\addlinespace[0.15cm]
+		oct$(\;\cdot\;)$ & Optimal cross-temporal reconciliation for the $ols$, $struc$, $wlsv$ and $bdshr$ approaches. One-step residuals were used with $wlsv$ and $bdshr$. \\
+		\addlinespace[0.15cm]
+		oct$_h(\;\cdot\;)$ & Optimal cross-temporal reconciliation with multi-step residuals (see \autoref{ssec:multi_res}) for the approaches presented in \autoref{sec:shrtech}: $shr$ stands for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}, $bshr$ for \textit{bottom time series shrinkage}, $hbshr$ for \textit{High frequency bottom time series shrinkage}.\\
+		\addlinespace[0.15cm]
+		oct$_o(\;\cdot\;)$ & Optimal cross-temporal reconciliation with overlapping residuals (see \autoref{ssec:over_res}) for the $wlsv$ and $bdshr$ approaches. \\
+		\addlinespace[0.15cm]
+		oct$_{oh}(\;\cdot\;)$ & Optimal cross-temporal reconciliation with overlapping and multi-step residuals (see Section \ref{ssec:multi_res} and \ref{ssec:over_res}) for the approaches presented in \autoref{sec:shrtech}: $shr$ stands for \textit{Global shrinkage}, $hshr$ for \textit{High frequency shrinkage}.\\
+		\bottomrule
+	\end{tabular}%}
+	\tabletag{2-old}
+	\caption{\color{red}Cross-temporal reconciliation approaches for %the Monte Carlo simulation (see \autoref{sec:mcsim}),
+	the Australian GDP (see \autoref{sec:ausgdp}) and the Australian Tourism Demand (see \autoref{sec:vn525}) forecasting experiments. All the reconciliation procedures are available in \texttt{FoReco} \citep{foreco2023}.}
+	\label{tab:notation-old}
+	\vspace*{-0.5\baselineskip}
+\end{table}
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/AusGDP/sam_crps.tex}
+	\endgroup
+	\tabletag{3-old}
+	\caption{$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian QNA dataset. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
+	\label{tab:auscrps-old}
+	\vspace*{-0.5\baselineskip}
+\end{table}
+
+\begin{table}[!t]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{11}\selectfont
+	\input{tab/AusGDP/sam_es.tex}
+	\endgroup
+	\tabletag{4-old}
+	\caption{\color{red}ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian QNA dataset. Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
+	\label{tab:auses-old}
+	\vspace*{-0.5\baselineskip}
+\end{table}
+
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/hsamoh.pdf}
+	\includegraphics[width = 0.45\linewidth]{fig/AusGDP/ctjb.pdf}
+	\figuretag{8-old}
+	\caption{\color{red}MCB Nemenyi test for the Australian QNA dataset using CRPS at different temporal aggregation levels for the Gaussian (using overlapping and multi-step residuals, H) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
+	\label{fig:mcb-old}
+\end{figure}
+
+\begin{table}[!tb]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/sam_crps_part.tex}
+	\endgroup
+	\tabletag{6-old}
+	\caption{\color{red}$\overline{RelCRPS}$ defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
+	\label{tab:vncrps-old}
+	\vspace*{-0.5\baselineskip}
+\end{table}
+
+\begin{table}[!tb]
+	\centering
+	\begingroup
+	\spacingset{1}
+	\fontsize{9}{10}\selectfont
+	\input{tab/VN525/sam_es_part.tex}
+	\endgroup
+	\tabletag{7-old}
+	\caption{\color{red}ES ratio indices defined in \eqref{eq:skill} and \eqref{eq:skill_all} for the Australian Tourism Demand dataset. %A lower value, indicates a more accurate forecast.
+	Approaches performing worse than the benchmark (bootstrap base forecasts, ctjb) are highlighted in red, the best for each column is marked in bold, and the overall lowest value is highlighted in blue. The reconciliation approaches are described in \autoref{tab:notation}.}
+	\label{tab:vnes-old}
+	\vspace*{-0.5\baselineskip}
+\end{table}
+
+
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width = 0.45\linewidth]{fig/VN525/ctjb_part.pdf}
+	\includegraphics[width = 0.45\linewidth]{fig/VN525/hbsamh_part.pdf}
+	\figuretag{9-old}
+	\caption{\color{red}MCB Nemenyi test for the Australian Tourism Demand dataset using CRPS at different temporal aggregation levels for the Gaussian (multi-step residuals, HB) and the non-parametric bootstrap approaches. In each panel, the Friedman test p-value is reported in the lower right corner. The mean rank of each approach is shown to the right of its name. Statistical differences in performance are indicated if the intervals of two forecast reconciliation procedures do not overlap. Thus, approaches that do not overlap with the blue interval are considered significantly worse than the best, and vice-versa.}
+	\label{fig:vnmcb-old}
+\end{figure}
 \end{document}
