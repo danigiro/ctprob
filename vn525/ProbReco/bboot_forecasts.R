@@ -14,7 +14,7 @@ if(length(args)==0){
   model <- "ets"
   # log lev
   trans <- "log"
-  # ctjb ctjbo
+  # ctjb
   boot <- "ctjb"
 }else{
   model <- args[1]
@@ -49,40 +49,6 @@ for(j in 1:length(listFiles)){
         x$x[x$x<=0 & !is.na(x$x)] <- min(x$x[x$x>0 & !is.na(x$x)], na.rm = TRUE)/2
         log(x$x)-log(x$fitted)
       }))
-      res <- rbind(res, matrix(0, Mk, NCOL(res)))
-      if(any(is.na(listRes[[paste0("k",k)]]))){
-        Index_seq[[paste0("k",k)]] <- sapply(Index, function(x) seq(Mk*x+1, Mk*(x+1), by = 1))
-      }else{
-        Index_seq[[paste0("k",k)]] <- sapply(Index, function(x) seq(Mk*(x-1)+1, Mk*x, by = 1))
-      }
-      
-      if(is.vector(Index_seq[[paste0("k",k)]])){
-        Index_seq[[paste0("k",k)]] <- rbind(Index_seq[[paste0("k",k)]])
-      }
-      
-      tmp <- future_lapply(1:B, 
-                           function(i, res, fit){
-                             id <- Index_seq[[paste0("k",k)]][,i]
-                             sapply(names(fit), function(x){
-                               unname(simulate(fit[[x]], innov = res[id, x], future = TRUE, 
-                                               nsim = length(res[id, x])))
-                             })
-                           }, fit = listFit[[paste0("k",k)]], res = res,
-                           future.packages = c("forecast"))
-      
-      base[[paste0("k",k)]] <- Reduce(rbind, tmp)
-      pb$tick()
-    }
-  }else if(boot == "ctjbo"){ # Cross-temporal Joint Bootstrap
-    load(file.path(".","OverlapRes", model, trans, basename(listFiles[j])))
-    Index <- base::sample(c(1:(nrow(na.omit(listRes[[paste0("k",m)]]))+1)), size = B , replace = TRUE)
-    for(k in K){
-      Mk <- m/k
-      res <- listRes[[paste0("k",k)]]
-      res[!is.na(res[,1]),] <- simplify2array(lapply(listFit[[paste0("k",k)]], function(x){
-        x$x[x$x<=0 & !is.na(x$x)] <- min(x$x[x$x>0 & !is.na(x$x)], na.rm = TRUE)/2
-        log(x$x)-log(x$fitted)
-        }))
       res <- rbind(res, matrix(0, Mk, NCOL(res)))
       if(any(is.na(listRes[[paste0("k",k)]]))){
         Index_seq[[paste0("k",k)]] <- sapply(Index, function(x) seq(Mk*x+1, Mk*(x+1), by = 1))

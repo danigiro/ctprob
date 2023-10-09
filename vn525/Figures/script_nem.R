@@ -1,5 +1,6 @@
-# Figures AusGDP ----
+# Nemenyi VN525 ----
 library(tidyverse)
+library(tsutils)
 
 load("./ProbScore/ets_log_scores.RData")
 
@@ -21,17 +22,12 @@ nemenyi_fun <- function(data){
 
 ## Paper nemenyi ----
 sel_mc <- c("ets log NA" = "base",
-            "csbu bu sntz" = "ct(bu)",
             "csbu shr sntz" = "ct(shr[cs],bu[te])",
-            "tebu wlsv sntz" = "ct(wlsv[te],bu[cs])",
-            "octf ols sntz" = "oct(ols)",
             "octf struc sntz" = "oct(struc)",
             "octf wlsv sntz" = "oct(wlsv)",
             "octf bdshr sntz" = "oct(bdshr)",
-            "octh hbshr sntz" = "oct[h](hbshr)",
             "octh hshr sntz" = "oct[h](hshr)",
-            "octh bshr sntz" = "oct[h](bshr)",
-            "octh shr sntz" = "oct[h](shr)")
+            "octh bshr sntz" = "oct[h](bshr)")
 sel_prob <- c("ctjb", "hbsamh0")
 
 nem <- df_crps_mean |>
@@ -90,8 +86,10 @@ ctjb <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", 
+             size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol = 1, scales = "free", 
              labeller = label_parsed)+
@@ -104,9 +102,9 @@ ctjb <- rbind(nemk |>
         strip.text = element_text(size = 9),
         legend.margin = margin())
 
-ggsave("./Figures/ctjb_part.pdf", ctjb,
+ggsave("./Figures/ctjb_red.pdf", ctjb,
        width = 3.75,
-       height = 10)
+       height = 7.25)
 
 hsamh <- rbind(nemk |>
                  filter(prob == "hbsamh0", k %in% c(1,3,12)) |>
@@ -128,8 +126,10 @@ hsamh <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", 
+             hjust = "inward", size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol =1, scales = "free", 
              labeller = label_parsed)+
@@ -142,10 +142,11 @@ hsamh <- rbind(nemk |>
         strip.text = element_text(size = 9),
         legend.margin = margin())
 
-ggsave("./Figures/hbsamh_part.pdf", hsamh,
+ggsave("./Figures/hbsamh_red.pdf", hsamh,
        width = 3.75,
-       height = 10)
+       height = 7.25)
 
+## Complete temporal aggregations ----
 ctjb <- rbind(nemk |>
                 filter(prob == "ctjb") |>
                 mutate(facet = paste0("k==",k)),
@@ -166,8 +167,10 @@ ctjb <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", 
+             size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol = 2, scales = "free", 
              labeller = label_parsed)+
@@ -204,8 +207,10 @@ hsamh <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", 
+             size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol =2, scales = "free", 
              labeller = label_parsed)+

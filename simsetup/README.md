@@ -33,4 +33,4 @@ Bootstrap/gaussian reconciled forecasts and accuracy:
 - rboot_scores_oct.R: optimal cross-temporal reconciliation
 
 #### analisys folder
-Script to evaluate the covariance matrix and make some plot presneted in the paper
+Script to evaluate the covariance matrix and make some plot.

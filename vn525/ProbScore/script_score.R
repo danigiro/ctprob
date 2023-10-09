@@ -1,10 +1,15 @@
 library(tidyverse)
 library(progress)
 
-# arima ets
-model <- "ets"
-# log lev
-trans <- "log"
+if(length(args)==0){
+  # arima ets
+  model <- "ets"
+  # log lev
+  trans <- "log"
+}else{
+  model <- args[1]
+  trans <- args[2]
+}
 
 scores_file <- list.files(file.path(".","ProbScore", model, trans), full.names = TRUE)
 df_es_mean <- NULL

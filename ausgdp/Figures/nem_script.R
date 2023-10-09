@@ -6,8 +6,10 @@ load("./ProbScore/arima_lev_scores.RData")
 nemenyi_fun <- function(data){
   nemenyi <- tsutils::nemenyi(data, plottype = "none")
   df_plot <- full_join(as_tibble(nemenyi$means, rownames = "name"), 
-                       full_join(rename(as_tibble(nemenyi$means-nemenyi$cd/2, rownames = "name"), "l" = "value"),
-                                 rename(as_tibble(nemenyi$means+nemenyi$cd/2, rownames = "name"), "u" = "value"), 
+                       full_join(rename(as_tibble(nemenyi$means-nemenyi$cd/2, rownames = "name"), 
+                                        "l" = "value"),
+                                 rename(as_tibble(nemenyi$means+nemenyi$cd/2, rownames = "name"), 
+                                        "u" = "value"), 
                                  by = "name"), by = "name") |>
     arrange(value) |>
     mutate(#name = gsub(" ", "", name),
@@ -25,9 +27,9 @@ sel_mc <- c("arima lev" = "base",
             "csbu wls" = "ct(wls[cs],bu[te])",
             "octo wlsv" = "oct[o](wlsv)",
             "octo bdshr" = "oct[o](bdshr)",
-            "octo shr" = "oct[o](shr)",
-            "octo hshr" = "oct[o](hshr)",
-            "octoh shr" = "oct[oh](shr)",
+            #"octo shr" = "oct[o](shr)",
+            #"octo hshr" = "oct[o](hshr)",
+            #"octoh shr" = "oct[oh](shr)",
             "octoh hshr" = "oct[oh](hshr)")
 sel_prob <- c("ctjb", "hsamoh")
 
@@ -73,7 +75,9 @@ ctjb <- rbind(nemk |>
               nem |>
                 filter(prob == "ctjb") |>
                 mutate(k = 0,
-                       facet = 'k %in% group("{",list(4,2,1),"}")')) |>
+                       facet = 'k %in% group("{",list(4,2,1),"}")'))  |>
+  arrange(value) |>
+  mutate(name = factor(name, unique(name), ordered = TRUE))|>
   ggplot() + 
   geom_rect(aes(xmin=l, xmax=u, fill = col), ymin=-Inf, ymax=Inf, alpha = 0.2, 
             data = function(x) summarise(group_by(x, facet), l = min(l), col = TRUE,
@@ -83,12 +87,14 @@ ctjb <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", 
+             size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol = 1, scales = "free", 
              labeller = label_parsed)+
-  labs(y = NULL, x = NULL, subtitle = "Cross-temporal Join Bootstrap approach\n") + 
+  labs(y = NULL, x = NULL, subtitle = "Cross-temporal Joint Bootstrap approach\n") + 
   theme_minimal()+
   scale_y_discrete(labels = scales::label_parse())+
   theme(legend.title = element_blank(),
@@ -97,9 +103,9 @@ ctjb <- rbind(nemk |>
         strip.text = element_text(size = 9),
         legend.margin = margin())
 
-ggsave("./Figures/ctjb.pdf", ctjb,
+ggsave("./Figures/ctjb_red.pdf", ctjb,
        width = 3.75,
-       height = 10)
+       height = 6.5)
 
 hsamoh <- rbind(nemk |>
                   filter(prob == "hsamoh") |>
@@ -107,7 +113,9 @@ hsamoh <- rbind(nemk |>
                 nem |>
                   filter(prob == "hsamoh") |>
                   mutate(k = 0,
-                         facet = 'k %in% group("{",list(4,2,1),"}")')) |>
+                         facet = 'k %in% group("{",list(4,2,1),"}")'))  |>
+  arrange(value) |>
+  mutate(name = factor(name, unique(name), ordered = TRUE))|>
   ggplot() + 
   geom_rect(aes(xmin=l, xmax=u, fill = col), ymin=-Inf, ymax=Inf, alpha = 0.2, 
             data = function(x) summarise(group_by(x, facet), l = min(l), col = TRUE,
@@ -117,12 +125,15 @@ hsamoh <- rbind(nemk |>
   geom_point(aes(x = u, y = name), pch = "|", size = 2) + 
   geom_point(aes(x = value, fill = col, y = name, pch = pch_name), size = 3) +
   geom_label(data = function(x) select(x, facet, fpval) |>
-               mutate(text = paste0("Friedman test p-value ", ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
-             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", size = 2.5,  label.size = NA) + 
+               mutate(text = paste0("Friedman test p-value ", 
+                                    ifelse(fpval<0.001, " < 0.001", round(fpval, 3)))),
+             aes(x = Inf, y = -Inf, label = text), vjust = "inward", hjust = "inward", 
+             size = 2.5,  label.size = NA) + 
   scale_shape_manual(values=c(21, 24))+
   facet_wrap(.~facet, ncol = 1, scales = "free", 
              labeller = label_parsed)+
-  labs(y = NULL, x = NULL, subtitle = "Gaussian approach\n(Overlapping and multi-step residuals, H)") + 
+  labs(y = NULL, x = NULL, 
+       subtitle = "Gaussian approach\n(Overlapping and multi-step residuals, H)") + 
   theme_minimal()+
   scale_y_discrete(labels = scales::label_parse())+
   theme(legend.title = element_blank(),
@@ -131,6 +142,6 @@ hsamoh <- rbind(nemk |>
         strip.text = element_text(size = 9),
         legend.margin = margin())
 
-ggsave("./Figures/hsamoh.pdf", hsamoh,
+ggsave("./Figures/hsamoh_red.pdf", hsamoh,
        width = 3.75,
-       height = 10)
+       height = 6.5)
