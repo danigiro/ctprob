@@ -1,4 +1,4 @@
-\begin{figure}[!b]
+\begin{figure}[!t]
   \centering
 \begin{tikzpicture}
 \tikzset{square matrix/.style={
@@ -29,17 +29,17 @@
 |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[4]}_{i,\tau}$\\
 |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[2]}_{i,2\tau-1}$\\
 |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[2]}_{i,2\tau}$\\
-|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{i,4\tau-3}$\\
-|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{i,4\tau-2}$\\
-|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{i,4\tau-1}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad x^{[1]}_{i,4\tau}$\\
+|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{i,4\tau-3}$\\
+|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{i,4\tau-2}$\\
+|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{i,4\tau-1}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{i,4\tau}$\\
 |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & & \\
 };
 
 \node[right of=S,font=\bfseries,xshift = 0.35cm, font = \large] (kro) {$\bigotimes$};
 %\node[fit=(K-8-2)(K-8-3), font=\scriptsize, yshift = -0.25cm]{$\yvet_{(\tau)}^{i,[1]}$};
 
-\node[fit=(K-8-2)(K-8-3), font=\scriptsize, yshift = -0.7cm, text width=6cm]{$\xvet_{i,\tau}^{[1]}$ \\ \rotatebox{90}{$=\;$} \\$\left[x^{[1]}_{i,4\tau-3}\; x^{[1]}_{i,4\tau-2}\; x^{[1]}_{i,4\tau-1}\; x^{[1]}_{i,4\tau}\right]'$};
+\node[fit=(K-8-2)(K-8-3), font=\scriptsize, yshift = -0.25cm, text width=6cm]{$\xvet_{i,\tau}^{[1]}$}; %\\ \rotatebox{90}{$=\;$} \\$\left[y^{\phantom{[1]}}_{i,4\tau-3}\; y^{\phantom{[1]}}_{i,4\tau-2}\; y^{\phantom{[1]}}_{i,4\tau-1}\; y^{\phantom{[1]}}_{i,4\tau}\right]'$};
 
 \node[right of=S,font=\bfseries,xshift = 4.85cm, font = \huge] (ugu) {$\mathbf{=}$};
 
@@ -48,40 +48,46 @@
 |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[4]}_{T,\tau}$\\
 |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[2]}_{T,2\tau-1}$\\
 |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[2]}_{T,2\tau}$\\
-|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{T,4\tau-3}$\\
-|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{T,4\tau-2}$\\
-|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{T,4\tau-1}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad x^{[1]}_{T,4\tau}$\\
+|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{T,4\tau-3}$\\
+|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{T,4\tau-2}$\\
+|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{T,4\tau-1}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{T,4\tau}$\\
 |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[4]}_{X,\tau}$\\
 |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[2]}_{X,2\tau-1}$\\
 |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[2]}_{X,2\tau}$\\
-|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{X,4\tau-3}$\\
-|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{X,4\tau-2}$\\
-|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{X,4\tau-1}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{X,4\tau}$\\
+|[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{X,4\tau-3}$\\
+|[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{X,4\tau-2}$\\
+|[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{X,4\tau-1}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{X,4\tau}$\\
 |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[4]}_{Y,\tau}$\\
 |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[2]}_{Y,2\tau-1}$\\
 |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=black]| & |[draw=none]|$\quad x^{[2]}_{Y,2\tau}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{Y,4\tau-3}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{Y,4\tau-2}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad x^{[1]}_{Y,4\tau-1}$\\
-|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad x^{[1]}_{Y,4\tau}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{Y,4\tau-3}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{Y,4\tau-2}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[fill=white]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{Y,4\tau-1}$\\
+|[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=white]| & |[fill=black]| & |[draw=none]|$\quad y^{\phantom{[1]}}_{Y,4\tau}$\\
 |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & |[draw=none]| & \\
 };
 
 \node[fit=(St-22-1)(St-22-8), font=\scriptsize, yshift = -0.25cm, text width=6cm]{$\bvet_{\tau}^{[1]}$};
 
-\node[fit=(St-1-9)(St-21-9), draw = blue, xshift = 0.6cm, minimum width = 1.3cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{\tau}$}}]{};
+\node[fit=(St-1-9)(St-21-9), draw = black, xshift = 0.6cm, minimum width = 1.3cm, label={[font=\scriptsize,text=black]above:{$\xvet_{\tau}$}}]{};
 
-\node[fit=(K-1-5)(K-7-5), draw = blue, xshift = 0.5cm, minimum width = 1.2cm, label={[font=\scriptsize,text=blue]above:{$\xvet_{i,\tau}$}}]{};
+\node[fit=(K-1-5)(K-7-5), draw = black, xshift = 0.5cm, minimum width = 1.2cm, label={[font=\scriptsize,text=black]above:{$\xvet_{i,\tau}$}}]{};
 
 \node[fit=(K-1-1.north west)(K-2-4.south east), label={[font=\normalsize,text=black]above:{$\Svet_{te}$}}]{};
 
 \node[fit=(St-1-1.north west)(St-2-8.south east), label={[font=\normalsize,text=black]above:{$\Svet_{ct}$}}]{};
 
 \node[fit=(S-1-1.north west)(S-2-2.south east), label={[font=\normalsize,text=black]above:{$\Svet_{cs}$}}]{};
+
+\draw[ultra thick,decorate,decoration={calligraphic brace,amplitude=7.5pt}] ($(St-1-9.north)+(1.35,-0.1)$) -- node[right, rotate = -90, anchor = center, align = center, text width = 2.5cm, yshift = 0.75cm, font = \footnotesize] {Temporal components of $T$} ($(St-7-9.south)+(1.35,0.05)$);
+
+\draw[ultra thick,decorate,decoration={calligraphic brace,amplitude=7.5pt}] ($(St-8-9.north)+(1.35,-0.1)$) -- node[right, rotate = -90, anchor = center, align = center, text width = 2.5cm, yshift = 0.75cm, font = \footnotesize] {Temporal components of $X$} ($(St-14-9.south)+(1.35,0.05)$);
+
+\draw[ultra thick,decorate,decoration={calligraphic brace,amplitude=7.5pt}] ($(St-15-9.north)+(1.35,-0.1)$) -- node[right, rotate = -90, anchor = center, align = center, text width = 2.5cm, yshift = 0.75cm, font = \footnotesize] {Temporal components of $Y$} ($(St-21-9.south)+(1.35,0.05)$);
 \end{tikzpicture}
-\vspace{-0.5cm}
-  \caption{Representation of the cross-temporal summing matrix $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}$ defined in equation (\ref{eq:Sct}) for a system of 3 linearly constrained quarterly time series (see \autoref{fig:hierS}). The white cells indicate a zero, while the black ones a non-zero value.}
+\vspace{-0.25cm}
+  \caption{Visual representation of the cross-temporal summation matrix $\Svet_{ct} = \Svet_{cs} \otimes \Svet_{te}$ defined in (\ref{eq:Sct}) for a system of 3 linearly constrained quarterly time series (see \autoref{fig:hierS}). Colours legend: 0s in white, 1s in black.}
   \label{fig:Stilde}
 \end{figure}
