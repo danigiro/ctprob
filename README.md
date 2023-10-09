@@ -1,8 +1,7 @@
 # Cross-temporal Probabilistic Forecast Reconciliation
 
-Repository of the manuscript:
--   title: *Cross-temporal probabilistic forecast reconciliation: methodological and practical issues*
--   authors: Daniele Girolimetto, George Athanasopoulos, Tommaso Di Fonzo, and Rob J Hyndman
+-   **Manuscript title**: *Cross-temporal probabilistic forecast reconciliation: methodological and practical issues*
+-   **Authors**: Daniele Girolimetto, George Athanasopoulos, Tommaso Di Fonzo, and Rob J Hyndman
 
 ## Directories
 -   `paper`: manuscript and online appendix files (tex, bib and pdf).
