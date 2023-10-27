@@ -253,7 +253,7 @@ $\dots$
 \affil[2]{\small Department of Econometrics \& Business Statistics, Monash University, Clayton VIC 3800, Australia}
 %\email{rob.hyndman@monash.edu}
 
-\date{7 October 2023}
+\date{27 October 2023}
 
 %\renewcommand*\footnoterule{}
 \begin{document}
@@ -264,7 +264,7 @@ $\dots$
 \thispagestyle{empty} \clearpage\maketitleblind
 
 \begingroup
-\let\thefootnote\relax\footnotetext{\raggedright Email: \href{mailto:daniele.girolimetto@phd.unipd.it}{daniele.girolimetto@phd.unipd.it} (DG), \href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu} (GA), \\ \phantom{Email: }\href{mailto:tommaso.difonzo@unipd.it}{tommaso.difonzo@unipd.it} (TDF), and \href{mailto:rob.hyndman@monash.edu}{rob.hyndman@monash.edu} (RJH)}
+\let\thefootnote\relax\footnotetext{\raggedright Email: \href{mailto:daniele.girolimetto@phd.unipd.it}{daniele.girolimetto@unipd.it} (DG), \href{mailto:george.athanasopoulos@monash.edu}{george.athanasopoulos@monash.edu} (GA), \\ \phantom{Email: }\href{mailto:tommaso.difonzo@unipd.it}{tommaso.difonzo@unipd.it} (TDF), and \href{mailto:rob.hyndman@monash.edu}{rob.hyndman@monash.edu} (RJH)}
 \endgroup
 
 \begin{abstract}
@@ -275,8 +275,10 @@ $\dots$
 	 Overall, the results highlight the potential of the proposed methods to improve the accuracy of probabilistic forecasts and to address the challenge of integrating disparate scenarios while coherently taking into account short-term operational, medium-term tactical, and long-term strategic planning.
 \end{abstract}
 
-\noindent%
-{\it Keywords: Forecast reconciliation, Linearly constrained multiple time series, Cross-temporal, Probabilistic forecasting, GDP, Tourism flows}
+\begin{itemize}[nosep, align=left, leftmargin = !]
+	\item[\textbf{Keywords}] \textit{Forecast reconciliation,~~Linearly constrained multiple time series,~~Cross-temporal, \\ Probabilistic forecasting,~~GDP,~~Tourism flows}
+\end{itemize}
+%{\it Keywords: Forecast reconciliation, Linearly constrained multiple time series, Cross-temporal, Probabilistic forecasting, GDP, Tourism flows}
 \vfill
 
 \newpage
@@ -364,7 +366,7 @@ $$
 $$
 When we temporally aggregate each series, the cross-sectional constraints for the most temporally disaggregated series \eqref{eq:cs_con} hold for all the temporal aggregation orders such that $\Cvet_{cs}\xvet^{[k]}_j = \Zerovet_{(n_a \times 1)}$, for $k \in \mathcal{K}$ and $j = 1, \dots, N_k$, where $\xvet_j^{[k]} = \left[\uvet_j^{[k]\prime}\quad \bvet_j^{[k]\prime}\right]'$ with $\uvet^{[k]}_j = \left[ x^{[k]}_{1,\;j}\quad \dots\quad x^{[k]}_{n_a,\;j}\right]'$ is the $n_a$-vector of upper time series and $\bvet^{[k]}_j = \left[x^{[k]}_{(n_a+1),\;j}\quad\dots\quad x^{[k]}_{n,\;j}\right]'$ is the $n_b$-vector of bottom time series in the temporal hierarchy.
 
-To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, where we recall that $n$, $m$, and $k^*$ represent respectively the total number of time series, the seasonal period, and the number of upper time series of the temporal hierarchy, whose rows and columns represent, respectively, the cross-sectional and the temporal dimension:
+To include both cross-sectional and temporal constraints at the same time in a unified framework, we stack the series into a $[n \times (m+k^\ast)]$ matrix $\Xvet_\tau$, where we recall that $n$, $m$, and $k^*$ represent respectively the total number of time series, the seasonal period, and the number of upper time series of the temporal hierarchy. The rows and columns represent, respectively, the cross-sectional and the temporal dimension:
 $$
 	\Xvet_\tau = \begin{bmatrix}
 		\xvet_{1,\tau}' \\[-0.1cm]
@@ -444,7 +446,7 @@ For a given forecast horizon $h = 1,\dots, H$, the mapping $\psi$ may be defined
 	\widetilde{\xvet}_{h} = \psi\left(\widehat{\xvet}_h\right) = \Mvet \widehat{\xvet}_h,
 \end{equation}
 where $\Mvet = \Ivet_{n(m+ k^\ast)} - \Omegavet_{ct}\Cvet'_{ct}\left(\Cvet_{ct}\Omegavet_{ct}\Cvet'_{ct}\right)^{-1}\Cvet_{ct}$, for a positive definite matrix $\Omegavet_{ct}$, and $\widetilde{\xvet}_{h} = \mathrm{vec}(\widetilde{\Xvet}'_{h})$.
-\citet{wickramasuriya2019} showed that the minimum variance linear unbiased reconciled forecasts, satisfying the unbiased condition $\text{E}(\widetilde{\xvet}_h -\xvet_h) = 0$, has solution \eqref{eq:Mvet} when $\Omegavet_{ct} = \text{Var}(\widehat{\xvet}_h -\xvet_h)$.
+\citet{wickramasuriya2019} showed that the minimum variance linear unbiased reconciled forecasts, satisfying the unbiasedness condition $\text{E}(\widetilde{\xvet}_h -\xvet_h) = 0$, has solution \eqref{eq:Mvet} when $\Omegavet_{ct} = \text{Var}(\widehat{\xvet}_h -\xvet_h)$.
 
 Alternatively, the cross-temporal reconciled forecasts $\widetilde{\Xvet}_{h}$ may be found according to the structural approach proposed by \cite{hyndman2011} for the cross-sectional framework, yielding $\widetilde{\xvet}_h = \Svet_{ct}\Gvet \widehat{\xvet}_h$ for some matrix $\Gvet$. \citet{wickramasuriya2019} showed that this leads to a solution equivalent to the cross-temporally reconciled forecasts in \eqref{eq:Mvet}, given by
 \begin{equation}\label{eq:SGy}
@@ -885,7 +887,7 @@ In conclusion, cross-temporal forecast reconciliation is an important tool to im
   \phantomsection\addcontentsline{toc}{section}{Acknowledgments}
 \section*{Acknowledgments}
 
-\noindent Tommaso Di Fonzo and Daniele Girolimetto acknowledge financial support from project PRIN2017 “HiDEA: Advanced Econometrics for High-frequency Data”, 2017RSMPZZ. Rob Hyndman acknowledges the support of the Australian Government through the Australian Research Council Industrial Transformation Training Centre in Optimisation Technologies, Integrated Methodologies, and Applications (OPTIMA), Project ID IC200100009.
+\noindent The authors thank Casey Lichtendahl and all the participants to the 2023 IIF Workshop on Forecast Reconciliation in Prato (Italy). Tommaso Di Fonzo and Daniele Girolimetto acknowledge financial support from project PRIN2017 “HiDEA: Advanced Econometrics for High-frequency Data”, 2017RSMPZZ. Rob Hyndman acknowledges the support of the Australian Government through the Australian Research Council Industrial Transformation Training Centre in Optimisation Technologies, Integrated Methodologies, and Applications (OPTIMA), Project ID IC200100009.
 } \fi
 
 \phantomsection\addcontentsline{toc}{section}{References}
